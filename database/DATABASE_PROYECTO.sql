@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `estados` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.estados: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.estados: ~4 rows (aproximadamente)
 DELETE FROM `estados`;
 /*!40000 ALTER TABLE `estados` DISABLE KEYS */;
 INSERT INTO `estados` (`id`, `estado`, `created_at`, `updated_at`) VALUES
@@ -66,15 +66,13 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.eventos: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.eventos: ~0 rows (aproximadamente)
 DELETE FROM `eventos`;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
 INSERT INTO `eventos` (`id`, `creador_evento`, `id_zona`, `nombre_evento`, `descripcion`, `visibilidad`, `horario`, `estado`, `usuarios_externos_invitados`, `usuarios_registrados_invitados`, `asistentes`, `created_at`, `updated_at`) VALUES
-	(25, 5, 1, 'pruebaa', 'prueba prueba prueba prueba prueba pruebaqwqw', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 16:00:00", "2020-10-01 19:00:00", "2020-10-01 21:00:00"]', 1, NULL, NULL, NULL, '2020-08-02 17:33:23', '2020-08-02 17:35:44'),
-	(26, 5, 1, 'ejemplo', 'ejemplo', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 16:00:00", "2020-10-01 19:00:00", "2020-10-01 21:00:00"]', 3, NULL, NULL, NULL, '2020-08-02 20:18:32', '2020-08-02 20:18:32'),
-	(29, 5, 1, 'ejemplo 4', 'ejemplo 4', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 14:00:00", "2020-10-01 19:00:00", "2020-10-01 21:00:00"]', 3, NULL, NULL, NULL, '2020-08-02 20:28:06', '2020-08-02 20:28:06');
+	(1, 5, 1, 'ejemplo 4', 'ejemplo 4', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 16:00:00"]', 1, NULL, NULL, NULL, '2020-08-24 23:12:50', '2020-08-24 23:12:50');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_proyecto.formato_eventos
@@ -102,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `horarios_eventos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.horarios_eventos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.horarios_eventos: ~0 rows (aproximadamente)
 DELETE FROM `horarios_eventos`;
 /*!40000 ALTER TABLE `horarios_eventos` DISABLE KEYS */;
 INSERT INTO `horarios_eventos` (`id`, `id_evento`, `fecha`, `created_at`, `updated_at`) VALUES
@@ -138,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.migrations: ~20 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.migrations: ~17 rows (aproximadamente)
 DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -179,24 +177,45 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.oauth_access_tokens: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.oauth_access_tokens: ~28 rows (aproximadamente)
 DELETE FROM `oauth_access_tokens`;
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-	('0f7e6e4f5cba41439cddd78e168d04ee5c8c01fd10adf3616490abd4f49af68aa4ccdc181e138311', 3, 1, 'MyApp', '[]', 0, '2020-07-27 16:39:08', '2020-07-27 16:39:08', '2021-07-27 16:39:08'),
-	('1c680bf9500f95a3d644349a62804f905d9e821252733b528a03d8c2f49a561c8eb64cebead833fc', 4, 1, 'MyApp', '[]', 0, '2020-07-27 17:01:27', '2020-07-27 17:01:27', '2021-07-27 17:01:27'),
-	('1d2faad8f5e51ade89156a3d249b472bad945885c59e88e9b8ee479cf129a6cdaeba7f241038d7e5', 5, 2, NULL, '[]', 0, '2020-07-28 16:42:39', '2020-07-28 16:42:39', '2020-07-28 16:57:37'),
-	('2d7e7f17889efd1265e68fff94b238e192c7725737306578e0bc997db0c2a55b0bc6fbaf93603d48', 5, 2, NULL, '[]', 0, '2020-08-02 04:09:44', '2020-08-02 04:09:44', '2020-08-02 04:24:44'),
-	('459c5bb4809864f5ffc82e380bb176c7c8daa1d8498bc1f67b036e3a0e1ccb7b1d3bd0694816855f', 5, 2, NULL, '[]', 1, '2020-07-28 17:05:23', '2020-07-28 17:05:23', '2020-07-28 17:20:23'),
-	('5838ef374e1a2e2887bc9f72143b8295e9ba24426071cd8b8176d78b2f63aa30b561f359443dd9ed', 5, 2, NULL, '[]', 0, '2020-08-02 04:31:34', '2020-08-02 04:31:34', '2020-08-02 04:46:34'),
-	('8c090bff75f5a71d40ba44fd3997567f7784509d18a4418791974d691248af85f5fec4ff628dabc8', 5, 2, NULL, '[]', 0, '2020-08-02 20:17:11', '2020-08-02 20:17:11', '2020-08-02 20:32:10'),
-	('a7c77b474cde0687f4e76c90bdfb7f33200cf7097988651f8a99a7dcac42a71f7989bcfeab8850cf', 5, 2, NULL, '[]', 0, '2020-07-28 23:12:30', '2020-07-28 23:12:30', '2020-07-28 23:27:27'),
-	('a86263f107cc5ed97d414f22f46729415628edbc0df493940167e20b04fe7154cc73d566175116e3', 5, 2, NULL, '[]', 0, '2020-08-02 03:52:16', '2020-08-02 03:52:16', '2020-08-02 04:07:14'),
-	('c8f60ecd6040ba764947b41ba7a78959d944c0a9ac073405991694c803b20bdb6d411911f8061ad4', 5, 2, NULL, '[]', 0, '2020-07-28 17:23:22', '2020-07-28 17:23:22', '2020-07-28 17:38:22'),
-	('d33a69f728dd8b505efc40fd097420d26796b9fe838e18b338e1da9c489ad49d25089e139776e9df', 5, 2, NULL, '[]', 0, '2020-07-28 17:39:41', '2020-07-28 17:39:41', '2020-07-28 17:54:41'),
-	('d3dc67e097c0c896d6e5441776efca01ef9e583d143fa6cc93b82f5b42c7f4fa5e50531c58409023', 5, 2, NULL, '[]', 0, '2020-08-02 17:32:44', '2020-08-02 17:32:44', '2020-08-02 17:47:44'),
-	('e17ab5a2b08a65fbf71159d152b498f94e21d64e5ff438e0f6f2fd005b9ce68c65fed625e450e706', 5, 1, 'MyApp', '[]', 0, '2020-07-27 17:09:37', '2020-07-27 17:09:37', '2021-07-27 17:09:37'),
-	('fceaeb6493e8704284255ae8a07755b005dc1cbbff7748d2ab9ff948689078a436457bd64b749175', 5, 2, NULL, '[]', 0, '2020-07-28 19:21:45', '2020-07-28 19:21:45', '2020-07-28 19:36:43');
+	('0c760ba8670cd0871852dc169ac4a48838e4f30cfd79db694611d52bdeae9aa26ef039bd1bb6983c', 7, 1, 'MyApp', '[]', 0, '2020-08-21 22:43:12', '2020-08-21 22:43:12', '2021-08-21 22:43:12'),
+	('1c425a4fac8d64160e6bede26910d7b6a177deecdd60a420a86356bc09e79a46340f25708dafe3e8', 22, 1, 'MyApp', '[]', 0, '2020-08-22 23:56:47', '2020-08-22 23:56:47', '2021-08-22 23:56:47'),
+	('209848251ff72604fc7997d7087678ad527afab56777be1232e5635de5aea99b79894ac9a820066b', 3, 1, 'MyApp', '[]', 0, '2020-08-21 22:25:11', '2020-08-21 22:25:11', '2021-08-21 22:25:11'),
+	('275b921de751bf25f9a2fa8919017685595c82259b0e4aab6d82b5f77a7b54ea1e8b90bc963acd29', 2, 1, 'MyApp', '[]', 0, '2020-08-21 22:09:49', '2020-08-21 22:09:49', '2021-08-21 22:09:49'),
+	('38cc41758822942465ae81df5d019f82de6fe8b01c33738a6803deb1f8f7ab63dfdac0f526ec78f5', 11, 1, 'MyApp', '[]', 0, '2020-08-21 23:25:26', '2020-08-21 23:25:26', '2021-08-21 23:25:26'),
+	('3a121eae6f98c2ee96abe6566d4ac84602d6df5e0aa45c4bd540fba6ec173cf54f7ad2f7fefc4a86', 2, 1, 'MyApp', '[]', 0, '2020-08-25 17:33:35', '2020-08-25 17:33:35', '2021-08-25 17:33:35'),
+	('4527dc85daa6ac9ee6039e2abadb654b3c1d72949a0ab1f458658fbc29b1d9e8ad44a726b0d63b95', 1, 1, 'MyApp', '[]', 0, '2020-08-25 17:31:03', '2020-08-25 17:31:03', '2021-08-25 17:31:03'),
+	('4710397d6a1d68ec8b56dd3baf6513091302f149e53188c1f16cc7a975c7aa82a1fcf67069b9cf47', 9, 1, 'MyApp', '[]', 0, '2020-08-21 22:47:45', '2020-08-21 22:47:45', '2021-08-21 22:47:45'),
+	('6801c93a64aceda47230c25ccf373d11e2c0a004a8495c4860f0e47f0f56eca753cdefb61d6d4f8b', 4, 1, 'MyApp', '[]', 0, '2020-08-25 21:34:03', '2020-08-25 21:34:03', '2021-08-25 21:34:03'),
+	('6bb45cb2ffdf391bf50896a9b79eea6e49bfdc68ad5836b34f48fb8a2216b398c0210ae90b6c3e94', 10, 1, 'MyApp', '[]', 0, '2020-08-21 23:03:40', '2020-08-21 23:03:40', '2021-08-21 23:03:40'),
+	('7d10aa3c413bce4e2644fe38c92cbd5ef786871dd5040e1e23bf1e5273499bc3529073e13b72aec1', 18, 1, 'MyApp', '[]', 0, '2020-08-22 23:05:54', '2020-08-22 23:05:54', '2021-08-22 23:05:54'),
+	('9341353b00e3dc4d46b326a573683e865c32a0840f89fb965e3d28c26d5e5aa8bdd66c0327e223f3', 6, 1, 'MyApp', '[]', 0, '2020-08-21 22:40:35', '2020-08-21 22:40:35', '2021-08-21 22:40:35'),
+	('93414731e4922e035d79cdec1be4c6f83c2b7f8a4461e3e7ca3c4dbcb20a257493a5dbdcfa337482', 6, 1, 'MyApp', '[]', 0, '2020-08-27 19:22:15', '2020-08-27 19:22:15', '2021-08-27 19:22:15'),
+	('9b5aef6f1e205df5a9141519cb12926271ccf95ed83fc850816f2154c3e18ba5203d5f0ca6de6786', 5, 1, 'MyApp', '[]', 0, '2020-08-21 22:35:27', '2020-08-21 22:35:27', '2021-08-21 22:35:27'),
+	('9bd68e318376ab2adb049b2da869eeb3bac216b97de7bb48c7258505134744c78cd528f4a16de7be', 13, 1, 'MyApp', '[]', 0, '2020-08-21 23:41:09', '2020-08-21 23:41:09', '2021-08-21 23:41:09'),
+	('a914d3f05b6a3c7389f1a4ef3031bfc36fe2d8683898f7fed2feea827e0f7491c3c09786496cde59', 19, 1, 'MyApp', '[]', 0, '2020-08-22 23:13:46', '2020-08-22 23:13:46', '2021-08-22 23:13:46'),
+	('aa645f7012bc6c8c8395dffae296280715833a260c7c61ca3ae3e9d4ff4919a991b7266c0b14c0e2', 20, 1, 'MyApp', '[]', 0, '2020-08-22 23:24:31', '2020-08-22 23:24:31', '2021-08-22 23:24:31'),
+	('abcc59e25ac87fc06a6538f0391b28283193a8e99804278e587c4e54cc5c35c4b4b9836b39be62bf', 8, 1, 'MyApp', '[]', 0, '2020-08-21 22:44:59', '2020-08-21 22:44:59', '2021-08-21 22:44:59'),
+	('ad50661320539109faf29b631e148433c396888eb17aa1b63e55d0eccf5b2c1b59d99c819b7a4bb7', 14, 1, 'MyApp', '[]', 0, '2020-08-21 23:42:31', '2020-08-21 23:42:31', '2021-08-21 23:42:31'),
+	('b31572ce05c6b45769641270007ef3045e9c58787e1dba118529066003807a897f84accaf2de54e0', 12, 1, 'MyApp', '[]', 0, '2020-08-21 23:40:34', '2020-08-21 23:40:34', '2021-08-21 23:40:34'),
+	('bb9de9937e183ea60878ec6c8ad4bf5008c39ad4d791e6574232385d2183c4fc8f5017fd7acdd42f', 17, 1, 'MyApp', '[]', 0, '2020-08-22 23:02:45', '2020-08-22 23:02:45', '2021-08-22 23:02:45'),
+	('c6136f4fa2c8be40dcfa9d444e3394f06675814bb58e94cc7111255f42f033d0e6493fa6f0dd22b3', 5, 1, 'MyApp', '[]', 0, '2020-08-25 02:14:20', '2020-08-25 02:14:20', '2021-08-25 02:14:20'),
+	('cd32dcb14f1cb4ef71e1af30ab0d2bd826918ecc76337cb5c6f78bbb71c97977df6c98a1da585854', 3, 1, 'MyApp', '[]', 0, '2020-08-25 00:13:43', '2020-08-25 00:13:43', '2021-08-25 00:13:43'),
+	('cf2e7114b2ef0aab3ff4d5520411bbc544da8c058f4cb4d093ffdb001e2e39ec936cf59d1e135c68', 1, 1, 'MyApp', '[]', 0, '2020-08-21 21:59:32', '2020-08-21 21:59:32', '2021-08-21 21:59:32'),
+	('d48cc8ebf655563837aca7febf5587653e9a546eae40e650341bfec91a9e0d892fc9d2fd0d4cd670', 15, 1, 'MyApp', '[]', 0, '2020-08-22 22:50:07', '2020-08-22 22:50:07', '2021-08-22 22:50:07'),
+	('d6e8428cc4e67e75a05da7a091ae95b099fc8215cfadee12166d5cd561738c86758649de225dffcb', 16, 1, 'MyApp', '[]', 0, '2020-08-22 22:58:38', '2020-08-22 22:58:38', '2021-08-22 22:58:38'),
+	('dc08523d11e61a296c332cfdd3868a3c65cd5a7c77879f55528c4014851699e2ffd8fd5c4a628a80', 1, 1, 'MyApp', '[]', 0, '2020-08-23 16:48:41', '2020-08-23 16:48:41', '2021-08-23 16:48:41'),
+	('e0d3f3332e00c2b7b0e57078fd1f906b642e60b6458edb17bd6567ff8446649c2c58a360728798a9', 6, 1, 'MyApp', '[]', 0, '2020-08-21 21:04:32', '2020-08-21 21:04:32', '2021-08-21 21:04:32'),
+	('e15b20f7235731ef075bef772426eabb695b26bef78f3ae316639cd6809e72395df93ab4349b2061', 3, 1, 'MyApp', '[]', 0, '2020-08-25 17:34:35', '2020-08-25 17:34:35', '2021-08-25 17:34:35'),
+	('e3cd3f44e7b19e4517e581013715240c61db1facc61ea0b71696534f952227297c577d39befcad29', 6, 2, NULL, '[]', 0, '2020-08-27 19:25:38', '2020-08-27 19:25:38', '2020-08-27 19:40:38'),
+	('ecc0be9858d9bff12aecf94119a9fa8ceca261a77912b1b3feedc0ab523b965fc363e5ab3b30d571', 4, 1, 'MyApp', '[]', 0, '2020-08-21 22:34:14', '2020-08-21 22:34:14', '2021-08-21 22:34:14'),
+	('efea79e82f5dea78664b053e7b4f8d3ec19aff3c31a1000376cb4f1d718c8377cd7ede69ca3dc983', 4, 1, 'MyApp', '[]', 0, '2020-08-25 01:48:07', '2020-08-25 01:48:07', '2021-08-25 01:48:07'),
+	('f342cf44d3af66d66ebcd7a4864b936a6c87d0237d2f96f72ca3e1f31a7d666ab10152507102f38d', 21, 1, 'MyApp', '[]', 0, '2020-08-22 23:28:48', '2020-08-22 23:28:48', '2021-08-22 23:28:48'),
+	('f8da6b1f5eca727bbfb866f3361ffc22946946fda07e43aaf56a276545789e83db15732bf8a09e70', 2, 1, 'MyApp', '[]', 0, '2020-08-24 22:28:56', '2020-08-24 22:28:56', '2021-08-24 22:28:56'),
+	('faf4a1547a45f99e42a5b2999c6455e57c94ed9333202dbce8ae50696f89d388d3c09f85d7017476', 5, 1, 'MyApp', '[]', 0, '2020-08-27 19:21:27', '2020-08-27 19:21:27', '2021-08-27 19:21:27');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_proyecto.oauth_auth_codes
@@ -249,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.oauth_personal_access_clients: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.oauth_personal_access_clients: ~0 rows (aproximadamente)
 DELETE FROM `oauth_personal_access_clients`;
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
@@ -266,21 +285,11 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.oauth_refresh_tokens: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.oauth_refresh_tokens: ~0 rows (aproximadamente)
 DELETE FROM `oauth_refresh_tokens`;
 /*!40000 ALTER TABLE `oauth_refresh_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_refresh_tokens` (`id`, `access_token_id`, `revoked`, `expires_at`) VALUES
-	('190308111465936c59fd4de43eb830890d94b63988a6ae2fb7219d32f2fe8146732bcd2592456218', 'fceaeb6493e8704284255ae8a07755b005dc1cbbff7748d2ab9ff948689078a436457bd64b749175', 0, '2020-08-12 19:21:44'),
-	('21d8086c50dd01a9b070f8a0c5caa1c4fda03fd20b9384a2b95350bb40798d7349884e072177ca16', '1d2faad8f5e51ade89156a3d249b472bad945885c59e88e9b8ee479cf129a6cdaeba7f241038d7e5', 0, '2020-08-12 16:42:38'),
-	('48d3360080f198c9f3b0ed8bbf6b899926f866cea3843ee6271445b05d1bcc18837f2908a02269e6', 'd33a69f728dd8b505efc40fd097420d26796b9fe838e18b338e1da9c489ad49d25089e139776e9df', 0, '2020-08-12 17:39:41'),
-	('6f002c626169106018fc27a9ddf374d8a3987840945d806e07cea166a0570a249bc7ff4d36fe587e', 'c8f60ecd6040ba764947b41ba7a78959d944c0a9ac073405991694c803b20bdb6d411911f8061ad4', 0, '2020-08-12 17:23:22'),
-	('9ca85ee8439109ba70812234f5980c5c0c0d8cc29696030f07d54662276b62919684e6c2dcf7f4c2', 'd3dc67e097c0c896d6e5441776efca01ef9e583d143fa6cc93b82f5b42c7f4fa5e50531c58409023', 0, '2020-08-17 17:32:44'),
-	('a3c8e3c824779bacb864586116f12e27f9e7003593794f10bc9ff2ad8a7bf9b82238fb00dd937c89', '2d7e7f17889efd1265e68fff94b238e192c7725737306578e0bc997db0c2a55b0bc6fbaf93603d48', 0, '2020-08-17 04:09:44'),
-	('a98c48b307f5fdaf803e791d3e5e0db2d2ec176295f2393a9d619184a9778c1c8c307aa704c4108c', 'a7c77b474cde0687f4e76c90bdfb7f33200cf7097988651f8a99a7dcac42a71f7989bcfeab8850cf', 0, '2020-08-12 23:12:28'),
-	('be8e3df795e2ce502a04ea88bfd54eb422e92785e6c786139f2ff4f2f8d211233c59f06cd1313b98', '5838ef374e1a2e2887bc9f72143b8295e9ba24426071cd8b8176d78b2f63aa30b561f359443dd9ed', 0, '2020-08-17 04:31:34'),
-	('d5844ebb9e31d03d6f899eab918922d6f96c8f6513541e98a6279650afe22d33a864b8eecace61cd', '459c5bb4809864f5ffc82e380bb176c7c8daa1d8498bc1f67b036e3a0e1ccb7b1d3bd0694816855f', 1, '2020-08-12 17:05:23'),
-	('ea5f2306cf1e45986ccd06fac8cdb00853a951b724d8c15c0b94e2622cfa48b6e11ecea01f888e74', 'a86263f107cc5ed97d414f22f46729415628edbc0df493940167e20b04fe7154cc73d566175116e3', 0, '2020-08-17 03:52:14'),
-	('eb5d67b0d0a9aa8d6f6de52dbb659e8d75ba68ca619710f56750bdecc999ca380b14b70bde12d63b', '8c090bff75f5a71d40ba44fd3997567f7784509d18a4418791974d691248af85f5fec4ff628dabc8', 0, '2020-08-17 20:17:10');
+	('7bc61540a34e71ebbb2b4efa9ccdee636334671c4abe9ff8519feedc506747f6ce9635706a4ec1a0', 'e3cd3f44e7b19e4517e581013715240c61db1facc61ea0b71696534f952227297c577d39befcad29', 0, '2020-09-11 19:25:38');
 /*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_proyecto.peticiones
@@ -379,18 +388,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `confirmado` tinyint(4) NOT NULL DEFAULT '0',
+  `codigo_confirmacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.users: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.users: ~0 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(5, 'mleandrocardenas@ucundinamarca.edu.co', '$2y$10$FvXahC7CE8rAdG9aG/2PGunEGlrtx8x/PH/6FDA5bs99vsxtYs8M.', NULL, '2020-07-27 17:09:37', '2020-07-27 17:09:37');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_proyecto.usuarios
@@ -399,20 +408,18 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_user` int(10) DEFAULT NULL,
   `apellidos` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombres` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `identificacion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identificacion` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `foto` blob NOT NULL,
+  `foto` blob,
   `id_rol` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.usuarios: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.usuarios: ~0 rows (aproximadamente)
 DELETE FROM `usuarios`;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `id_user`, `apellidos`, `nombres`, `identificacion`, `estado`, `foto`, `id_rol`, `created_at`, `updated_at`) VALUES
-	(3, 5, 'Perezz', 'Michael', '1070000', 1, _binary 0x757365722F666F746F342E6A7067, 1, '2020-07-27 17:09:37', '2020-07-27 17:09:37');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_proyecto.zonas
@@ -426,13 +433,14 @@ CREATE TABLE IF NOT EXISTS `zonas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `zonas_codigo_lector_unique` (`codigo_lector`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla bd_proyecto.zonas: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.zonas: ~0 rows (aproximadamente)
 DELETE FROM `zonas`;
 /*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
 INSERT INTO `zonas` (`id`, `nombre_zona`, `codigo_lector`, `estado`, `sede`, `created_at`, `updated_at`) VALUES
-	(1, 'CIT', '2020_lector022555', 2, 'facatativa', '2020-07-19 19:29:34', '2020-07-30 19:18:23');
+	(1, 'CIT', '2020_lector022555', 2, 'facatativa', '2020-07-19 19:29:34', '2020-07-30 19:18:23'),
+	(4, 'CIT 2', '2020_lector022555asasas', 1, 'facatativa', '2020-08-27 19:31:52', '2020-08-27 19:31:52');
 /*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
