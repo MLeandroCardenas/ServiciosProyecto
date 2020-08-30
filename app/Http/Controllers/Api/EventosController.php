@@ -118,4 +118,44 @@ class EventosController extends Controller
     
             return response()->json($resultado,200);
     }
+
+    public function obtenerEventosPublicos()
+    {
+            $resultado = [];
+            $eventos = DB::table("eventos")
+                ->join("zonas", "zonas.id", "=", "eventos.id_zona")
+                ->join("estados", "estados.id", "=", "eventos.estado")
+                ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
+                "eventos.visibilidad","eventos.horario","estados.estado")
+                ->where('eventos.visibilidad','=','PUBLICA')
+                ->where('eventos.estado','=',1)
+                ->orderBy('eventos.created_at', 'desc')->paginate(10);
+            
+            if($eventos->isEmpty())
+                return response()->json($resultado,204);
+    
+            $resultado['zonas'] = $eventos;
+    
+            return response()->json($resultado,200);
+    }
+
+    public function obtenerEventosInstitucionales()
+    {
+            $resultado = [];
+            $eventos = DB::table("eventos")
+                ->join("zonas", "zonas.id", "=", "eventos.id_zona")
+                ->join("estados", "estados.id", "=", "eventos.estado")
+                ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
+                "eventos.visibilidad","eventos.horario","estados.estado")
+                ->where('eventos.visibilidad','=','INSTITUCIONAL')
+                ->where('eventos.estado','=', 1)
+                ->orderBy('eventos.created_at', 'desc')->paginate(10);
+            
+            if($eventos->isEmpty())
+                return response()->json($resultado,204);
+    
+            $resultado['zonas'] = $eventos;
+    
+            return response()->json($resultado,200);
+    }
 }

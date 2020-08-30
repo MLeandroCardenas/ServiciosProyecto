@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.office365.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,9 +55,9 @@ return [
     |
     */
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+    'from' => [ 
+        'address' => env('MAIL_FROM_ADDRESS', 'mleandrocardenas@ucundinamarca.edu.co'),
+        'name' => env('MAIL_FROM_NAME', 'SICAC UDEC'),
     ],
 
     /*
@@ -83,6 +83,8 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
+
+
 
     'username' => env('MAIL_USERNAME'),
 
