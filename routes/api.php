@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
+cambios
 |
 */
 Route::group(['prefix' => 'v1'], function () {
 
-    //Rutas publicas sin proteccion
+    //Rutas publicas sin proteccion 
     Route::post('registro', 'Api\AuthController@registro');
     Route::post('login', 'Api\AuthController@validacion');
     Route::patch('solicitud', 'Api\AuthController@solicitarRecuperacionCuenta');
