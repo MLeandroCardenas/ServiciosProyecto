@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Carbon\Carbon;
 
-
 class AuthController extends Controller
 {
     public function registro(Request $request)
@@ -21,7 +20,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'apellidos' => 'required', 'nombres' => 'required', 'identificacion' => 'required',
             'estado' => 'required', 'id_rol' => 'required', 'email' => 'required|email|unique:users',
-            'password' => 'required', 'confirm_password'=> 'required|same:password'
+            'password' => 'required'
         ]);
 
         if($validator->fails()){
@@ -55,11 +54,17 @@ class AuthController extends Controller
             return response()->json(['mensaje '=> $e->getMessage()], 400);
         }
 
-        Mail::to($request->email)->send(new OrderShipped($datosUsuario,$user));
+        /**
+         * se debe probar en produccion
+         */
+       // Mail::to($request->email)->send(new OrderShipped($datosUsuario,$user));
 
         return response()->json( [ 'token' => $token, 'user' => $user, 'datosUsuario' => $datosUsuario], 200);
     }
 
+    /**
+     * probar en produccion
+     */
     public function verificar($code)
     {
         $user = User::where('codigo_confirmacion', $code)->first();
@@ -97,8 +102,21 @@ class AuthController extends Controller
         ])->first();
 
         if(empty($users))
-            return response()->json($users,204);
+            return response()->json($users,404);
         else
             return response()->json($users,200);
+    }
+
+    public function validarUsuario($correo) 
+    {
+        $user = User::where('email',$correo)->value('email');
+        if(empty($user))
+            return response()->json($user,204);
+        return response()->json($user,200);
+    }
+
+    public function usuarioAutenticado(){
+        $usuarioAutenticado = Usuarios::where('id_user',Auth::id())->value('id_rol');
+        return response()->json($usuarioAutenticado,200);
     }
 }

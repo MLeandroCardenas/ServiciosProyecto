@@ -35,12 +35,11 @@ class EventosController extends Controller
 
             if(empty($resultado)){
                 $input = $request->all();
-                $input["creador_evento"] = 5; //Auth::id();
+                $input["creador_evento"] = Auth::id();
                 $evento = Eventos::create($input);
                 DB::commit();
             }
             else{
-                
                 return response()->json('HAY EVENTOS HABILITADOS EN ESA ZONA',200);
             }
             
@@ -76,7 +75,7 @@ class EventosController extends Controller
                 ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
             if($eventos->isEmpty())
-                return response()->json($resultado,204);
+                return response()->json($resultado,404);
     
             $resultado['zonas'] = $eventos;
     
@@ -90,11 +89,11 @@ class EventosController extends Controller
                 ->join("zonas", "zonas.id", "=", "eventos.id_zona")
                 ->join("estados", "estados.id", "=", "eventos.estado")
                 ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
-                "eventos.visibilidad","eventos.horario","estados.estado")->where('eventos.creador_evento','=',5/*Auth::id()*/)
+                "eventos.visibilidad","eventos.horario","estados.estado")->where('eventos.creador_evento','=', Auth::id())
                 ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
         if($eventos->isEmpty())
-            return response()->json($resultado,204);
+            return response()->json($resultado,404);
     
         $resultado['zonas'] = $eventos;
             return response()->json($resultado,200);
@@ -112,7 +111,7 @@ class EventosController extends Controller
                 ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
             if($eventos->isEmpty())
-                return response()->json($resultado,204);
+                return response()->json($resultado,404);
     
             $resultado['zonas'] = $eventos;
     
@@ -132,7 +131,7 @@ class EventosController extends Controller
                 ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
             if($eventos->isEmpty())
-                return response()->json($resultado,204);
+                return response()->json($resultado,404);
     
             $resultado['zonas'] = $eventos;
     
@@ -152,7 +151,7 @@ class EventosController extends Controller
                 ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
             if($eventos->isEmpty())
-                return response()->json($resultado,204);
+                return response()->json($resultado,404);
     
             $resultado['zonas'] = $eventos;
     

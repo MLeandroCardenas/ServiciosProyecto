@@ -21,11 +21,7 @@ class UsuarioController extends Controller
 
         $data['users'] = $users;
 
-        return response()->json(
-            [
-                'mensaje'=>'Usuarios recuperados correctamente', 
-                'usuarios'=>$data
-            ],200);
+        return response()->json($data,200);
     }
 
     public function obtenerUsuarioEspecifico($id)
@@ -36,15 +32,14 @@ class UsuarioController extends Controller
             ->join("roles","roles.id", "=", "usuarios.id_rol")
             ->join("estados","estados.id", "=", "usuarios.estado")
             ->select("users.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "users.email",  "roles.rol", 
-            "estados.estado","usuarios.foto")->where('usuarios.identificacion','=',$id)->get();
+            "estados.estado","usuarios.foto")->where('usuarios.identificacion','=',$id)->first();
 
         $data['users'] = $users;
 
-        return response()->json(
-            [
-                'mensaje'=>'Usuario recuperado correctamente', 
-                'usuarios'=>$data
-            ],200);
+        if(empty($data))
+            return response()->json(404);
+
+        return response()->json($data,200);
     }
 
     public function obtenerUsuariosPorRol($id)
@@ -55,14 +50,10 @@ class UsuarioController extends Controller
             ->join("roles","roles.id", "=", "usuarios.id_rol")
             ->join("estados","estados.id", "=", "usuarios.estado")
             ->select("users.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "users.email",  "roles.rol", 
-            "estados.estado","usuarios.foto")->where('usuarios.id_rol','=',$id)->get();
+            "estados.estado","usuarios.foto")->where('usuarios.id_rol','=',$id)->paginate(10);
 
         $data['users'] = $users;
 
-        return response()->json(
-            [
-                'mensaje'=>'Usuario recuperado correctamente', 
-                'usuarios'=>$data
-            ],200);
+        return response()->json($data,200);
     }
 }
