@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::patch('solicitud', 'Api\AuthController@solicitarRecuperacionCuenta');
     Route::get('publicos','Api\EventosController@obtenerEventosPublicos');
 
-    //Rutas de validacion para angular
+    //Rutas de validacion para formularios en angular
     Route::get('consultacorreo/{correo}','Api\AuthController@validarUsuario');
 
     Route::group(['middleware'=>'auth:api'], function(){ 
@@ -28,16 +28,24 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('autenticado','Api\AuthController@usuarioAutenticado');
 
         Route::get('zonas','Api\ZonasController@obtenerTodasLasZonas');
-        Route::post('zonas','Api\ZonasController@crearZonas');
+        Route::post('lectores','Api\ZonasController@registrarLector');
+        Route::put('lectores','Api\ZonasController@editarLector');
+        Route::get('lectores/{id}','Api\ZonasController@obtenerLectorEspecifico');
+        Route::patch('lectores','Api\ZonasController@deshabilitarLectores');
+        Route::patch('lectores/{id}','Api\ZonasController@deshabilitarLectorEspecifico');
+        Route::patch('zonas/{id}','Api\ZonasController@deshabilitarZonaEspecifica');
+        Route::patch('habilitarzona/{id}','Api\ZonasController@habilitarZonaEspecifica');
+        Route::patch('habilitarlector/{id}','Api\ZonasController@habilitarLectorEspecifico');
+        Route::patch('habilitarlectores','Api\ZonasController@habilitarLectores');
+        Route::get('lectores','Api\ZonasController@listarLectores');        
+        Route::get('lectoresdisponibles','Api\ZonasController@lectoresDisponibles');
+
         Route::get('habilitadas','Api\ZonasController@obtenerZonasHabilitadas');
-        Route::get('deshabilitadas','Api\ZonasController@obtenerZonasDeshabilitadas');
-        Route::get('zonas/{id}','Api\ZonasController@obtenerZonaEspecifica');
-        Route::patch('zonas','Api\ZonasController@deshabilitarZonas');
+        Route::post('zonas','Api\ZonasController@crearZonas');
         Route::put('zonas','Api\ZonasController@editarZona');
-        Route::patch('zonas/{id}','Api\ZonasController@deshabilitarZonaEspecifico');
-        Route::patch('habilitarzonas','Api\ZonasController@habilitarZonas');
-        Route::patch('habilitarzonas/{id}','Api\ZonasController@habilitarZonaEspecifico');
-                
+        Route::get('zonas/{id}','Api\ZonasController@obtenerZonaEspecifica');
+        Route::get('deshabilitadas','Api\ZonasController@obtenerZonasDeshabilitadas');
+        
         Route::get('usuarios','Api\UsuarioController@obtenerUsuarios');
         Route::get('usuarios/{id}','Api\UsuarioController@obtenerUsuarioEspecifico');
         Route::get('rolusuario/{id}','Api\UsuarioController@obtenerUsuariosPorRol');

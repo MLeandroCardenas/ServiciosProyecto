@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateZonasTable extends Migration
+class CreateModulosLectoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateZonasTable extends Migration
      */
     public function up()
     {
-        Schema::create('zonas', function (Blueprint $table) {
+        Schema::create('modulos_lectores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_zona',50);
+            $table->string('nombre_modulo',50);
+            $table->string('codigo_lector',32)->unique();
+            $table->integer('id_zona')->nullable();
             $table->boolean('estado');
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateZonasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zonas');
+        Schema::dropIfExists('modulos_lectores');
     }
 }

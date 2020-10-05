@@ -120,22 +120,19 @@ class EventosController extends Controller
 
     public function obtenerEventosPublicos()
     {
-            $resultado = [];
-            $eventos = DB::table("eventos")
-                ->join("zonas", "zonas.id", "=", "eventos.id_zona")
-                ->join("estados", "estados.id", "=", "eventos.estado")
-                ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
+        $eventos = DB::table("eventos")
+            ->join("zonas", "zonas.id", "=", "eventos.id_zona")
+            ->join("estados", "estados.id", "=", "eventos.estado")
+            ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
                 "eventos.visibilidad","eventos.horario","estados.estado")
-                ->where('eventos.visibilidad','=','PUBLICA')
-                ->where('eventos.estado','=',1)
-                ->orderBy('eventos.created_at', 'desc')->paginate(10);
+            ->where('eventos.visibilidad','=','PUBLICA')
+            ->where('eventos.estado','=',1)
+            ->orderBy('eventos.created_at', 'desc')->paginate(10);
             
-            if($eventos->isEmpty())
-                return response()->json($resultado,404);
-    
-            $resultado['zonas'] = $eventos;
-    
-            return response()->json($resultado,200);
+        if($eventos->isEmpty())
+            return response()->json($eventos,204);
+        else
+            return response()->json($eventos,200);
     }
 
     public function obtenerEventosInstitucionales()
