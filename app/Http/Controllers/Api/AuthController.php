@@ -84,7 +84,7 @@ class AuthController extends Controller
         $user = User::where('email',$request->email)->first();
 
         if(empty($user))
-            return response()->json($user,204);
+            return response()->json(null, 204);
 
         else if (Hash::check($request->password, $user->password) && !empty($user)) {
             if($user->confirmado === 0)
@@ -102,7 +102,7 @@ class AuthController extends Controller
         ])->first();
 
         if(empty($users))
-            return response()->json($users,404);
+            return response()->json('No encontrado',404);
         else
             return response()->json($users,200);
     }
@@ -116,7 +116,15 @@ class AuthController extends Controller
     }
 
     public function usuarioAutenticado(){
-        $usuarioAutenticado = Usuarios::where('id_user',Auth::id())->value('id_rol');
-        return response()->json($usuarioAutenticado,200);
+        $usuario = DB::table('usuarios')
+            ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
+            ->select(
+                'usuarios.apellidos',
+                'usuarios.nombres', 
+                'usuarios.identificacion', 
+                'usuarios.foto',
+                'roles.rol')
+            ->where('usuarios.id_user', '=', Auth::id())->first();
+        return response()->json($usuario,200);
     }
 }

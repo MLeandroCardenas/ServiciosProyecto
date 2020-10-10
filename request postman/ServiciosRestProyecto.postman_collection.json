@@ -1,0 +1,1125 @@
+{
+	"info": {
+		"_postman_id": "269b1851-e5f3-4e40-99bb-c8c33c4e65c4",
+		"name": "ServiciosRestProyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "zonas",
+			"item": [
+				{
+					"name": "CrearZonas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre_zona",
+									"value": "sala 2",
+									"type": "text"
+								},
+								{
+									"key": "codigo_lector",
+									"value": "2020_lector022555",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/zonas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"zonas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener todas las zonas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQwZjdlNmU4ZmRjMjJiMjJjMjRjODM4ODkxMGYzZTJkMTExODdkNjc3YzQ4ZDA1MjBiZmM1NjA3NDc3YjgzYWVkYzFiMDFkYWE5NjI4ZTE2In0.eyJhdWQiOiIyIiwianRpIjoiZDBmN2U2ZThmZGMyMmIyMmMyNGM4Mzg4OTEwZjNlMmQxMTE4N2Q2NzdjNDhkMDUyMGJmYzU2MDc0NzdiODNhZWRjMWIwMWRhYTk2MjhlMTYiLCJpYXQiOjE1OTUxOTY2NTEsIm5iZiI6MTU5NTE5NjY1MSwiZXhwIjoxNTk1MTk2NzExLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.VLMMriu3DutVPusNfHbhpWdyU-NaeIrFXnjMhqSABiM-iBtz0e7QFf6L5vVfdQVqaHoE4pcvMLYJ_VBfbqw9ktxY3Pg-ALWlY-OkKkU6-WkfayBLMxhYmtgPpH94hUIp_vc1j0DwMqWsMfSCQnjlalh0NLh2KymzvIHe2wbuxpo3ciMcub8IutlmUi832ouAQHh16Htn1CYfWvtxo3AF8CRmRQTJSSmNHjlDEK6MwKg7GrVNbVU1ixmCdbDrnRO6fESFu05_RSV4UJpencaItuRywYBAzrgO-nq74sEjEy9pn-BnQXy4Poz5EatXjlL6hYyPgPB-8EE5GlUYNkSc0KjQWFOTMq9km9WNoltsHEQO_766HW1jmOY4C7jrkbjDwMcBScknWEzmTOVcMn7xrC58XMXvbHk0LXsxSWUNz33N3ah75j5AqpPxQBB79qyWgfLrSYcWPDuZqEWC5t1j7sDjPTMIl_A1zmzbCQ0GfLAq8_pUKiil5TAl50RyLzY1N4X07Z-oFZlMCOvpTMjq1zN2C9NJnP1VHWAuDYOFqPUspC9c13lo0f1Yg5VkX8uGswlaVFheB-hdZ3pgsAdQxAbJ7FqFFdlQACsCjbdiZNDk4LyF77UtoXCNLxQQjy-O5NtHEWpERVa9NZJA_Td-BRcCUt3TlCct403fdHreuXM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/zonas/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"zonas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener zona especifica",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/zonas/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"zonas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener zonas habilitadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/habilitadas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"habilitadas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener zonas deshabilitadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/zonas",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"zonas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar zonas",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "nombre_zona",
+									"value": "CIT 2020",
+									"type": "text"
+								},
+								{
+									"key": "codigo_lector",
+									"value": "2020_lector022555333",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/zonas/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"zonas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deshabilitar zona especifica",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/zonas/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"zonas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "habilitar zona especifica",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/habilitarzona/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"habilitarzona",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "eventos",
+			"item": [
+				{
+					"name": "crear eventos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhjMDkwYmZmNzVmNWE3MWQ0MGJhNDRmZDM5OTc1NjdmNzc4NDUwOWQxOGE0NDE4NzkxOTc0ZDY5MTI0OGFmODVmNWZlYzRmZjYyOGRhYmM4In0.eyJhdWQiOiIyIiwianRpIjoiOGMwOTBiZmY3NWY1YTcxZDQwYmE0NGZkMzk5NzU2N2Y3Nzg0NTA5ZDE4YTQ0MTg3OTE5NzRkNjkxMjQ4YWY4NWY1ZmVjNGZmNjI4ZGFiYzgiLCJpYXQiOjE1OTYzOTk0MzIsIm5iZiI6MTU5NjM5OTQzMiwiZXhwIjoxNTk2NDAwMzMwLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.j4O5Yn1m6SAqXGD-Flp_RZvypWUVz7lvg_FnYAmp6nr6JqDCGklixKhuxp5vm4M3lbxjUfbA_M8HscKjb8BPLuL3Hw66iYvQfaZ4qe_7jA68tmYCahxu-HvE8TxL7jQ4OntoSh51COID8zkizi_V30Bx3Jxw_H3WpLD85zsFwx4E_bktX68XefIM3h2mCxuB8r0yHCVmeOFpsBLgDoUTtE54Gq_yYVb8BMtg1I18pSqc6wyIzF80rhegYp5gOSRdrZOxLbMmap6oaEOo5pco1GmJCzG8v8tGOt5IQtbsJJ9PJ7Mbw-wAzngQPPmQbI09AHglpLbiPirUTrf9NvPlWRKZ4BmR7vj673hAKvMQKlBOVhE_WWzuuLMJ1x8pCKnwdCwj62iE52oiAUgNjKmuYqbvxrt0UzHwxAXFCHp4SgBsQgamreCfvQ3swWmoSRasCEhwWiltFGp_USBNQ2s4XZy2wRk5qzr6kq_8BK50cJ2uHVNeeezEQTOO2o8Lay6U1veVFpFuk_sduK5U3Jf3qT-PljB0otmpCPWWtAjPM4jGkHnSjLPTwnCt_1DiAEoEZy5jJmSZYOiKA6jsZCcR5TBRnMQgMJUWQpSB_p3eVvDhdLA-LBg9XOQ7Kx6-wUjSByHmPM_HuA8eY-1kIq7t7HNjz1zHwsuLMg6PZzxZvfU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_zona",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "nombre_evento",
+									"value": "ejemplo 4",
+									"type": "text"
+								},
+								{
+									"key": "descripcion",
+									"value": "ejemplo 4",
+									"type": "text"
+								},
+								{
+									"key": "visibilidad",
+									"value": "PUBLICA",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "horario[0]",
+									"value": "2020-10-01 14:00:00",
+									"type": "text"
+								},
+								{
+									"key": "horario[1]",
+									"value": "2020-10-01 16:00:00",
+									"type": "text"
+								},
+								{
+									"key": "horario[1]",
+									"value": "2020-10-01 14:00:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "2020-10-01 14:00:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "2020-10-01 16:00:00",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "horario[2]",
+									"value": "2020-10-01 19:00:00 ",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "horario[3]",
+									"value": "2020-10-01 21:00:00",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/eventos/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"eventos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eventos de usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eventos publicos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/v1/api/publicos/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"v1",
+								"api",
+								"publicos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eventos institucionales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/institucionales/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"institucionales",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eventos por estado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todos los eventos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/eventoshabilitados/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"eventoshabilitados",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "aprobar evento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/eventos/25",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"eventos",
+								"25"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "autenticacion",
+			"item": [
+				{
+					"name": "registro usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "michaelcardenas@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "123",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "apellidos",
+									"value": "Rojas",
+									"type": "text"
+								},
+								{
+									"key": "nombres",
+									"value": "Gustavo",
+									"type": "text"
+								},
+								{
+									"key": "identificacion",
+									"value": "1070982304",
+									"type": "text"
+								},
+								{
+									"key": "estado",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id_rol",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "id_rol",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/registro/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"registro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "michaelcardenas199@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/oauth/token",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "solicitud recuperacion",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "gustavoalbertorojas@ucundinamarca.edu.co",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_id",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_secret",
+									"value": "VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/solicitud/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"solicitud",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/oauth/token",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verificar correo usuario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "correo",
+									"value": "mleandrocardenas@ucundinamarca.edu.co",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/consultacorreo/mleandrocardenas@ucundinamarca.edu.co",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"consultacorreo",
+								"mleandrocardenas@ucundinamarca.edu.co"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener usuario autenticado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNmMWE1NzI1ZDUyZWZmMzVkNmJmNTJmZTM5YjMxNzdmYTgzODExZDQ4NTJhYzBiNWY1ZjcxNGJmNmUyNjUyZGQ4YTgwNzc2MzA3ZGVmMjJmIn0.eyJhdWQiOiIyIiwianRpIjoiY2YxYTU3MjVkNTJlZmYzNWQ2YmY1MmZlMzliMzE3N2ZhODM4MTFkNDg1MmFjMGI1ZjVmNzE0YmY2ZTI2NTJkZDhhODA3NzYzMDdkZWYyMmYiLCJpYXQiOjE2MDIxMTg4NTksIm5iZiI6MTYwMjExODg1OSwiZXhwIjoxNjAyMTE5NzU4LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.w6UGaWzUK3ThDJjexthxU4dR9cM-d41pgV4RVwgqJf9LWYZjJr1SKOP4EGTFkqLlEf8YQM54m5TuaCtDp3AcehqENaqDA_7qJSORNLb2mpu4X6redmge5sQKgW_ZWdEyFLz3mpASta9zoxQWmTCfQ_mUYKpcZQQyJ6gj18F6XIE4GHT4bHNvU1E_F5vLlhHM63Fp8X7ze5gLRw2td0y7aV8tWKOqFaZoiZt3w356OQ6zMCH-qvNHvUnzoca6nacSD-gJ44DpPdYyOhDkfdfe8typ6DQBmACb9rKrScwDEOSFAZL7ih22eQAUqfanvrD1TmlZPC987jypYLL00fwMJ3AOiFVvQcN-U-nCHYXxT8k3f162Sk0pUooX6oboQuHTywC2LR4m6HxGiatgpGKUNkkXAo7MeA1K24QswSqFKxMie0AIaaa3uTUASiUWN1XmT9-ihKmdXLe-bkkSO7A_6WtyyMFxQblFavrRljA0CbeAlbCwGm3DtkjjHWMaYN131eMESp7v02adypGv10zSxR8yEVeOb-GOAnFFPoVtPvgqv7EPUDouCsPOf9P8Upuay5pXvUPZ-VI3Rr7z3mVbSFnH2TwfLxLIIG9CrcHCGjAvaEi2OKcprdASVR_lMkyr1iZKI0QuPosMGzkavw2hxqBQjiff_VaYusYRrBPQWA8",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/autenticado",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"autenticado"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/registro/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"registro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener usuario especifico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/usuarios/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"usuarios",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener usuario por rol",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/rolusuario/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"rolusuario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar contraseña",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU5OTlkOWNhZWFiMzkwMDZmZWU2MjkyMGE3MTJjMTE4YTdmOTg1YmFmMDgxYWIyYzQ2OGE3ZWU3MDQ1OTRkODdjNzZlNTE0N2M1ZTJjMDg2In0.eyJhdWQiOiIyIiwianRpIjoiNTk5OWQ5Y2FlYWIzOTAwNmZlZTYyOTIwYTcxMmMxMThhN2Y5ODViYWYwODFhYjJjNDY4YTdlZTcwNDU5NGQ4N2M3NmU1MTQ3YzVlMmMwODYiLCJpYXQiOjE2MDIzNDQyMjgsIm5iZiI6MTYwMjM0NDIyOCwiZXhwIjoxNjAyMzQ1MTI4LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.khnEuWK_bffOY8WSG-a63NbA8IOonL3JzQYWlfze7nsFj4_hbQWGGziCpxVOlIr5iv1-TolKlHBo5MDBrvCVbObqAj3FuSzIxPVAe7-ge2hjueaYf8KplwUA7RqZxKcBPfGUrV8IhqC2LlDIzhlNyBl13GgJbuHxTWZ9XHG_YtGeVsPzX_U-U04sJx4WAnNC2TCTjWSM3-89nkKDqRPm731HY99pLUHhKjw9RaaLta0P_zUbjQ-yAcCxgmafB7-egXRGtsgwrG9EIo8Tv7ObPmktrqdEBsmn1ZMcWK9juIgYG7REbbS9PUl6lkOGVs_OoV2h7DxwwoTQhEQFA05K2g9mFW3aLFaXhGyQlHajPR7mgw61mWuuLffccBSWNoPDn806rB3Rl-9Mz8Ggq9xQQ7ig0NVGAiy6ZgBVP_ybSWIRjGZDfIYNw_8PJHBivmg_9VN7hwGQRmnjiig6GZoc2XvoBv8hs1KEdj_ayeQyzYLYZwWxCKEak38MgRGogIxZExVeuxUpo3wJ8aY1oZOgJAWh7alCcHFrwkjCm7GGgDmvEqDcEILG4fvGd7Zj_-m4LKVkCCmiF2AyOxabE25Hjk-pHgqXnD2UQsL6Uhafr7IIdxCsdjhnjEDohEUnpbzgBGMcnN_9wJcCDaUoe2vMYbIEPvMkBx5f1o9Frwpcrlo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "actual",
+									"value": "adadadad",
+									"type": "text"
+								},
+								{
+									"key": "nueva",
+									"value": "asasa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/nueva",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"nueva"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "lectores",
+			"item": [
+				{
+					"name": "registrar lectores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener todos los lectores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lectores disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectoresdisponibles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectoresdisponibles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar lector",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lector especifico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectores/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deshabilitar lector",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectores/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "habilitar lector",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/habilitarlector/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"habilitarlector",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "habilitar todos los lectores",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/habilitarlectores/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"habilitarlectores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deshabilitar todos los lectores",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/lectores/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"lectores",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

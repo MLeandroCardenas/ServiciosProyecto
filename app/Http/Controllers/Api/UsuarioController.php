@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 use App\Usuarios;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
@@ -55,5 +58,17 @@ class UsuarioController extends Controller
         $data['users'] = $users;
 
         return response()->json($data,200);
+    }
+
+    public function editarClave(Request $request) {
+        $claveActual = User::where('id',Auth::id())->value('password');
+        if(!Hash::check($request->actual, $claveActual)) {
+            return response()->json('Clave incorrecta',400);
+        } else {
+            $usuario = User::find(Auth::id());
+            $usuario->password = bcrypt($request->nueva);
+            $usuario->save();
+            return response()->json('Contraseña editada correctamente', 200);
+        }
     }
 }

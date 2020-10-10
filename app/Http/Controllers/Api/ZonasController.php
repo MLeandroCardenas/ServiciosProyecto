@@ -268,42 +268,6 @@ class ZonasController extends Controller
         $zona->nombre_zona = $request->nombre_zona;
         $zona->save();
         return response()->json('Zona editada correctamente',200);
-        /*
-        if($request->idLector == null) {
-            $zona->nombre_zona = $request->nombre_zona;
-            $zona->save();
-            return response()->json('Zona editada correctamente',200);
-        } else {
-            DB::beginTransaction();
-            try{
-                $zona->nombre_zona = $request->nombre_zona;
-                $zona->estado = 2;
-                $zona->save();
-                $lector = modulos_lectores::where('id_zona', '=', $zona->id)->first();
-                if(empty($lector)) {
-                    $actualizarLector = modulos_lectores::where('id', '=', $request->idLector)->first();
-                    $actualizarLector->id_zona = $request->id;
-                    $actualizarLector->estado = 2;
-                    $actualizarLector->save();
-                    return response()->json('Zona editada correctamente',200);
-                } else {
-                    $Lector = null;
-                    $Lector->estado = 1;
-                    $lector->id_zona = null;
-                    $lector->save();
-                    $nuevoLector = modulos_lectores::where('id', '=', $request->idLector)->first();
-                    $nuevoLector->estado = 2;
-                    $nuevoLector->id_zona = $request->id;
-                    $nuevoLector->save();
-                    return response()->json('Zona editada y lector asignado correctamente',200);
-                }
-                DB::commit();
-            } catch(\Exception $e) {
-                DB::rollback();
-                return response()->json(['mensaje '=> $e->getMessage()], 500);
-            }
-        }
-        */
     }
 
     public function editarLector(Request $request){

@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1'], function () {
     //Rutas de validacion para formularios en angular
     Route::get('consultacorreo/{correo}','Api\AuthController@validarUsuario');
 
+
     Route::group(['middleware'=>'auth:api'], function(){ 
         //agregar las rutas que se deben proteger
         Route::get('autenticado','Api\AuthController@usuarioAutenticado');
@@ -49,6 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('usuarios','Api\UsuarioController@obtenerUsuarios');
         Route::get('usuarios/{id}','Api\UsuarioController@obtenerUsuarioEspecifico');
         Route::get('rolusuario/{id}','Api\UsuarioController@obtenerUsuariosPorRol');
+        Route::patch('nueva','Api\UsuarioController@editarClave');
                 
         Route::get('todos','Api\EventosController@obtenerEventos');
         Route::get('eventos','Api\EventosController@obtenerEventosUsuario');
