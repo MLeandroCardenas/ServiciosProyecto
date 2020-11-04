@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 use App\User;
 use App\Usuarios;
 use App\Mail\OrderShipped;
@@ -15,12 +14,59 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    public function login(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string|max:12',
+            'grant_type' => 'required|string',
+            'client_id' => 'required',
+            'client_secret' => 'required|string'
+        ]);
+
+        if($validator->fails()){
+            return response()->json('error de validacion', 400);
+        }
+
+        $credenciales = request(['email', 'password']);
+        
+        if(!Auth::attempt($credenciales)) {
+            return response()->json('No esta autorizado', 401);
+
+        } else {
+            if(!$this->validacion($request))
+                return response()->json('No esta autorizado debe completar su registro', 401);
+            else {
+                $usuario = $request->User();
+                $tokenResult = $usuario->createToken('Personal Access Token');
+                $token = $tokenResult->token;
+                $token->save();
+
+                return response()->json([
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type'   => 'Bearer',
+                    'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+                ],200);
+            }
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return response()->json('Has cerrado sesion',200);
+    }
+
     public function registro(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'apellidos' => 'required', 'nombres' => 'required', 'identificacion' => 'required',
-            'estado' => 'required', 'id_rol' => 'required', 'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'apellidos' => 'required|string', 
+            'nombres' => 'required|string', 
+            'identificacion' => 'required',
+            'estado' => 'required', 
+            'id_rol' => 'required', 
+            'email' => 'required|email',
+            'password' => 'required|max:12'
         ]);
 
         if($validator->fails()){
@@ -30,12 +76,14 @@ class AuthController extends Controller
         DB::beginTransaction();
 
         try{
+
             $codigo = str_random(25);
             $user = User::create([
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'codigo_confirmacion' => $codigo
             ]);
+
             $token = $user->createToken("MyApp")->accessToken;
 
             $datosUsuario = new Usuarios(); 
@@ -43,7 +91,6 @@ class AuthController extends Controller
             $datosUsuario->nombres = $request->nombres;
             $datosUsuario->identificacion = $request->identificacion;
             $datosUsuario->estado = $request->estado;
-            $datosUsuario->foto = $request->foto;
             $datosUsuario->id_rol = $request->id_rol;
             $datosUsuario->id_user = $user->id;
             $datosUsuario->save();  
@@ -54,17 +101,10 @@ class AuthController extends Controller
             return response()->json(['mensaje '=> $e->getMessage()], 400);
         }
 
-        /**
-         * se debe probar en produccion
-         */
-       // Mail::to($request->email)->send(new OrderShipped($datosUsuario,$user));
-
-        return response()->json( [ 'token' => $token, 'user' => $user, 'datosUsuario' => $datosUsuario], 200);
+        Mail::to($request->email)->send(new OrderShipped($datosUsuario,$user));
+        return response()->json( 'Se ha enviado un enlace de confirmacion al correo eléctronico registrado', 200);
     }
 
-    /**
-     * probar en produccion
-     */
     public function verificar($code)
     {
         $user = User::where('codigo_confirmacion', $code)->first();
@@ -83,14 +123,12 @@ class AuthController extends Controller
     {
         $user = User::where('email',$request->email)->first();
 
-        if(empty($user))
-            return response()->json(null, 204);
-
-        else if (Hash::check($request->password, $user->password) && !empty($user)) {
-            if($user->confirmado === 0)
-                return response()->json('Aún no ha confirmado su registro',401);
-        } else
-            return response()->json('Clave incorrecta',401);
+        if (Hash::check($request->password, $user->password) && !empty($user)) {
+            if($user->confirmado === 0 && $user->codigo_confirmacion != null)
+                return false;
+            if($user->confirmado === 1) 
+                return true;
+        }
     }
 
     public function solicitarRecuperacionCuenta(Request $request)
@@ -112,19 +150,7 @@ class AuthController extends Controller
         $user = User::where('email',$correo)->value('email');
         if(empty($user))
             return response()->json($user,204);
-        return response()->json($user,200);
-    }
-
-    public function usuarioAutenticado(){
-        $usuario = DB::table('usuarios')
-            ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
-            ->select(
-                'usuarios.apellidos',
-                'usuarios.nombres', 
-                'usuarios.identificacion', 
-                'usuarios.foto',
-                'roles.rol')
-            ->where('usuarios.id_user', '=', Auth::id())->first();
-        return response()->json($usuario,200);
+        else
+            return response()->json($user,200);
     }
 }
