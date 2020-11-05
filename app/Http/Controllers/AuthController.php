@@ -131,20 +131,6 @@ class AuthController extends Controller
         }
     }
 
-    public function solicitarRecuperacionCuenta(Request $request)
-    {
-        $users = DB::table('users')->where([
-            ['email', '=', $request->email],
-            ['confirmado', '=', 1],
-            ['codigo_confirmacion', '=', null],
-        ])->first();
-
-        if(empty($users))
-            return response()->json('No encontrado',404);
-        else
-            return response()->json($users,200);
-    }
-
     public function validarUsuario($correo) 
     {
         $user = User::where('email',$correo)->value('email');

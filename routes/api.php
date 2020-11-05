@@ -6,7 +6,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('registro', 'AuthController@registro');
     Route::get('consultacorreo/{correo}','AuthController@validarUsuario');
-    Route::patch('solicitud', 'AuthController@solicitarRecuperacionCuenta');
+    Route::post('solicitar', 'PasswordResetController@create');
+    Route::get('buscar/{token}', 'PasswordResetController@find');
+    Route::post('actualizar', 'PasswordResetController@reset');
 
     Route::get('publicos','EventosController@obtenerEventosPublicos');
 
