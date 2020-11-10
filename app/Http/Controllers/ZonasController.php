@@ -206,7 +206,7 @@ class ZonasController extends Controller
             'estados.estado')->where('zonas.id','=',$id)->first();
 
         if(empty($zonas))
-            return response()->json($zonas,404);
+            return response()->json('Zona no existe',404);
         else
             return response()->json($zonas,200);
     }
@@ -223,7 +223,7 @@ class ZonasController extends Controller
             'zonas.nombre_zona')->where('modulos_lectores.id','=',$id)->first();
 
     if(empty($lectores))
-        return response()->json($lectores,404);
+        return response()->json('Lector no existe' ,404);
     else
         return response()->json($lectores,200);
     }

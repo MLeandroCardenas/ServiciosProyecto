@@ -25,6 +25,7 @@ class UsuarioController extends Controller
 
     public function editarClave(Request $request) {
         $claveActual = User::where('id',Auth::id())->value('password');
+
         if(!Hash::check($request->actual, $claveActual)) {
             return response()->json('Clave incorrecta',400);
         } else {

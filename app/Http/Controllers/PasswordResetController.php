@@ -11,16 +11,34 @@ use Validator;
 
 class PasswordResetController extends Controller
 {
-    public function create(Request $request) 
+
+    public function validacionUsuario($correo) {
+        $user = User::where('email',$correo)->first();
+        if($user == null)
+            return false;
+        if($user->confirmado === 0 && $user->codigo_confirmacion != null)
+            return false;
+        if($user->confirmado === 1 && $user->codigo_confirmacion == null) 
+            return true;
+    }
+
+    public function create($correoUsuario) 
     {
-        $validador = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-        ]);
+        $usuario = User::where('email',$correoUsuario)->first();
 
-        $usuario = User::where('email',$request->email)->first();
-
-        if(!$usuario)
+        if($usuario == null)
             return response()->json('No existe un usuario registrado con ese correo', 404);
+            
+        $resultado = $this->validacionUsuario($correoUsuario);
+        $passwordReset = PasswordReset::where('email', $correoUsuario)->first();
+
+        if(!$resultado)
+            return response()->json('No ha confirmado su registro en el sistema', 400);
+
+        if($passwordReset != null) {
+            if(!Carbon::parse($passwordReset->updated_at)->addMinutes(5)->isPast()) 
+                return response()->json('Ya ha solicitado una recuperacion de contraseña', 400);
+        }
 
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $usuario->email],
@@ -43,9 +61,9 @@ class PasswordResetController extends Controller
         if (!$passwordReset)
             return response()->json('Este token de restablecimiento de contraseña no es válido', 404);
 
-        if (Carbon::parse($passwordReset->updated_at)->addMinutes(360)->isPast()) {
+        if (Carbon::parse($passwordReset->updated_at)->addMinutes(5)->isPast()) {
             $passwordReset->delete();
-            return response()->json('Este token de restablecimiento de contraseña no es válido', 404);
+            return response()->json('El tiempo limite para recuperar su cuenta ha caducado debe generar la solicitud nuevamente', 404);
         }
         return response()->json($passwordReset, 200);
     }
@@ -53,25 +71,29 @@ class PasswordResetController extends Controller
     public function reset(Request $request)
     {
         $validador = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string|confirmed',
+            'correo' => 'required|string|email',
+            'clave' => 'required|string|max:12',
             'token' => 'required|string'
         ]);
+
+        if($validador->fails()){
+            return response()->json('error de validacion', 422);
+        }
 
         $passwordReset = PasswordReset::where('token', $request->token)->first();
 
         if (!$passwordReset)
             return response()->json('Este token de restablecimiento de contraseña no es válido.', 404);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->correo)->first();
 
         if (!$user)
             return response()->json('No exite un usuario registrado con ese email', 404);
 
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->clave);
         $user->save();
         $passwordReset->delete();
         $user->notify(new PasswordResetSuccess($passwordReset));
-        return response()->json($user, 200);
+        return response()->json('Clave actualizada correctamente', 200);
     }
 }

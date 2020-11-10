@@ -41,7 +41,7 @@ class PasswordResetRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/api/password/find/'.$this->token);
+        $url = url('http://localhost:4200/auth/reestablecer/'.$this->token);
         return (new MailMessage)
                     ->line('Recuperacion de tu cuenta')
                     ->action('Ir a actualizar contraseña', url($url))

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Usuarios;
+use App\PasswordReset;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Carbon\Carbon;
+
 
 class AuthController extends Controller
 {
@@ -24,31 +26,34 @@ class AuthController extends Controller
             'client_secret' => 'required|string'
         ]);
 
-        if($validator->fails()){
-            return response()->json('error de validacion', 400);
-        }
+        if($validator->fails())
+            return response()->json('error de validacion', 422);
 
         $credenciales = request(['email', 'password']);
+        $passwordReset = PasswordReset::where('email', $request->email)->first();
         
         if(!Auth::attempt($credenciales)) {
             return response()->json('No esta autorizado', 401);
-
-        } else {
-            if(!$this->validacion($request))
-                return response()->json('No esta autorizado debe completar su registro', 401);
-            else {
-                $usuario = $request->User();
-                $tokenResult = $usuario->createToken('Personal Access Token');
-                $token = $tokenResult->token;
-                $token->save();
-
-                return response()->json([
-                    'access_token' => $tokenResult->accessToken,
-                    'token_type'   => 'Bearer',
-                    'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
-                ],200);
-            }
         }
+        
+        if($passwordReset != null) {
+            if(!Carbon::parse($passwordReset->updated_at)->addMinutes(5)->isPast())
+                return response()->json('Tiene una solicitud de recuperacion de contraseña pendiente no puede iniciar sesion', 400); 
+        }
+
+        if(!$this->validacion($request))
+            return response()->json('No esta autorizado debe completar su registro', 401);
+
+        $usuario = $request->User();
+        $tokenResult = $usuario->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        $token->save();
+
+        return response()->json([
+            'access_token' => $tokenResult->accessToken,
+            'token_type'   => 'Bearer',
+            'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+            ],200);
     }
 
     public function logout(Request $request)
@@ -70,13 +75,12 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json('error de validacion', 400);
+            return response()->json('error de validacion', 422);
         }
 
         DB::beginTransaction();
 
         try{
-
             $codigo = str_random(25);
             $user = User::create([
                 'email' => $request->email,
@@ -85,7 +89,6 @@ class AuthController extends Controller
             ]);
 
             $token = $user->createToken("MyApp")->accessToken;
-
             $datosUsuario = new Usuarios(); 
             $datosUsuario->apellidos = $request->apellidos;
             $datosUsuario->nombres = $request->nombres;
@@ -112,11 +115,21 @@ class AuthController extends Controller
         if (! $user)
             return redirect('/');
 
+        $usuario = Usuarios::where('id_user',$user->id)->first();
+
+        if(Carbon::parse($user->created_at)->addMinutes(5)->isPast()) {
+            $user->delete();
+            $usuario->delete();
+            return response()->json('El tiempo limite para completar su registro ha caducado, debe registrarse nuevamente', 400);
+        }
+
         $user->confirmado = true;
         $user->codigo_confirmacion = null;
         $user->save();
 
-        return redirect()->away('http://localhost:4200/login')->with('notification', 'Has confirmado correctamente tu correo!');   
+        $nombreUsuario = Usuarios::where('id_user',$user->id)->value('nombres');
+
+        return redirect()->away('http://localhost:4200/auth/confirmacion/'.$nombreUsuario)->with('notification', 'Has confirmado correctamente tu correo!');   
     }
 
     public function validacion(Request $request)
@@ -126,7 +139,7 @@ class AuthController extends Controller
         if (Hash::check($request->password, $user->password) && !empty($user)) {
             if($user->confirmado === 0 && $user->codigo_confirmacion != null)
                 return false;
-            if($user->confirmado === 1) 
+            if($user->confirmado === 1 && $user->codigo_confirmacion == null) 
                 return true;
         }
     }
