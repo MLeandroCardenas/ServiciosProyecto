@@ -11,16 +11,32 @@ use Illuminate\Support\Facades\DB;
 class UsuarioController extends Controller
 {
     public function perfilUsuario() {
-        $usuario = DB::table('usuarios')
-            ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
-            ->select(
-                'usuarios.apellidos',
-                'usuarios.nombres', 
-                'usuarios.identificacion', 
-                'usuarios.foto',
-                'roles.rol')
-            ->where('usuarios.id_user', '=', Auth::id())->first();
+       $usuario = Usuarios::where('id_user', Auth::id())
+        ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
+        ->select(
+            'usuarios.apellidos',
+            'usuarios.nombres', 
+            'usuarios.identificacion',
+            'roles.rol')->first();
         return response()->json($usuario,200);
+    }
+
+
+    /**
+     * SE DEBE ARREGLAR
+     */
+    public function editarFotoPerfil(Request $request) {
+        $file = $request->file('foto');
+        $file = $request->foto;
+
+       if($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $nombre = time().$file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/',$nombre);
+            DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $fotoUsuario]);
+            return response()->json('Foto de perfil actualizada', 200);
+        } else 
+            return response()->json('NO TIENE UN ARCHIVO', 400);
     }
 
     public function editarClave(Request $request) {
@@ -35,62 +51,18 @@ class UsuarioController extends Controller
             return response()->json('Contraseña editada correctamente', 200);
         }
     }
-
-    public function editarFotoPerfil(Request $request) {
-        if($request->hasFile('archivo')) {
-            $file = $request->file('archivo');
-            $nombre = time().$file->getClientOriginalName();
-            $file->move(public_path().'/imagenes/',$nombre);
-        } else 
-            return response()->json('NO TIENE UN ARCHIVO', 400);
-
-        DB::table('usuarios')->where('id_user',Auth::id())->update(['foto' => $archivo]);
-        return response()->json('Foto de perfil actualizada', 200);
-    }
-
-    /*
-    public function obtenerUsuarios()
+    
+    public function obtenerUsuarios($cantidad)
     {
-        $users = DB::table("users")
-            ->join("usuarios", "users.id", "=", "usuarios.id_user")
-            ->join("roles","roles.id", "=", "usuarios.id_rol")
-            ->join("estados","estados.id", "=", "usuarios.estado")
-            ->select("users.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "users.email",  "roles.rol", 
-            "usuarios.estado", "estados.estado")
-            ->orderBy('usuarios.created_at', 'desc')->paginate(10);
-        return response()->json($users,200);
+        $usuarios = Usuarios::where([
+            ['usuarios.id_rol', '<>', 1],
+            ['usuarios.estado', '<>', 6],
+        ])
+        ->join("roles","roles.id", "=", "usuarios.id_rol")
+        ->join("estados","estados.id", "=", "usuarios.estado")
+        ->select("usuarios.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "roles.rol", 
+                "estados.estado")->orderBy('usuarios.created_at', 'desc')->paginate($cantidad);
+    
+        return response()->json($usuarios,200);
     }
-    */
-
-    /*
-    public function obtenerUsuarioEspecifico($id)
-    {
-        $users = DB::table("users")
-            ->join("usuarios", "users.id", "=", "usuarios.id_user")
-            ->join("roles","roles.id", "=", "usuarios.id_rol")
-            ->join("estados","estados.id", "=", "usuarios.estado")
-            ->select("users.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "users.email",  "roles.rol", 
-            "estados.estado","usuarios.foto")->where('usuarios.identificacion','=',$id)->first();
-
-        if(empty($users))
-            return response()->json('No existe',404);
-
-        return response()->json($users,200);
-    }
-    */
-
-    /*
-    public function obtenerUsuariosPorRol($id)
-    {
-        $users = DB::table("users")
-            ->join("usuarios", "users.id", "=", "usuarios.id_user")
-            ->join("roles","roles.id", "=", "usuarios.id_rol")
-            ->join("estados","estados.id", "=", "usuarios.estado")
-            ->select("users.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "users.email",  "roles.rol", 
-            "estados.estado","usuarios.foto"
-            )->where('usuarios.id_rol','=',$id)->paginate(10);
-
-        return response()->json($users,200);
-    }
-    */
 }

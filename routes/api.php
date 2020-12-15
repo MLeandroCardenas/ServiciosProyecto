@@ -6,6 +6,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('registro', 'AuthController@registro');
     Route::get('consultacorreo/{correo}','AuthController@validarUsuario');
+    Route::get('consultaIdentificacion/{identificacion}','AuthController@validarIdentificacionUsuario');
+    Route::get('obtenerRoles','AuthController@obtenerRoles');
     Route::post('solicitar/{correo}', 'PasswordResetController@create');
     Route::get('buscar/{token}', 'PasswordResetController@find');
     Route::post('actualizar', 'PasswordResetController@reset');
@@ -35,6 +37,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('zonas/{id}','ZonasController@obtenerZonaEspecifica');
         Route::get('deshabilitadas','ZonasController@obtenerZonasDeshabilitadas');
         
+        Route::get('usuarios/{cantidad}', 'UsuarioController@obtenerUsuarios');
         Route::get('autenticado','UsuarioController@perfilUsuario');
         Route::patch('nueva','UsuarioController@editarClave');
         Route::patch('fotoperfil','UsuarioController@editarFotoPerfil');

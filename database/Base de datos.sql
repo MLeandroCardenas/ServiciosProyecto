@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         localhost
+-- Host:                         127.0.0.1
 -- Versión del servidor:         5.7.24 - MySQL Community Server (GPL)
 -- SO del servidor:              Win64
 -- HeidiSQL Versión:             10.2.0.5599
@@ -11,33 +11,10 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Volcando estructura para tabla bd_proyecto.carnets
-CREATE TABLE IF NOT EXISTS `carnets` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_tarjeta` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  `codigo_universitario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `zonas` json DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `carnets_id_tarjeta_unique` (`id_tarjeta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.carnets: ~0 rows (aproximadamente)
 DELETE FROM `carnets`;
 /*!40000 ALTER TABLE `carnets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `carnets` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.estados
-CREATE TABLE IF NOT EXISTS `estados` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `estado` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.estados: ~4 rows (aproximadamente)
 DELETE FROM `estados`;
@@ -47,26 +24,9 @@ INSERT INTO `estados` (`id`, `estado`, `created_at`, `updated_at`) VALUES
 	(2, 'DESHABILITADO', NULL, NULL),
 	(3, 'CREADO', NULL, NULL),
 	(4, 'CANCELADO', NULL, NULL),
-	(5, 'FINALIZADO', NULL, NULL);
+	(5, 'FINALIZADO', NULL, NULL),
+	(6, 'PENDIENTE', NULL, NULL);
 /*!40000 ALTER TABLE `estados` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.eventos
-CREATE TABLE IF NOT EXISTS `eventos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `creador_evento` int(11) NOT NULL,
-  `id_zona` int(11) NOT NULL,
-  `nombre_evento` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `visibilidad` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `horario` json DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `usuarios_externos_invitados` json DEFAULT NULL,
-  `usuarios_registrados_invitados` json DEFAULT NULL,
-  `asistentes` json DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.eventos: ~0 rows (aproximadamente)
 DELETE FROM `eventos`;
@@ -75,30 +35,10 @@ INSERT INTO `eventos` (`id`, `creador_evento`, `id_zona`, `nombre_evento`, `desc
 	(1, 5, 1, 'ejemplo 4', 'ejemplo 4', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 16:00:00"]', 1, NULL, NULL, NULL, '2020-08-24 23:12:50', '2020-08-24 23:12:50');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.formato_eventos
-CREATE TABLE IF NOT EXISTS `formato_eventos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `documento_plantilla` blob NOT NULL,
-  `id_evento` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.formato_eventos: ~0 rows (aproximadamente)
 DELETE FROM `formato_eventos`;
 /*!40000 ALTER TABLE `formato_eventos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `formato_eventos` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.horarios_eventos
-CREATE TABLE IF NOT EXISTS `horarios_eventos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_evento` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.horarios_eventos: ~0 rows (aproximadamente)
 DELETE FROM `horarios_eventos`;
@@ -107,34 +47,10 @@ INSERT INTO `horarios_eventos` (`id`, `id_evento`, `fecha`, `created_at`, `updat
 	(1, 25, '2012-01-01 00:00:00', NULL, NULL);
 /*!40000 ALTER TABLE `horarios_eventos` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.invitados
-CREATE TABLE IF NOT EXISTS `invitados` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `apellido` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cedula` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `procedencia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `correo` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `invitados_cedula_unique` (`cedula`),
-  UNIQUE KEY `invitados_correo_unique` (`correo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.invitados: ~0 rows (aproximadamente)
 DELETE FROM `invitados`;
 /*!40000 ALTER TABLE `invitados` DISABLE KEYS */;
 /*!40000 ALTER TABLE `invitados` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.migrations
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.migrations: ~17 rows (aproximadamente)
 DELETE FROM `migrations`;
@@ -164,40 +80,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(22, '2020_11_04_215648_create_password_resets_table', 6);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.modulos_lectores
-CREATE TABLE IF NOT EXISTS `modulos_lectores` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre_modulo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_lector` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT '0',
-  `id_zona` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `modulos_lectores_codigo_lector_unique` (`codigo_lector`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.modulos_lectores: ~0 rows (aproximadamente)
 DELETE FROM `modulos_lectores`;
 /*!40000 ALTER TABLE `modulos_lectores` DISABLE KEYS */;
 INSERT INTO `modulos_lectores` (`id`, `nombre_modulo`, `codigo_lector`, `estado`, `id_zona`, `created_at`, `updated_at`) VALUES
-	(15, 'modulo 01', '2020-0202', 2, 11, '2020-10-08 21:51:58', '2020-10-08 21:51:58');
+	(15, 'modulo 01', '2020-0202', 1, NULL, '2020-10-08 21:51:58', '2020-12-15 00:43:16');
 /*!40000 ALTER TABLE `modulos_lectores` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.oauth_access_tokens
-CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `client_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
-  `revoked` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `expires_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_access_tokens_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.oauth_access_tokens: ~410 rows (aproximadamente)
 DELETE FROM `oauth_access_tokens`;
@@ -205,6 +93,7 @@ DELETE FROM `oauth_access_tokens`;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('002632b62acb4e0e8dcc23aa3fd138f530e735004d39e6ae821efda68a30748e335da06c5d4e6460', 4, 2, NULL, '[]', 0, '2020-10-05 05:03:32', '2020-10-05 05:03:32', '2020-10-05 05:18:32'),
 	('005cc91d08372cb557fc1977a07fd79cd21c7655dba05c10e7987c208c013364b4f4001621c2fa89', 4, 2, NULL, '[]', 1, '2020-09-28 19:42:16', '2020-09-28 19:42:16', '2020-09-28 19:54:15'),
+	('0075dcb683dc9dca4ea7dd153de7499a4c15e7edabe0675f3591a7b2da393448a4553b2d3f1433b7', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-17 18:54:15', '2020-11-17 18:54:15', '2021-11-17 18:54:15'),
 	('007d18030e44231b3b891831566746e1e33827b90308314b32ef7ffb61ef07b29dc37e00dfcfbdfd', 4, 2, NULL, '[]', 0, '2020-10-16 18:57:08', '2020-10-16 18:57:08', '2020-10-16 19:12:08'),
 	('009e99ac0165531f70292fb6de0fc4c7dbc5e7bf43c532c0076cd187ca594cb454f91ee8b1126cf0', 4, 2, NULL, '[]', 0, '2020-10-08 17:49:31', '2020-10-08 17:49:31', '2020-10-08 18:04:31'),
 	('01aa743632331aeb38ef94413272d574053dd973dfef9edbf01b1b2c8b4cacaa56ad6376df554cd8', 4, 2, NULL, '[]', 0, '2020-10-16 18:56:40', '2020-10-16 18:56:40', '2020-10-16 19:11:40'),
@@ -225,12 +114,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('0791b726a9e31212768d85ee92f026d67a5c6be37dac5fcae90c7b872ac305fef1e6ae24ad2f11f1', 2, 2, NULL, '[]', 0, '2020-10-08 23:25:16', '2020-10-08 23:25:16', '2020-10-08 23:40:16'),
 	('079ff077c7cbebfc9300484efc3ec5038dd306a011b624df99186824955fbc87ad0d0263edb34a5a', 4, 2, NULL, '[]', 0, '2020-10-08 19:53:53', '2020-10-08 19:53:53', '2020-10-08 20:08:53'),
 	('07db3c46841193b483632105e37666fa9867e96c02bbb6c21c91718c648975cbfb53d5e03ce186fb', 4, 2, NULL, '[]', 1, '2020-10-04 04:56:00', '2020-10-04 04:56:00', '2020-10-04 04:57:00'),
+	('08930d428cd0e4a4557668deda5246a497e906e269adb44db608d05bbcd6a0baf1c6bcd6b81a2e83', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:24:42', '2020-11-10 15:24:42', '2021-11-10 15:24:42'),
+	('08fca32b86ded0caeeb23d121f977e7c4d5df6ec3b91580486262a6f5a9eb63df44204b38b34e1dc', 21, 1, 'MyApp', '[]', 0, '2020-11-10 17:45:26', '2020-11-10 17:45:26', '2021-11-10 17:45:26'),
 	('098876e2f9bdd45661422980f621661677432abe854085acaaea45d9e0d04e67db42bc7391e33b4a', 4, 2, NULL, '[]', 0, '2020-09-29 02:40:02', '2020-09-29 02:40:02', '2020-09-29 02:52:02'),
 	('09bc7eb95d0226a9eae98c888282685b51c67fa92514a11e245b5f3bef276e24c1139f24cedb591a', 4, 2, NULL, '[]', 0, '2020-09-26 04:15:55', '2020-09-26 04:15:55', '2020-09-26 04:27:54'),
 	('09c009e725d80ded44eda21fe8532f5890c3c263b872662bea8fb8a18ea575fc1f5c9b39f7fe3e41', 4, 2, NULL, '[]', 1, '2020-09-26 00:52:18', '2020-09-26 00:52:18', '2020-09-26 01:04:18'),
 	('09d7548762280ae4b55b8281d9e2ffcc5c6abf9476704fed88c430e6f68d894e93242262cfbd2bba', 4, 2, NULL, '[]', 0, '2020-09-12 18:06:45', '2020-09-12 18:06:45', '2020-09-12 18:07:45'),
 	('09e539e87f40fcf447b73110cf2905f9bd871ccfaa42fcf46e99589b4b34a9aa8de9c5afcb5f7cfd', 4, 2, NULL, '[]', 0, '2020-10-26 15:22:28', '2020-10-26 15:22:28', '2020-10-26 23:22:25'),
 	('0aeda70ddc958aace2954ad65472b3c436559121fcd600c7ccd69c36560d4e6bbcb7cafc64ab45e5', 4, 2, NULL, '[]', 1, '2020-09-20 23:44:31', '2020-09-20 23:44:31', '2020-09-20 23:56:31'),
+	('0afa4d951577a7db005625b6d2443c3a6d051652ddc96bb1b82cd7d39d84296382a23ed714b53fa2', 20, 1, 'MyApp', '[]', 0, '2020-11-10 17:42:26', '2020-11-10 17:42:26', '2021-11-10 17:42:26'),
 	('0b1ced28b74b7b792e74568dd7ed9571c5f3fc4f5deeeb16392f1df372717252922417b29b4104b9', 4, 2, NULL, '[]', 1, '2020-10-09 20:04:21', '2020-10-09 20:04:21', '2020-10-09 20:19:21'),
 	('0b20f663e33f0eecfba8a92773fa9504c51bc01f46160d235c153c67a66b82fac77ee5a334e5d3bf', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 00:38:17', '2020-11-04 00:38:17', '2021-11-04 00:38:17'),
 	('0c1745b535111a28af340c9ca864301a89d8ce267b3273502390162c82f6053d4ade9f824c4c2621', 4, 2, NULL, '[]', 1, '2020-09-12 18:03:41', '2020-09-12 18:03:41', '2020-09-12 18:04:41'),
@@ -240,9 +132,12 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('0def83e4ada35b9122f4782f2959915726bc10113dd01d1e2cf56bd0addc07c7b5c963639012d387', 4, 2, NULL, '[]', 0, '2020-09-28 20:24:24', '2020-09-28 20:24:24', '2020-09-28 20:36:24'),
 	('0e8138d6e681801a84906a939343864895bf8e9e015ec5933515af16b3ab24b38a22ac5719149370', 4, 2, NULL, '[]', 0, '2020-11-03 18:47:18', '2020-11-03 18:47:18', '2020-11-04 02:47:18'),
 	('0fa7e4562caff124d10ed8e10bdc10da8b0c834ec1ee1567310aa511a3794c2dfb203a61bfd9eb6a', 4, 2, NULL, '[]', 0, '2020-10-05 05:20:29', '2020-10-05 05:20:29', '2020-10-05 05:35:28'),
+	('0fb16739407a682dae7055065406b3ce06a3408f8555accd4ed2498bb9120db498711ece5d23484e', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-15 01:26:41', '2020-12-15 01:26:41', '2021-12-15 01:26:41'),
+	('0fd255b650dd1ba3a11bb102eabec480910769b2e63ecb6640a6bf7c82771952c5a42f823758f101', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-15 07:37:57', '2020-11-15 07:37:57', '2021-11-15 07:37:57'),
 	('105cbf6e6a3ae5945ed93d03040fd7bb5f42e0ea778e311ef55632418dd181dcb7bf6d3fead71965', 4, 2, NULL, '[]', 0, '2020-11-04 00:41:20', '2020-11-04 00:41:20', '2020-11-04 08:41:20'),
 	('1086c1ffb9a2af4883fb3f310b2a6db0b4de0d7701dcd3602c286e3827690f150b9d2eb8cd51647e', 4, 2, NULL, '[]', 0, '2020-09-26 05:16:03', '2020-09-26 05:16:03', '2020-09-26 05:28:01'),
 	('10920c39badface89549331c04180b5c4e14c8f68695065dc652d0c7b48e8febd74c516621124131', 10, 1, 'MyApp', '[]', 0, '2020-11-04 01:44:17', '2020-11-04 01:44:17', '2021-11-04 01:44:17'),
+	('10963d11e1c45833a3791cc17701dd066ec01c69dfd18e0d48af45b407cf9352ebbef1ae81df0ab1', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-21 17:37:22', '2020-11-21 17:37:22', '2021-11-21 17:37:22'),
 	('10ed2967c437364da7299ab8b3fa1038e5459b8a3aa1073404f94678f5f2c6eb9b705dacdf158725', 4, 2, NULL, '[]', 1, '2020-09-28 20:35:51', '2020-09-28 20:35:51', '2020-09-28 20:47:51'),
 	('12173326af1a58765e39ea1ab8a5e7e974d9462ebced3a5dbc1c989d4709c95123a4a51b4d296374', 4, 2, NULL, '[]', 1, '2020-09-28 18:55:52', '2020-09-28 18:55:52', '2020-09-28 19:07:52'),
 	('12c0a9277b66d22b75e4149ee0afe8f58de18a7c5675d11426f343fc8396a5625a66d884856279d3', 4, 2, NULL, '[]', 0, '2020-09-26 17:36:02', '2020-09-26 17:36:02', '2020-09-26 17:48:02'),
@@ -263,25 +158,31 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('17d47a53081c52f3fb45cb9e72a860e664dce838cf2bd3074571c387d5c4321e67c070481736af14', 4, 2, NULL, '[]', 1, '2020-09-28 22:52:59', '2020-09-28 22:52:59', '2020-09-28 23:04:59'),
 	('18396d155a8a6a4f09642f984d5c2de6c174755cf45facc8c794ce553f65f47d48409b5927462b2c', 4, 2, NULL, '[]', 0, '2020-10-01 22:31:19', '2020-10-01 22:31:19', '2020-10-01 22:32:19'),
 	('18661482c72e6b6a2f8a00a1cc4481950fbd300495ecbd990a570d1f613f22886d27c1ef4a5e2526', 4, 2, NULL, '[]', 0, '2020-09-24 12:30:12', '2020-09-24 12:30:12', '2020-09-24 12:42:12'),
+	('18690d2f8367995cd147d64d7be23fba0be8f3dbfba1f4f4bb149efa4cf63eafda3837bc38e6f95c', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 17:57:42', '2020-12-14 17:57:42', '2021-12-14 17:57:42'),
+	('1894cbb925af4a3ae87b144ff09e2a24390ed837c793c0e0c91544974647e3480144773c9acb7e1d', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:11:45', '2020-11-24 18:11:45', '2021-11-24 18:11:45'),
 	('18a27f8562b5d8368be95276e138bc93e8f1f7fa1104685d2f81c4a46819cfad54ac711510100f42', 4, 2, NULL, '[]', 1, '2020-09-26 00:21:39', '2020-09-26 00:21:39', '2020-09-26 00:33:39'),
 	('18ab509186610e2d373fb2ab3dacc0ac219f91592500911aa6652b31605c12e3c40fa0e5bf473d1b', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 20:36:46', '2020-11-05 20:36:46', '2021-11-05 20:36:46'),
 	('18e80ddf991bae4beb0f2b132bd920b7b427411acaa923990bd9472a067d32fe87d279df7244034d', 4, 2, NULL, '[]', 1, '2020-10-04 04:27:36', '2020-10-04 04:27:36', '2020-10-04 04:28:35'),
 	('1921375516dfe8365d33b24916b6b9336c8b59d5355a4a5ed155d760109fd5e967afb4d3754a0f2e', 4, 2, NULL, '[]', 0, '2020-09-11 21:12:46', '2020-09-11 21:12:46', '2020-09-11 21:27:46'),
 	('1943c545ab166b7024f8fa61a8636ac1ce73c2306aa34f2f6d4636bff0cf319dfefc344f50d8a571', 4, 2, NULL, '[]', 0, '2020-10-08 19:49:12', '2020-10-08 19:49:12', '2020-10-08 20:04:12'),
 	('19bbcce3c17d14c357e91716081cdd8c3e885a689bb0ff62f5360e8d40a8a9876fa4b8fcf37d6a0f', 4, 2, NULL, '[]', 0, '2020-09-12 21:49:15', '2020-09-12 21:49:15', '2020-09-12 22:01:15'),
+	('1a4b7078cda1c4ab7bacdc1ddb95cdaf4b06a00f2b1acf55385926f615c3d97ec7eb9879d6c9e952', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:36:29', '2020-11-24 18:36:29', '2021-11-24 18:36:29'),
 	('1a4cef03d630422e6981f1a597d55dc20c02078b458dc01419716a9899c4b2c7f7ca19d97be356ce', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 00:04:16', '2020-11-04 00:04:16', '2021-11-04 00:04:16'),
 	('1a6778f136497264f975fd3fb09b4619f09adb4d60080837a43366170d66e4d002b300dc5f096eb0', 4, 2, NULL, '[]', 0, '2020-09-26 20:17:56', '2020-09-26 20:17:56', '2020-09-26 20:29:54'),
 	('1a8d0f69c0bd7d3c0c1cec456bb8d47d92e02f842ba52cc233d6a97c5ee609e0c760711cb664d20c', 4, 2, NULL, '[]', 1, '2020-09-25 22:55:47', '2020-09-25 22:55:47', '2020-09-25 23:07:46'),
+	('1adf201f587aac12a569b837f91bb07bde5c3ece7f05c7108ce2771e91586840ba70c45c08260492', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:36:14', '2020-11-24 18:36:14', '2021-11-24 18:36:14'),
 	('1aeff2893b5058f5a330f7237fe6abee532c5f706a07cd12b856137d5829dbb5f597535bd61e16bc', 4, 2, NULL, '[]', 0, '2020-10-16 19:18:32', '2020-10-16 19:18:32', '2020-10-17 03:18:32'),
 	('1b6f314a853828305f93e1598ae15340b0290d8ce3ae65a84ca8260e5386c0ec79d13c25025fabe0', 2, 2, NULL, '[]', 0, '2020-10-08 22:28:14', '2020-10-08 22:28:14', '2020-10-08 22:43:14'),
 	('1ca387f5c60aca5b17f692ebb7d0937c26f8e6249d997cc9c2e74e7c521caa56133fb524749fae79', 4, 2, NULL, '[]', 1, '2020-10-16 17:11:26', '2020-10-16 17:11:26', '2020-10-16 17:26:26'),
 	('1cb4af594417c5ccb3ebe90560be6cd2d6443edab456b31b24de5c506fcc99f646528b7ba4b6c98a', 4, 2, NULL, '[]', 0, '2020-10-01 20:46:08', '2020-10-01 20:46:08', '2020-10-01 20:47:08'),
 	('1ccd3c7c42abeda357065eb50cc1e6995dc7f39c86819d2fa53e27e533b7fdba0811aae094a8ae62', 4, 2, NULL, '[]', 0, '2020-09-25 20:47:16', '2020-09-25 20:47:16', '2020-09-25 20:59:16'),
+	('1cd7e49fe9c4290bbdc42750d3d772e47d58b9012728d9d5110cd2e717524445c920ad0a89f9e446', 24, 1, 'Personal Access Token', '[]', 0, '2020-11-24 15:29:15', '2020-11-24 15:29:15', '2021-11-24 15:29:15'),
 	('1cff9bea42271152f06fdbb6cd48af8e076e87963ae05ee7ed992cea0933fc3e80bb7b42a50eb26f', 4, 2, NULL, '[]', 0, '2020-10-05 01:02:38', '2020-10-05 01:02:38', '2020-10-05 01:17:38'),
 	('1d044eca855651341356ee224c3f1839f5b75994fc57a89edda373677b364fe878c2cad6d944460e', 4, 2, NULL, '[]', 1, '2020-09-28 19:11:14', '2020-09-28 19:11:14', '2020-09-28 19:23:14'),
 	('1d04face7c98f6dd1035eb0d75697cde5b9a36db02965ba835ea8dbf856a35426c612d703ceb59ee', 4, 2, NULL, '[]', 1, '2020-09-27 22:28:53', '2020-09-27 22:28:53', '2020-09-27 22:40:53'),
 	('1d052239b398c9cb9cae175fc52a21fb8184f68bf0f518328435a963111d5f864cb61e4ff6423937', 4, 2, NULL, '[]', 1, '2020-09-28 22:52:19', '2020-09-28 22:52:19', '2020-09-28 23:04:19'),
 	('1d2b48dc6b9cdcda071397362b1ac777da8a00ca4673c9f89dee7c930a2ce13ef23c914a9953a97e', 4, 2, NULL, '[]', 0, '2020-09-26 20:00:29', '2020-09-26 20:00:29', '2020-09-26 20:12:28'),
+	('1df0702d670ada95317a09b0492999e3db557bccaf9c8c3de657e35979700cabc04a9d336bfbdb9c', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 19:13:21', '2020-11-24 19:13:21', '2021-11-24 19:13:21'),
 	('1e6e3620c82173ea1b4bad7751f11ae196de9bea4bc289f29db0fbf1908dc1f4c2b81985da04a2aa', 4, 2, NULL, '[]', 1, '2020-09-28 19:41:41', '2020-09-28 19:41:41', '2020-09-28 19:53:41'),
 	('1e89a43ccc8f747153cebec187bc2aa7a06281d43108b8bb616b2be974d5ae892f54751f273749bd', 4, 2, NULL, '[]', 0, '2020-10-08 18:06:42', '2020-10-08 18:06:42', '2020-10-08 18:21:42'),
 	('1ec02d68976eb47db55c609392abd686429088a629d5e904f0d830a057f09f6f5ac7f0f4a18a67ee', 4, 2, NULL, '[]', 1, '2020-09-25 20:33:55', '2020-09-25 20:33:55', '2020-09-25 20:45:55'),
@@ -290,6 +191,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('2114a3a79867e6ae357d932d447b6e9a52f34a3b0adf5729593f83373c76bf42bf044ffeaff27944', 4, 2, NULL, '[]', 0, '2020-09-26 04:02:33', '2020-09-26 04:02:33', '2020-09-26 04:14:26'),
 	('21532a532897ab5cd0654536c2fea3c2cb118fcd8f4a35662ea8b3ef5829b4fd349d1cf05c78c5a8', 4, 2, NULL, '[]', 1, '2020-09-28 22:35:56', '2020-09-28 22:35:56', '2020-09-28 22:47:56'),
 	('218497e7b5732234950b056584140eeccd19152d722369919a22a53425f2bbe3a065ce6df248306e', 4, 2, NULL, '[]', 0, '2020-09-28 18:45:00', '2020-09-28 18:45:00', '2020-09-28 18:57:00'),
+	('21b96a2147d7fa40a49835c3db425424aed3d96b626768f5ce1bf3f24c171ff9c763341cd403ec5c', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-21 13:32:32', '2020-11-21 13:32:32', '2021-11-21 13:32:32'),
 	('21d8ec0cfd30b503621b7f2e8751f28f96c66ba2e982a41163cd31251f985be0736927f65aa82f09', 4, 2, NULL, '[]', 1, '2020-09-12 18:03:59', '2020-09-12 18:03:59', '2020-09-12 18:04:59'),
 	('22153108a0f74b1dc2df2ff17eb4d972c45c6d660817f5a3ee8b355915aaa8068bf715049336f98e', 4, 2, NULL, '[]', 0, '2020-11-04 00:42:29', '2020-11-04 00:42:29', '2020-11-04 08:42:29'),
 	('22ed0082c4e15ba2827dcea956256b03d3c95f3fca8d69f87c7e3065b84bd215ed97ca1d27aaf931', 4, 2, NULL, '[]', 0, '2020-09-26 17:20:13', '2020-09-26 17:20:13', '2020-09-26 17:32:05'),
@@ -305,12 +207,17 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('27385fc66aacf9ca8220d0d3d8de59c1c03e4512a4a8887d7d48d48fce9c4787f31d823d30e7c9dd', 4, 2, NULL, '[]', 1, '2020-10-08 19:24:06', '2020-10-08 19:24:06', '2020-10-08 19:39:06'),
 	('27424537635c7766b89c15504a5ae01c7a343a2fb471323ca33bcef8bda8b209ecb3d8877bed1940', 4, 2, NULL, '[]', 0, '2020-10-08 22:57:21', '2020-10-08 22:57:21', '2020-10-08 23:12:21'),
 	('27a825aee43db5378eeb7594672d7221f7ca3dde1031feec9795bca829e6364cebbd1f797343f489', 4, 2, NULL, '[]', 0, '2020-09-24 12:27:38', '2020-09-24 12:27:38', '2020-09-24 12:39:37'),
+	('27cf4bc5f5d89cfaac6d06268f354d72452c61c67c21e30556d8692d568e20930318afe69b08b8f0', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:15:20', '2020-11-26 05:15:20', '2021-11-26 05:15:20'),
 	('28189c2f0601035c857ad704adab2b739126e1e36bd7cb964ddf7d8170457bf75f85efb9c07bc47b', 4, 2, NULL, '[]', 0, '2020-09-11 21:13:18', '2020-09-11 21:13:18', '2020-09-11 21:28:18'),
+	('294afbd8f8d85aee339f429bf0a0731010b56bce00b8129e35452bab6e8d7ba53479ad4742f61649', 23, 1, 'MyApp', '[]', 0, '2020-11-10 21:54:35', '2020-11-10 21:54:35', '2021-11-10 21:54:35'),
+	('298ce96e3d5786732eb8770eb95ceadf3145fe041f618e9d81b20917c9ce5f35fed25bd6f3c98774', 17, 1, 'MyApp', '[]', 0, '2020-11-07 21:46:22', '2020-11-07 21:46:22', '2021-11-07 21:46:22'),
 	('2a829f2c4d9f958d54701084ff080b615882829f34858de6368ee4eae3c94f03963f320def7040db', 4, 2, NULL, '[]', 0, '2020-10-02 02:22:51', '2020-10-02 02:22:51', '2020-10-02 02:23:51'),
 	('2aa999d5a824e4f99e78629b9d47c07136018f413285732af7c6b8faa2503157fcda80af8b4e2e2b', 4, 2, NULL, '[]', 1, '2020-10-09 20:45:27', '2020-10-09 20:45:27', '2020-10-09 21:00:27'),
 	('2ab471157d26f891741d8c67ee330b4a71a97a73ca5a8a4ca836876e1281982cf7fed318a5bec572', 4, 2, NULL, '[]', 1, '2020-10-04 04:57:59', '2020-10-04 04:57:59', '2020-10-04 04:58:59'),
 	('2bf969448481587ac0a4a309564135303d51f1a90cca5746c49edc35ebc97d7252b20766e89d1a61', 4, 2, NULL, '[]', 0, '2020-09-15 16:47:36', '2020-09-15 16:47:36', '2020-09-15 16:59:36'),
 	('2c5a3a5f8c20472876463f7daf620e1a010586ffdde3253da76ae7f9d02eac1708395dec99922584', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 02:33:52', '2020-11-04 02:33:52', '2021-11-04 02:33:52'),
+	('2c85d66332a568a9691af99882f9dea0ab21e9f09a0475e17170499d09a534748253b07885d076e2', 22, 1, 'MyApp', '[]', 0, '2020-11-10 20:03:36', '2020-11-10 20:03:36', '2021-11-10 20:03:36'),
+	('2cb9010712155c594d6bfd2e3796a8c4da054a7648323edd27f66f844ae137ece1914218a2c96426', 23, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:34:16', '2020-11-10 22:34:16', '2021-11-10 22:34:16'),
 	('2cc6f09b524c93fd7e611e4fedadfa6a57b5859bf189a3f030768b959b6c35e9feae4c85aefca1d9', 4, 2, NULL, '[]', 0, '2020-09-27 23:06:40', '2020-09-27 23:06:40', '2020-09-27 23:18:40'),
 	('2d340e536ddd5c0c29b50e49938912df8b4988c2573810accc0ffe84e54ac802de95a8bea2d742a4', 4, 2, NULL, '[]', 1, '2020-10-09 23:08:42', '2020-10-09 23:08:42', '2020-10-09 23:23:42'),
 	('2d631621333e64d8a2ff36dc518b6cd8d214bac31366627dabf3264c47538541c2f8252a133abb86', 4, 2, NULL, '[]', 0, '2020-10-05 05:18:38', '2020-10-05 05:18:38', '2020-10-05 05:33:38'),
@@ -324,11 +231,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('30dc405cd99e3ec0469d829f408d8a127fe1a819d573081bd246c732a450d6a722e1544c8171df0f', 4, 2, NULL, '[]', 0, '2020-10-01 17:31:32', '2020-10-01 17:31:32', '2020-10-01 17:32:32'),
 	('3126e130e516e54dca06834608e3bbdab08a4c44bee0e6d595c93c82934aa472ea4af27ecf2b36aa', 4, 2, NULL, '[]', 0, '2020-10-02 00:06:38', '2020-10-02 00:06:38', '2020-10-02 00:07:38'),
 	('312dd1da6cdaa147dbc8e5ee252065829d2c0097b4357d95ebcefc2ea321771507df284a23163b74', 4, 2, NULL, '[]', 0, '2020-10-01 20:47:24', '2020-10-01 20:47:24', '2020-10-01 20:48:24'),
+	('31415e42519c9bda0d6f056c57de90ec75d8e2835349e394a1fe43d43c916022bab5b4479888f8cf', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:40:36', '2020-11-10 22:40:36', '2021-11-10 22:40:36'),
+	('3192ea2b5609b61fa2e4984ba3bac50c91e26f0abb77ec32f65894519ee074d56f1b1cb442d4085e', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:28:59', '2020-11-26 05:28:59', '2021-11-26 05:28:59'),
 	('31951c3c096b86fbf2d061697d8c85d2cb7c9e56548044229cfb7f5f20e78188ed2f1ddd4bedd4c3', 3, 2, NULL, '[]', 0, '2020-10-08 23:04:14', '2020-10-08 23:04:14', '2020-10-08 23:19:14'),
 	('322f7ca76357c5fdce71746de72cc18a73908ca9ac0dc223aacd1e2c8781a0e4744eb98c6e23c36d', 4, 2, NULL, '[]', 1, '2020-09-26 18:29:44', '2020-09-26 18:29:44', '2020-09-26 18:41:43'),
+	('324592666044bbf03527ed2f23a7394c8fe9c66489d5da3862703aeb54480e8e6e13f253361886e5', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-15 07:45:49', '2020-11-15 07:45:49', '2021-11-15 07:45:49'),
 	('3251d82fe31f1fd54e438bf86d4d23a8cf6ac24436419ca9dcb780d3921c82cf949a384c328254d9', 4, 2, NULL, '[]', 1, '2020-10-09 23:24:30', '2020-10-09 23:24:30', '2020-10-09 23:39:29'),
 	('32c1d6ecd5ced37ab4fcfa98415aff65f96451edb72cce6a2056c559bdb5614e9905fe981c4a16f0', 4, 2, NULL, '[]', 1, '2020-10-04 04:44:25', '2020-10-04 04:44:25', '2020-10-04 04:45:25'),
 	('32ecbee381183d9515ddc8639f36e7efa83c027a2bfe239cee1105eb35a3d2722b37b0cfee8e94b6', 4, 2, NULL, '[]', 1, '2020-09-24 12:05:00', '2020-09-24 12:05:00', '2020-09-24 12:16:57'),
+	('338b803bdafe40878edf3551c4d9290b600e93adac682c46b91574bc2500871c1b5e1b6045d2e9f4', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-27 16:39:18', '2020-11-27 16:39:18', '2021-11-27 16:39:18'),
 	('33ed5e87e2f356b9f276cfda339ca48f2865bc50925479e38b306867f99ed36ae14355ca568d4e45', 4, 2, NULL, '[]', 0, '2020-09-11 23:50:08', '2020-09-11 23:50:08', '2020-09-12 00:05:08'),
 	('341242fc18f9c544d68f1f813a8b89f0eeb05b4bbbf0d32ed0069ce3b698a66afea4e782937aad94', 4, 2, NULL, '[]', 1, '2020-09-12 18:07:14', '2020-09-12 18:07:14', '2020-09-12 18:08:14'),
 	('3416e9c0ed3dcaaab43d9048e8ad85923558790648b266916e8f7664680514f09dcf6a423568da43', 4, 2, NULL, '[]', 1, '2020-09-26 14:07:01', '2020-09-26 14:07:01', '2020-09-26 14:19:01'),
@@ -344,6 +255,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('36d6116bee474e6c204dcb0635e4e6051a516115c63ac7a90e3a72eccc5a8d09780df2d2e48b74bf', 4, 2, NULL, '[]', 0, '2020-11-03 18:09:50', '2020-11-03 18:09:50', '2020-11-04 02:09:49'),
 	('370c5f02db856d75b88cbfa8a2b519ac994f8b98639594064b3df9b6e0460e9faf72485bc81c9858', 4, 2, NULL, '[]', 0, '2020-10-08 00:21:37', '2020-10-08 00:21:37', '2020-10-08 00:36:37'),
 	('37e38c8f81b1e1713fbddfaa31be745682a10765859abe5d06db55da95525b2da81b903da28d4300', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 16:30:39', '2020-11-05 16:30:39', '2021-11-05 16:30:39'),
+	('3811e5c23d265ff810d6c6712abe416989d3d00650b830f1535befdb72c621608b80191bb1bdb147', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:07:26', '2020-11-24 18:07:26', '2021-11-24 18:07:26'),
 	('3834d6e06e3cc12d4de4cb64f31875c48565166ffbf25465db8bb63c6704faedf36a3c01fbfda100', 4, 2, NULL, '[]', 0, '2020-10-05 01:46:58', '2020-10-05 01:46:58', '2020-10-05 02:01:56'),
 	('39b57ad83e2fb130c4f90e029d3b8083d6fff0b3e0aadb88860beec20b9d8c2bc422b1dc8f665b39', 4, 2, NULL, '[]', 0, '2020-10-09 18:28:36', '2020-10-09 18:28:36', '2020-10-09 18:43:35'),
 	('3a78af3934ce2fa0359b22e480956acacbd8ea939e42adb354877658d01bc43556ee79e96954157e', 4, 2, NULL, '[]', 0, '2020-10-01 17:34:05', '2020-10-01 17:34:05', '2020-10-01 17:35:05'),
@@ -353,26 +265,38 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('3d0073d46b73494c7af4e6222995254baf2fb6ae531611790015a8b0903acb7ea6bca2ef816dc92a', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 16:31:39', '2020-11-05 16:31:39', '2021-11-05 16:31:39'),
 	('3d12b23253fcb46013982601987156cdbf2e31459b3142a635d2a92d6d4ad87cac0eb8154b2b22e2', 4, 2, NULL, '[]', 1, '2020-09-26 00:52:02', '2020-09-26 00:52:02', '2020-09-26 01:04:02'),
 	('3d98e208c336b901b11ab9bc02c96732ac634c5f6e064cbc06f461036a161525dea19b4d35bb45df', 4, 2, NULL, '[]', 0, '2020-10-01 18:57:14', '2020-10-01 18:57:14', '2020-10-01 18:58:13'),
+	('3dbfb9fbf945f5c626d0952009fb0827584b7df01a60f9ef87780237e075e342c9d8dab45eb3c902', 18, 1, 'MyApp', '[]', 0, '2020-11-10 15:45:21', '2020-11-10 15:45:21', '2021-11-10 15:45:21'),
 	('3e7941188fca9e14a1bcc61834860af50c883fb937b91067b5ed05457b7e3e614d9344a98cb71b6e', 4, 2, NULL, '[]', 1, '2020-10-09 19:03:51', '2020-10-09 19:03:51', '2020-10-09 19:18:51'),
+	('3e7dfaccf4becc12fbcf8e0cc1fd9cc07df8fb4f69543d0196a7840128334e7a309b7d8d6801f92f', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-15 00:43:39', '2020-12-15 00:43:39', '2021-12-15 00:43:39'),
 	('3ebef09bd57547fb824894d4aff42427710176af7b795050bf7cf95f7e8a130605360ffb0b1b246e', 12, 1, 'Personal Access Token', '[]', 1, '2020-11-04 02:17:58', '2020-11-04 02:17:58', '2021-11-04 02:17:58'),
+	('403ff4bb51e4221b19ad884f1792628f1318be0d0f95e9e69fa06834590ea1c47a7198516147d500', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:24:52', '2020-11-10 15:24:52', '2021-11-10 15:24:52'),
 	('406b362dd6b7f5743de5358b998fbe6f19ce6c2d35f6ae9428fbe4807531878b6acc2cf93c525526', 4, 2, NULL, '[]', 1, '2020-09-26 18:44:16', '2020-09-26 18:44:16', '2020-09-26 18:56:15'),
 	('41c270b5f09832b761ff070df71a94c3548a89cdbecc8615a8bad7022264d6d21686ea501c7daf99', 4, 2, NULL, '[]', 0, '2020-09-18 03:01:09', '2020-09-18 03:01:09', '2020-09-18 03:13:09'),
 	('41ec6d784042edd6a5ff7de7e75d81c5eb62b2e4c85d40bf9c68185b66bbbe710ef69165d6d9b35f', 4, 2, NULL, '[]', 0, '2020-10-22 13:40:57', '2020-10-22 13:40:57', '2020-10-22 21:40:55'),
 	('42e8f4507e1300323b6a6620fb3afe58548ebd763780b1b1cae95ada0d739b933520100349e4a65c', 4, 2, NULL, '[]', 0, '2020-09-21 00:13:52', '2020-09-21 00:13:52', '2020-09-21 00:25:52'),
+	('43cb30bfa10db7688c1bb4d7a439ee430f4fc73cc33305e40e7407df1b5ebe4df9236f2ed1150529', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 20:07:31', '2020-12-14 20:07:31', '2021-12-14 20:07:31'),
+	('4479ea7f1c33749ef2973c3ee0e9801a83ba2b40d7a87a940872079013b3e533e78f57726a52a1b2', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:10:39', '2020-11-24 18:10:39', '2021-11-24 18:10:39'),
 	('44f25b9a61b9e246382fbdde9fceb47e3e6d1dbd567f2de07065695c371b47da67c16cd2c9800a89', 4, 2, NULL, '[]', 0, '2020-10-01 17:34:32', '2020-10-01 17:34:32', '2020-10-01 17:35:32'),
 	('451b91e18e4c32b34869d0605a5315808deb84588c028d152ec98774d2dd67945afbadb7b213a8a0', 4, 2, NULL, '[]', 1, '2020-10-04 04:55:51', '2020-10-04 04:55:51', '2020-10-04 04:56:50'),
+	('462c2b0891beb0dd88d5dada80feabd48689d28d88af34a64834e09a6b1bef3229e68a19146a6fd8', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 21:51:31', '2020-11-10 21:51:31', '2021-11-10 21:51:31'),
 	('468557ba9c8b1b582598732e33f086029a1cc266051e3722f01bba37b3f1cd0b1e30727f2ba0be20', 4, 2, NULL, '[]', 1, '2020-09-16 17:48:43', '2020-09-16 17:48:43', '2020-09-16 18:00:43'),
 	('4757d533728195560b25c82e0497fa5943b0446d08e01a9714927e36ef9576efbb2b2c07bdad59e1', 4, 2, NULL, '[]', 0, '2020-09-12 17:03:45', '2020-09-12 17:03:45', '2020-09-12 17:04:45'),
 	('475bb14214b4d69f1d33f7f771fe2d7b0a9802dc08c6cd125741c624abfb25d5fce5e7b001fab6c6', 4, 2, NULL, '[]', 0, '2020-09-11 19:12:37', '2020-09-11 19:12:37', '2020-09-11 19:27:36'),
 	('47a1448b3412293592586dca275f3c56e84349714f8e1691073c4132afc38c5ed67d1dfffdcf949f', 4, 2, NULL, '[]', 0, '2020-09-16 19:11:56', '2020-09-16 19:11:56', '2020-09-16 19:23:56'),
 	('47ac1b12c26220ddf35a1a2c9a6be30889b97ae9ec766949e734a3658ebbab32741a5bff1687b9f6', 4, 2, NULL, '[]', 1, '2020-10-26 04:25:24', '2020-10-26 04:25:24', '2020-10-26 12:25:23'),
+	('47d2ede141ff24765070ab471177e196e04b7ecfb6081806a585f8203383fda96e167f09c1a041b7', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-15 05:41:29', '2020-11-15 05:41:29', '2021-11-15 05:41:29'),
 	('48210ae9f46bafc446f43fa74c53a630f89ebff45b5d031e30649c9f048eaec4b8ad38a550c3db73', 4, 2, NULL, '[]', 0, '2020-11-03 18:45:05', '2020-11-03 18:45:05', '2020-11-04 02:45:05'),
+	('48a4db217be6649f982b9bb5dc4ac57bd68f6530213b4abb05dbf4c2fd6ec0502cd727d7fc8acaf3', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 21:36:12', '2020-11-10 21:36:12', '2021-11-10 21:36:12'),
 	('49454d483e79ccf3686289162ecf09f815bcb3ed6316bd98f7df4b63ff3dbbad1453ae36812bc49f', 4, 2, NULL, '[]', 0, '2020-09-12 20:59:58', '2020-09-12 20:59:58', '2020-09-12 21:11:58'),
+	('497898a3537119b610693c2404e3e0782a5f04ce5c67e12200d97d779fbada4f8a5d8953bafc5dd1', 39, 1, 'Personal Access Token', '[]', 0, '2020-12-15 01:26:15', '2020-12-15 01:26:15', '2021-12-15 01:26:15'),
 	('49c864b48c2628fa240ac9c196a5331cdeee004464898c740bb8e4a2f1580be150cc8756f566c486', 4, 2, NULL, '[]', 1, '2020-10-04 04:51:17', '2020-10-04 04:51:17', '2020-10-04 04:52:17'),
 	('4a7f2a616fd3585688204def6e1ddb9fda623b685d3c280458aa8dbe82ded1632315de2db53c4e59', 4, 2, NULL, '[]', 0, '2020-09-26 04:29:12', '2020-09-26 04:29:12', '2020-09-26 04:41:12'),
 	('4c01abe66704b243a50541e109195609e659bd3bdb0b96811aaa06247e3480095befc72dac0900d3', 4, 2, NULL, '[]', 0, '2020-09-14 16:09:11', '2020-09-14 16:09:11', '2020-09-14 16:21:10'),
 	('4c4021aa2c9b4973ee4c34b44d08fcadcf3595105c9a3a02c1d836142e13671163d8e5b14a20bc04', 4, 2, NULL, '[]', 0, '2020-09-28 19:42:32', '2020-09-28 19:42:32', '2020-09-28 19:54:32'),
+	('4cded7652ad659004b280f2b11b25bab4b4fd61302bac86d3027fe8523e0fe2aa5b0c1d224e61ee4', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-14 20:57:17', '2020-12-14 20:57:17', '2021-12-14 20:57:17'),
+	('4e0f8be5e23fa0942dbedb0c6346b58a5641e3356a9aad5b803ea6788043b7ffcfaa7019702cafca', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-14 23:04:42', '2020-12-14 23:04:42', '2021-12-14 23:04:42'),
 	('4e1cc05581489f87d6e973828d2cade9367a2c394a27041f7a2883aeb5ffb2fd60b52e74d780d9bb', 4, 2, NULL, '[]', 1, '2020-09-26 16:43:27', '2020-09-26 16:43:27', '2020-09-26 16:55:27'),
+	('4e2d4230b2ff1075259932b0b44eb61de7b43602a02b172f7338bdccab82a67ceafbdc23c4f0ff4e', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-15 00:56:23', '2020-12-15 00:56:23', '2021-12-15 00:56:23'),
 	('4ee69db30812a54dee856ebf007e2a464df384e61c8b0e61329322beaed1a17592a6b7098a6d9c27', 4, 2, NULL, '[]', 0, '2020-10-01 20:13:13', '2020-10-01 20:13:13', '2020-10-01 20:14:11'),
 	('4efcde0ff456619d67481bf2459fbdc3821a2248a2019b1b82ac0f047997b709e5888710e3d72358', 4, 2, NULL, '[]', 0, '2020-10-05 04:52:42', '2020-10-05 04:52:42', '2020-10-05 05:07:42'),
 	('4f606656f042adf52aabc08aaf1b57a1269a90f2b387894467ba4c7698b7d25e378eae1dd49074b5', 4, 2, NULL, '[]', 1, '2020-10-10 14:11:34', '2020-10-10 14:11:34', '2020-10-10 14:26:34'),
@@ -388,12 +312,16 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('538151b5778eb17ec8c9a21abed8e175d448be3f7a941e806ea1d2b8d4f3b0da2c80e39bc9c0e3ea', 4, 2, NULL, '[]', 0, '2020-09-26 17:41:45', '2020-09-26 17:41:45', '2020-09-26 17:53:43'),
 	('53f47bbedc47832782de754f59f987dda162f3b78473bcd253e949a14fb07118a8624260cd597cb4', 4, 2, NULL, '[]', 0, '2020-09-26 16:08:49', '2020-09-26 16:08:49', '2020-09-26 16:20:49'),
 	('543f0907702c8541acfb6aa1abcd2b8aa9e330a829013bd17955883d27263fe09c368606cf31ccc2', 4, 2, NULL, '[]', 0, '2020-10-05 04:08:13', '2020-10-05 04:08:13', '2020-10-05 04:23:11'),
+	('547a6b55f9a28248aa138e9f3dd286774ca5abb9075222451ba23c87f61e56900bebae8195b53020', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 17:24:11', '2020-12-14 17:24:11', '2021-12-14 17:24:11'),
 	('54b6c9f165e382b9b1c3e50b74e2afc7da04c3fd34de22e352b2acb48591e5a85cee696eca363503', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 20:45:42', '2020-11-05 20:45:42', '2021-11-05 20:45:42'),
 	('54f51032431bc6c876e7bd5ba06b4651303553d360f583f4c67a0593a32f515171333a00f1f6519a', 4, 2, NULL, '[]', 1, '2020-10-16 17:34:11', '2020-10-16 17:34:11', '2020-10-16 17:49:11'),
 	('55feee5091b80bc0d8172437a4c407def3eed14ae5f15cbb78c38884e1e6ec4b7685bd8d4e2712c9', 4, 2, NULL, '[]', 1, '2020-09-14 15:27:23', '2020-09-14 15:27:23', '2020-09-14 15:39:23'),
 	('56718fc31478e5655e5f427f5bd1ea35a7e6e906cb7316e5896aaacb85a727d3d4e027fbe62cb3dc', 4, 2, NULL, '[]', 1, '2020-09-26 13:43:26', '2020-09-26 13:43:26', '2020-09-26 13:55:26'),
+	('56a8d13043325ba1eb70d20afe12ac7f6ae3066b57b35ef8ed6444a9191e277dcaf17f92b6b8c36f', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-30 16:09:35', '2020-11-30 16:09:35', '2021-11-30 16:09:35'),
+	('56b7a223fa57b39b0ece3400ba8eba94611706597a83829385aca67e386331b86327e874e5d63dd3', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:44:02', '2020-11-26 05:44:02', '2021-11-26 05:44:02'),
 	('56d7ac9ce80b55f4a82f957cbdf1356bb7555b388608ba7c4b39a72be31e37e20dd6f561c706a8f0', 4, 2, NULL, '[]', 1, '2020-09-14 21:06:37', '2020-09-14 21:06:37', '2020-09-14 21:18:36'),
 	('573b645b43451efefaa39107140cbbba5414ec57bec41b4fd137d851d36f3c099bef51d20aae95c4', 4, 2, NULL, '[]', 0, '2020-10-08 19:44:14', '2020-10-08 19:44:14', '2020-10-08 19:59:14'),
+	('58a00cc2e39e171ec9e038745685e91d768f7b8b8e707b87dcba5df00d79a16a7eb5a1d9d57c698a', 23, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:11:09', '2020-11-10 22:11:09', '2021-11-10 22:11:09'),
 	('5999d9caeab39006fee62920a712c118a7f985baf081ab2c468a7ee704594d87c76e5147c5e2c086', 4, 2, NULL, '[]', 0, '2020-10-10 15:37:08', '2020-10-10 15:37:08', '2020-10-10 15:52:08'),
 	('5a5bcc4951c21560eb4c9fcb851a1e5d0b66c5015020dc118e9d74ee14ef7507cd7eb1ad6b059b90', 4, 2, NULL, '[]', 1, '2020-10-09 22:28:17', '2020-10-09 22:28:17', '2020-10-09 22:43:17'),
 	('5b40515661a8a0ecb50127f569c08e5778933695731c2b7ec5c83ed71db086917e35de7e673b1191', 4, 2, NULL, '[]', 0, '2020-09-26 01:11:04', '2020-09-26 01:11:04', '2020-09-26 01:23:03'),
@@ -403,6 +331,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('5cba045916c8763f08932e3bd50b4e5df77e03e8fead8efc2a7407ff0270d246261fb6fa7de2cceb', 4, 2, NULL, '[]', 0, '2020-09-12 13:36:02', '2020-09-12 13:36:02', '2020-09-12 13:50:59'),
 	('5cc0ca3efb441d2714eb489b2f6213c2125e7f75c25a2bc8417a5703f8886cf24317b2cbf0293e3c', 4, 2, NULL, '[]', 0, '2020-09-26 16:42:53', '2020-09-26 16:42:53', '2020-09-26 16:54:53'),
 	('5cdce91f2e72beddaf563cf0a72366f15d5566244ff73bd811296b53b7c8140996cd50b8745732d1', 4, 2, NULL, '[]', 0, '2020-10-05 01:13:25', '2020-10-05 01:13:25', '2020-10-05 01:28:25'),
+	('5cf1bcb007e5404d6a436e260ae45f09be0c2b7a4e86e66a9faf9ee9528520502682e539f1a56436', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-17 12:28:40', '2020-11-17 12:28:40', '2021-11-17 12:28:40'),
 	('5ddc70a0471eb6b4eacaa00028de096de67b3304c410a460d31862f797dabd8d33983610f3a90d3c', 4, 2, NULL, '[]', 0, '2020-09-26 14:20:16', '2020-09-26 14:20:16', '2020-09-26 14:32:15'),
 	('5e09c170638a0afa238c00e452b296807ae0af40820cac1fea04ea9298e0cca6d00f701f33949846', 4, 2, NULL, '[]', 0, '2020-10-08 20:45:02', '2020-10-08 20:45:02', '2020-10-08 21:00:02'),
 	('5e0ac860f339324e038c958554ec2957b4f0b7024adcb6807fdceb991522362909d25f7e0ce73f4f', 4, 2, NULL, '[]', 1, '2020-09-18 02:57:39', '2020-09-18 02:57:39', '2020-09-18 03:09:38'),
@@ -429,32 +358,43 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('67b10faea36cc3641b3111c6d016dd4c020415ad874e63074d5850da28f28381490ce98a95157223', 4, 2, NULL, '[]', 0, '2020-10-09 21:55:41', '2020-10-09 21:55:41', '2020-10-09 22:10:41'),
 	('67dd7b11f86180b99216b6c4dd4a2dff64d342f50f5b36ae3f7a52dbff28dce5aae658cfe3aad64e', 4, 2, NULL, '[]', 0, '2020-09-25 22:43:57', '2020-09-25 22:43:57', '2020-09-25 22:55:49'),
 	('67ed5fe91a44f7f829762d6ea0274882f78e67db1d02b11ce879794169b5efd0f212d6911be0c6e5', 4, 2, NULL, '[]', 0, '2020-10-08 20:32:03', '2020-10-08 20:32:03', '2020-10-08 20:47:03'),
+	('68a89b7def4565601a4de452e73b5681fcc9fd9376ec15c0cf05f60c2476d39f3a20fecabbdf6b0e', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-07 18:27:41', '2020-11-07 18:27:41', '2021-11-07 18:27:41'),
 	('696f5f2716ab50e4b905a10c5d1529469291fd70d0f73fda8f9dd223e690ddbd74ed4857d44baceb', 4, 2, NULL, '[]', 0, '2020-09-26 15:19:39', '2020-09-26 15:19:39', '2020-09-26 15:31:39'),
 	('69ae9941acb4a68d7342d3d251e21597adee9bd22c107c97be8181bdf96ea476839846cd528dff17', 4, 2, NULL, '[]', 0, '2020-10-01 17:51:57', '2020-10-01 17:51:57', '2020-10-01 17:52:56'),
 	('6b5caf7f643ea56b91fc480e7bf924f3d4b252c41dacd81d9508dedab91b46be8428b5eefe914069', 4, 2, NULL, '[]', 0, '2020-10-01 20:18:58', '2020-10-01 20:18:58', '2020-10-01 20:19:58'),
 	('6bac594caa1f0790ef1d9223bdbb1156df48b70145d119437cc1f5a25ff9d26a5caf99cf815bac6c', 4, 2, NULL, '[]', 1, '2020-09-18 02:41:11', '2020-09-18 02:41:11', '2020-09-18 02:53:11'),
 	('6c2421503206cbe31a5910aa57a6cdb874ca872336200c7d04b54b5aeef66afbfab741ddb20fef7e', 4, 2, NULL, '[]', 0, '2020-10-08 23:01:07', '2020-10-08 23:01:07', '2020-10-08 23:16:07'),
 	('6c313f606c889cd61e8314fadc1d88fb5048d8fe935acdebb24cf3abfa1600d0bc3f957d4dea4a62', 4, 2, NULL, '[]', 0, '2020-10-08 19:23:09', '2020-10-08 19:23:09', '2020-10-08 19:38:09'),
+	('6c8df91f34576da3da63fcd4e32f61391e53cb972794412b5b91151eb38255091879cfea1ca00336', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 14:15:46', '2020-11-10 14:15:46', '2021-11-10 14:15:46'),
 	('6d4eb8fd519d0d6c94182e161421a235200cb839ba82adbcc897e167b1d85d8025757e5e1a7b8350', 4, 2, NULL, '[]', 0, '2020-09-20 23:59:24', '2020-09-20 23:59:24', '2020-09-21 00:11:23'),
+	('6d653a84480cc4b5d1558c5742a4e1b5ab340483f815403f741428d2bd1da877e64e5fe65969bb15', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-27 23:19:26', '2020-11-27 23:19:26', '2021-11-27 23:19:26'),
 	('6d7e3c095caf1258ea047a8b9382b2f0f0f3a0b90ba08a83eef9b221f2c746ec736409922631e09b', 4, 2, NULL, '[]', 1, '2020-10-16 17:11:23', '2020-10-16 17:11:23', '2020-10-16 17:26:23'),
 	('6e1661f25577f8e464289b7064f2167aff3ce483bd399844ec36eddc06c9a1fd3a7749520263bfe2', 4, 2, NULL, '[]', 0, '2020-10-16 16:29:59', '2020-10-16 16:29:59', '2020-10-16 16:44:59'),
 	('6e169f85a58f1f31da3040a31701c500849c8dcb2494d8119c21497a023db1a26aaef84b5727f466', 4, 2, NULL, '[]', 0, '2020-10-01 17:18:38', '2020-10-01 17:18:38', '2020-10-01 17:19:38'),
 	('6ec1cf14459181fe0e88b27455727e74dfd61327b1c5d2878f9c0c2303fb1bdd62c25862301d4404', 4, 2, NULL, '[]', 0, '2020-10-08 18:06:06', '2020-10-08 18:06:06', '2020-10-08 18:21:06'),
 	('6ee90aaa6638db9bb280b728821bc0446ecd86623c6c4fadce8179300447a81f20ddbb56f6f557c5', 4, 2, NULL, '[]', 0, '2020-09-28 19:47:09', '2020-09-28 19:47:09', '2020-09-28 19:59:09'),
 	('6fc9ee717d842c3ec23127e8523d589739f3dab5db37954c9b6e08bc6f0fbbf4c8bcc88ec32cab86', 12, 1, 'MyApp', '[]', 0, '2020-11-04 01:54:46', '2020-11-04 01:54:46', '2021-11-04 01:54:46'),
+	('6fe87b19c41ed136b496cb88b36ee9622fc5cdbebbee56a9dbdcb4841683d76273fa080cc5164e65', 23, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:35:49', '2020-11-10 22:35:49', '2021-11-10 22:35:49'),
+	('6fe8b2b719c24e057026d2c6cdcab74f41e26fecdffdf156b10b681367e1be41a7b0f59500532424', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-09 21:29:39', '2020-12-09 21:29:39', '2021-12-09 21:29:39'),
+	('70750e9d52dcd9c1399a38813bd3b7926a9a4f2971023d0f80d1ce672541a42d7b2bc2a6e55580f3', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-07 18:50:01', '2020-11-07 18:50:01', '2021-11-07 18:50:01'),
 	('718daa63ea815bfb6727c3f66552f28118831c307f147dd52318530d6be8cda71ce653293feb87a5', 4, 2, NULL, '[]', 0, '2020-09-29 19:39:34', '2020-09-29 19:39:34', '2020-09-29 19:51:34'),
 	('71a886890738fa6bee36cef488dd30927b327763158b8dd6a2905489967de8c426a43ef33594d84e', 4, 2, NULL, '[]', 0, '2020-09-27 22:43:30', '2020-09-27 22:43:30', '2020-09-27 22:55:30'),
+	('722c841415f2c25ea51e447dfb8f919cbe1155f75da2ea826c345b388ae46acf66f3503b434ae194', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 17:59:43', '2020-11-24 17:59:43', '2021-11-24 17:59:43'),
 	('72b00dd67e50dd57cd2d5d9d16ef62a5d9867b4a38fc5a63a884f754dc6f8ab67199be3ca298203b', 4, 2, NULL, '[]', 0, '2020-09-29 18:25:13', '2020-09-29 18:25:13', '2020-09-29 18:37:12'),
 	('72f49b2bc67b21b97474378218dff03792c0f46c8ea11609f7c343b96e91e1ba91195b07626c07ff', 4, 2, NULL, '[]', 1, '2020-09-27 22:29:08', '2020-09-27 22:29:08', '2020-09-27 22:41:08'),
 	('746c4a047f9e0d80fef1ddee0abcf89bbd414cc1f2c02a15d525b52a3ad224716c7e2ef26be3f1a6', 4, 2, NULL, '[]', 1, '2020-10-08 20:14:47', '2020-10-08 20:14:47', '2020-10-08 20:29:47'),
 	('74f842d4a9494a4550cd891624ef8a4d0b413907b9e4edabfa4d425d5283a4ad6d2fb49ba0c01b50', 4, 2, NULL, '[]', 0, '2020-10-09 19:45:52', '2020-10-09 19:45:52', '2020-10-09 20:00:52'),
 	('752a17f6ef2047203b09415154c754df7150d9f4f4b23ef2c3eecb20f6d4edfe107e0891cc081aec', 4, 2, NULL, '[]', 0, '2020-10-09 20:03:03', '2020-10-09 20:03:03', '2020-10-09 20:18:02'),
+	('75e425a969989148da7c8e3149541bd9d34a5cf2965997f708a81ac618cc4b4111d71e8dc9b1c903', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:57:30', '2020-11-26 05:57:30', '2021-11-26 05:57:30'),
 	('761e0d9fcf756b3959baadd83d04ce07a14aac4767437302299164f7ef26f7a1f0c0686aa1071f71', 4, 2, NULL, '[]', 0, '2020-09-12 23:35:00', '2020-09-12 23:35:00', '2020-09-12 23:46:59'),
+	('7671c7939de454be9b352db670e78b883d0ddbf1eea9f421ed6607e581485a142dc7df2444728cdd', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 19:04:48', '2020-11-10 19:04:48', '2021-11-10 19:04:48'),
 	('76974842a1431ff77bbd79f65a184a55688a991e70aa1a043e21d3a6dea07961daaa3b823cddd2ea', 4, 2, NULL, '[]', 0, '2020-10-10 14:11:41', '2020-10-10 14:11:41', '2020-10-10 14:26:41'),
 	('76bf6b28f230c8eaf3f33676036e79654feebf1460cf8006f75898cd55f02cd264b806ac5bebc2af', 4, 2, NULL, '[]', 0, '2020-10-10 16:03:54', '2020-10-10 16:03:54', '2020-10-10 16:18:54'),
 	('77b5dfda755e5223c95d94c398e607d874b70486baa4516aea57bf589e6f954ea7a739c0c7d37c09', 4, 2, NULL, '[]', 1, '2020-10-09 18:29:20', '2020-10-09 18:29:20', '2020-10-09 18:44:20'),
 	('7882a92cd9b387e8f93712d365da6fd796b6ea5fd50735b644da1b783d14c22ad1c763f45eea5182', 4, 2, NULL, '[]', 1, '2020-09-25 20:34:42', '2020-09-25 20:34:42', '2020-09-25 20:46:42'),
 	('78b7592097a37157a5d093f9abf70275bda28c513059f15f9b6f028a65f5cbc23974222b9b7b862e', 4, 2, NULL, '[]', 0, '2020-10-05 04:23:31', '2020-10-05 04:23:31', '2020-10-05 04:38:29'),
+	('78b81596e4a6e1510df6bae362b990467ed0e41668520551c444e5833d8d8d2a082dc47f936b7cfd', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-14 21:18:01', '2020-11-14 21:18:01', '2021-11-14 21:18:01'),
+	('791a8e81a8c62e72fb0f9995610f0c54c8b4e696dbcbafe87266ba16fa0ea6e2ea0c8ff44e7685b5', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 17:10:33', '2020-12-14 17:10:33', '2021-12-14 17:10:33'),
 	('7a725b149feb214fed0dffb05ef30ff14fbdd2e72b67b92031ae35548d08806602e2b8748e873c21', 4, 2, NULL, '[]', 1, '2020-10-09 19:47:48', '2020-10-09 19:47:48', '2020-10-09 20:02:48'),
 	('7adc370faa040c34764eb927740cbad959e3cb0f57da2f493fda9b7d7f524bb32e9bd260408b7482', 4, 2, NULL, '[]', 0, '2020-09-28 20:32:36', '2020-09-28 20:32:36', '2020-09-28 20:44:36'),
 	('7afcab3cf2020c7c3f77cbbba2834b0cb1f0c56e21d882d4c204dcddf145caf77a6e7177e90cc439', 4, 2, NULL, '[]', 0, '2020-10-01 22:31:46', '2020-10-01 22:31:46', '2020-10-01 22:32:46'),
@@ -491,6 +431,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('85c459aac5f01e39073995ad5b6e2f85dd628c025689e77a2ac6d93c180f325dadcd7161a488fcc3', 4, 2, NULL, '[]', 0, '2020-10-08 21:55:20', '2020-10-08 21:55:20', '2020-10-08 22:10:20'),
 	('8722912918e4810de4aa295224cdfb679a78b7f8a6ebc5eb417417cfe5fd2a2faa0ff37aa3cd132c', 4, 2, NULL, '[]', 0, '2020-10-01 23:18:34', '2020-10-01 23:18:34', '2020-10-01 23:19:34'),
 	('877cc61d0afc8cdddffdec3f5ad4f85522ba66b3b9c3728674cb1b72759ecbcf501fbd58bf4e5ba2', 4, 2, NULL, '[]', 0, '2020-10-16 19:35:09', '2020-10-16 19:35:09', '2020-10-17 03:35:09'),
+	('87d11d9f7eedac89d14160bce2c93ef8cb72dbef5298f6b17716f5acc8892bb9dd3149bb3cf29b08', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:42:09', '2020-11-26 05:42:09', '2021-11-26 05:42:09'),
 	('880655df788bf5677260d55d51472bf26e570d62940073684a61bbf0889ae77793a5459eae343ce2', 4, 2, NULL, '[]', 1, '2020-09-26 00:38:31', '2020-09-26 00:38:31', '2020-09-26 00:50:31'),
 	('8836e64b6dfd557d50c720e63f906418f8935fdb116f4e788847b9e2e48777b9e3413f67ff4e89ae', 4, 2, NULL, '[]', 0, '2020-09-28 22:01:53', '2020-09-28 22:01:53', '2020-09-28 22:13:53'),
 	('88f0f6604ecf765115a8ac97bc7f7a0133d86d94913b3a5e8f9ea8cc6e61a471dd510583a4b1559f', 4, 2, NULL, '[]', 0, '2020-10-01 17:08:28', '2020-10-01 17:08:28', '2020-10-01 17:09:28'),
@@ -500,11 +441,14 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('8a5031b35ba95650c93cf93204ced0569daffde1f966ddd805f6908a643d39e80c8614a84c792b49', 4, 2, NULL, '[]', 1, '2020-09-18 02:57:27', '2020-09-18 02:57:27', '2020-09-18 03:09:27'),
 	('8a5b9f6c9d0ca45554e8b3a514349e67bc3cb16a10d63398addb85613f3da38d5e9fe634b101a23c', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 00:39:32', '2020-11-04 00:39:32', '2021-11-04 00:39:32'),
 	('8a65185cfdbd28659012917d0e699ea21f8f651eb94497baa4da92424f00b9d06478cfa770af944e', 4, 2, NULL, '[]', 1, '2020-09-20 23:44:48', '2020-09-20 23:44:48', '2020-09-20 23:56:48'),
+	('8c1676d2fa45f449f6c7d3aef58e390d910bbd723738ea9b9ce28c6f81d2941820f2d5cdc2da169a', 19, 1, 'MyApp', '[]', 0, '2020-11-10 17:03:47', '2020-11-10 17:03:47', '2021-11-10 17:03:47'),
 	('8c27f364c4d636cc896b2970af21a540fdefe2ff1a6ed9d9dfa00d396938168cd05fe0d689d6117e', 4, 2, NULL, '[]', 0, '2020-10-08 18:13:03', '2020-10-08 18:13:03', '2020-10-08 18:28:03'),
 	('8c392387f991d4b8af27de33f63e59480e7103c535a4038d63e75999cc2a5a7c592b797dedccd931', 1, 2, NULL, '[]', 0, '2020-10-08 21:56:39', '2020-10-08 21:56:39', '2020-10-08 22:11:39'),
 	('8c68bf955ec89c02769ca3458bcc1881e9b0b53a0c9003d2861f36c00c7cb4d38ad3eda1207df133', 4, 2, NULL, '[]', 0, '2020-09-28 21:15:27', '2020-09-28 21:15:27', '2020-09-28 21:27:27'),
 	('8cc6f334a210a9a59b4f56a6ac1cca72503ffdb6a2b381f705873c85211d080364b96e7aafcd65b0', 4, 2, NULL, '[]', 0, '2020-09-30 21:57:14', '2020-09-30 21:57:14', '2020-09-30 22:09:11'),
+	('8d8f8acfc014910d381261012aca2e6c0d8009193b9fc45c41d513bd878015915155783404c9407d', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-05 21:39:19', '2020-11-05 21:39:19', '2021-11-05 21:39:19'),
 	('8e8edc2a85899451941b4e363490d64d5a8ba0642582599f62105ac914832f1bfc35a016b7230565', 4, 2, NULL, '[]', 0, '2020-09-25 21:17:30', '2020-09-25 21:17:30', '2020-09-25 21:29:29'),
+	('8efd0428ae8d343d0aa25540762112fddc19ef43d98ee779ec91b222d46f70390a73f34228694ec7', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 16:41:56', '2020-11-24 16:41:56', '2021-11-24 16:41:56'),
 	('8f946f52a6f84185f8628a3bc1da8a608f535dcab3bfeb71d06b95e31a243aaac1e513b1c97ef76c', 4, 2, NULL, '[]', 1, '2020-09-28 19:47:13', '2020-09-28 19:47:13', '2020-09-28 19:59:13'),
 	('90a7e54d32f0f0bfd9fa2d1437892e2bd881881d9926ba1113c48b6e139e95190248467742aa10e1', 4, 2, NULL, '[]', 1, '2020-09-12 23:10:27', '2020-09-12 23:10:27', '2020-09-12 23:22:25'),
 	('90add5f33688c11c3ad7b2248f87dabd17853fd5c36b7eb8d7ecbfa688fd674afd431578b0a8f673', 4, 2, NULL, '[]', 0, '2020-09-18 02:41:26', '2020-09-18 02:41:26', '2020-09-18 02:53:26'),
@@ -515,28 +459,35 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('923450dd314b9b897f5b51b3d8f7cce51cb949044af4631f95f6ba86f17b883ac98e54841c56c82e', 4, 2, NULL, '[]', 0, '2020-09-30 23:50:45', '2020-09-30 23:50:45', '2020-09-30 23:51:44'),
 	('9303f20b4cf6ccfda3839965ce9bce6c6f6d27aaee0a543b85a13add0a036d8d730e8a425b174399', 4, 2, NULL, '[]', 0, '2020-09-16 20:51:04', '2020-09-16 20:51:04', '2020-09-16 21:03:04'),
 	('930f4ac3846ccf502669c1a0da728482087aa3516e8e75bc1ca8cb02a3058cd5feb9a4968ea1e6ff', 4, 2, NULL, '[]', 1, '2020-09-20 22:41:29', '2020-09-20 22:41:29', '2020-09-20 22:53:26'),
+	('9367c4597a5693e155a8b00ed38d5ea2787bedbac07ad773e20f5b5e20448f5b77f0ecaf515a9ff0', 25, 1, 'Personal Access Token', '[]', 0, '2020-11-24 15:46:38', '2020-11-24 15:46:38', '2021-11-24 15:46:38'),
 	('93b9389e12574f46ed375cc2220e05c5fb029ebed08231579c5f3dc54c7422a3624f64aa3c49778e', 4, 2, NULL, '[]', 1, '2020-09-27 20:45:43', '2020-09-27 20:45:43', '2020-09-27 20:57:42'),
 	('93eb46f238cbf058376eab95a75fd869baa5ca003dfe8bd9d7a43b77be866d869bf1a050e064ec10', 4, 2, NULL, '[]', 1, '2020-09-14 15:12:59', '2020-09-14 15:12:59', '2020-09-14 15:24:56'),
 	('9720c695adfc16a0580e69a50a49a339956192b83825de976e4677cc88e1de1200b39fc1bd3fd3d0', 4, 2, NULL, '[]', 1, '2020-10-04 04:24:37', '2020-10-04 04:24:37', '2020-10-04 04:25:37'),
 	('97b3d162f6b37966a9cd50d4e8b8543da2b46d092b1750a224d80fee36da7523d8c49f5630c2822d', 4, 2, NULL, '[]', 0, '2020-09-26 19:54:50', '2020-09-26 19:54:50', '2020-09-26 20:06:43'),
 	('981a7c3b6c0048e46253b2db0047c64dc4ead8a2be2bca1a6d37183cacb1842a038465d80d60a4c2', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-04 02:57:21', '2020-11-04 02:57:21', '2021-11-04 02:57:21'),
+	('984052f4aca97e53efe514b639376edc3bd76f30524a4e6a1ca29f5fc716f750d05fff9f7be4800b', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 14:17:22', '2020-11-10 14:17:22', '2021-11-10 14:17:22'),
 	('98f54c637bf6e67be91a9cb704b3a3531dd5c23d93e77f22920ac462971e43012bbcaeaa34883473', 4, 2, NULL, '[]', 0, '2020-09-11 21:13:04', '2020-09-11 21:13:04', '2020-09-11 21:28:04'),
 	('994610faa22789be5317cde090edafd511e23ed68ea0b99fdf50fdb8fa4b1b8cc07002efac7fd2b1', 4, 2, NULL, '[]', 0, '2020-10-14 17:03:18', '2020-10-14 17:03:18', '2020-10-14 17:18:18'),
 	('99aa9e83f1a0c3f39ca645bffd118cab3482df8d24add7171f9fb39f777069ae0b21c156afe1635e', 4, 2, NULL, '[]', 0, '2020-09-12 20:54:18', '2020-09-12 20:54:18', '2020-09-12 21:06:18'),
 	('9a12d054945b4480610abec117fc0545ad0ba1738604956efc94a630016ed2b8bf21582d8b18dcf3', 4, 2, NULL, '[]', 0, '2020-10-01 20:18:03', '2020-10-01 20:18:03', '2020-10-01 20:19:02'),
 	('9aa20771de0867e03563b2cb06eda8a0941a082020b41926b0549831262d11b4f3b5b1726b3fc812', 4, 2, NULL, '[]', 0, '2020-10-04 04:41:33', '2020-10-04 04:41:33', '2020-10-04 04:42:33'),
 	('9aac080579397c63978a5089d71d3b3ee6d9a83c0317d91311f464f97de8483ce78e77160fc069c1', 4, 2, NULL, '[]', 1, '2020-09-26 04:16:42', '2020-09-26 04:16:42', '2020-09-26 04:28:42'),
+	('9b525d3045c0d24af084a6662f9d8b12a1480ec29364d5048c69514379cd8ca689638aeab6b9e3dc', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:12:20', '2020-11-24 18:12:20', '2021-11-24 18:12:20'),
 	('9b8bcdf2139f3358e3f5fc275242f64d5d7f8c8c910c95f78b08febdeb8d87fa4fd3f8b27170c846', 4, 2, NULL, '[]', 0, '2020-10-16 20:14:55', '2020-10-16 20:14:55', '2020-10-17 04:14:55'),
 	('9bc4741cb0c44fb8c3bfde7310010e5f7442a4dbae3bc4ec5bfc55ee930ec8abf07b05b691729e48', 4, 2, NULL, '[]', 0, '2020-09-27 21:54:54', '2020-09-27 21:54:54', '2020-09-27 22:06:54'),
 	('9bd464324d79b84671dc88fd7cf7f388a835f9032717680c35b756b0740ba63dec2a00c719896102', 4, 2, NULL, '[]', 0, '2020-10-01 17:01:26', '2020-10-01 17:01:26', '2020-10-01 17:02:25'),
+	('9c0a1c861bcd6280f4b063540babd13a3631b7f88a3adaeb6828d5e21088f98a1bb58435ec771a93', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 06:04:13', '2020-11-26 06:04:13', '2021-11-26 06:04:13'),
 	('9c33f1dbd31c1bb603f1752c18b64f1d70055fac4b239df7d90c2a274817f8e489ce5c3eb894d398', 4, 2, NULL, '[]', 1, '2020-09-14 01:38:31', '2020-09-14 01:38:31', '2020-09-14 01:50:31'),
 	('9cccb045d6d23a2dbdb4090aa5e2841cfeb41ce5831b618a84d804291400d01f3e447a85961d9961', 4, 2, NULL, '[]', 0, '2020-09-28 23:08:46', '2020-09-28 23:08:46', '2020-09-28 23:20:46'),
 	('9dbaf3321a432012334b5060059909285e40d41287999ffa5bbcbdf09208dd35b768a483cb95723f', 4, 2, NULL, '[]', 0, '2020-09-27 22:58:31', '2020-09-27 22:58:31', '2020-09-27 23:10:31'),
+	('9df9fc5a3bb2ed7f8e22cf0feeff04fe5bb547f18cfced1c28dc2618e93f8d60bd53a60caa60515d', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-14 22:39:51', '2020-12-14 22:39:51', '2021-12-14 22:39:51'),
 	('9e31619546fbfef389038dba2a7ce7a90c7f236bee69361e7ef2ba5a6f6b7c20db497688fe719ff3', 4, 2, NULL, '[]', 1, '2020-10-04 04:46:58', '2020-10-04 04:46:58', '2020-10-04 04:47:58'),
 	('9e8314df6987ff871c2c7f0aee30942bbe8204a8fecc34f50d0e2dc2adac9621cc27b2c904c75b1a', 4, 2, NULL, '[]', 0, '2020-09-26 20:29:15', '2020-09-26 20:29:15', '2020-09-26 20:41:11'),
 	('9e9f770e05c44bd9873c42ca01a75f5d51e74cdc794e5a46ef80450a47b29aea6cc5a35a0112b25a', 4, 2, NULL, '[]', 0, '2020-09-24 14:44:18', '2020-09-24 14:44:18', '2020-09-24 14:56:17'),
 	('9f120b572dddc14a42553803a1ed239ef76c8f49386d0acd407b78bfe16f1c18862d87cc4bcf3753', 4, 2, NULL, '[]', 0, '2020-10-08 17:50:32', '2020-10-08 17:50:32', '2020-10-08 18:05:32'),
 	('a072c0332311d547e9f855fc2f789d23b1c14d0eec9a0ab1793ebd09f8e6b4a6dfecffcde0711406', 4, 2, NULL, '[]', 0, '2020-10-05 01:48:04', '2020-10-05 01:48:04', '2020-10-05 02:03:04'),
+	('a085c2f3586f841a5112fa8d83ef3fdc91697161b3e9a6533c484fd1b3ea1da3b2193fdc7ab42e51', 23, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:12:46', '2020-11-10 22:12:46', '2021-11-10 22:12:46'),
+	('a0e6c9fc8ba7815ccfc477b199b42a88f87ee18bf79f0a7823e35409a2414683f89e808edefbe5da', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:01:07', '2020-11-24 18:01:07', '2021-11-24 18:01:07'),
 	('a1c50f75429b5cf528bc12889641912753c3ae33e773f5b44dcc08aaf352a1f8ed66d120c480d55b', 4, 2, NULL, '[]', 0, '2020-10-08 20:08:51', '2020-10-08 20:08:51', '2020-10-08 20:23:51'),
 	('a3f0a34aa6d561427fffbf0392ad0f2b708ab60a36dd43320282259bdb9a4c9d8418a5653f6f64f5', 4, 2, NULL, '[]', 1, '2020-09-28 21:44:06', '2020-09-28 21:44:06', '2020-09-28 21:56:05'),
 	('a3f7bd4b324277ec45267a3c59a9150cb93aeca0c0e6810834e9c1fbab179b6300def2ad38b7abcb', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 02:35:26', '2020-11-04 02:35:26', '2021-11-04 02:35:26'),
@@ -546,12 +497,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('a5583d6bf7b979fdd99cf9f2e5e4438a69a38f98baa15f02b4e20b682746540a1676b7ebaa46304e', 4, 2, NULL, '[]', 0, '2020-10-08 18:03:45', '2020-10-08 18:03:45', '2020-10-08 18:18:45'),
 	('a5831a13b01572c3d0cea8e6b7a012f06375b2647a5764a5f7834aec7331b94288f4a0bcd7467069', 4, 2, NULL, '[]', 1, '2020-10-09 19:19:15', '2020-10-09 19:19:15', '2020-10-09 19:34:15'),
 	('a5bdbcc5f4d9a4f3c24b70adf3faced35371a8a5e7e962f65d34ae783f0dc58d8a8e0387e36685da', 4, 2, NULL, '[]', 0, '2020-10-08 19:13:59', '2020-10-08 19:13:59', '2020-10-08 19:28:59'),
+	('a623d76b1d3c9e5c56a0529613521aa21fd463f7fd85ba294954f52bb512eba99fa968995d7863fb', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:49:24', '2020-11-26 05:49:24', '2021-11-26 05:49:24'),
 	('a6e02b31a962cea4dd29bc4554d6b83dd376fd7b977b69c5730c2198db8b81407854725237b13fd6', 4, 2, NULL, '[]', 0, '2020-09-26 21:17:31', '2020-09-26 21:17:31', '2020-09-26 21:29:30'),
 	('a7671320133ce856e28c482b4adb2dbb64b0f20c801296c35c1772e648881ab9f95888a8e7e96535', 4, 2, NULL, '[]', 1, '2020-09-14 20:24:41', '2020-09-14 20:24:41', '2020-09-14 20:36:41'),
+	('a767a366d3e36ed4070bea151d7827c5cdf655375f6de4916dfd6f8e8a053dbf1be748e298887f87', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-27 16:56:48', '2020-11-27 16:56:48', '2021-11-27 16:56:48'),
 	('a7f2593d09c8fcb565c9d13001e59ecf678fd4c8efa43afc316fb4c3ecf6db0d0977cf566849399b', 4, 2, NULL, '[]', 0, '2020-09-20 19:53:00', '2020-09-20 19:53:00', '2020-09-20 20:04:55'),
 	('a80608e11722bef307e5f52d7688835cdaa31a5024e69430bd5c7758fb04565f7feda4e0c4540295', 4, 2, NULL, '[]', 1, '2020-09-14 02:16:32', '2020-09-14 02:16:32', '2020-09-14 02:28:32'),
 	('a8ae86c54d6ebc0513cd257c9324f8097685b4be03ba6bd915e4a4935a04ee8989bb4a6593fbe286', 4, 2, NULL, '[]', 0, '2020-09-12 21:47:35', '2020-09-12 21:47:35', '2020-09-12 21:59:35'),
 	('a8bf0e0aabee756ab03b4d22c26119980d86402f4a53b67454a0a222efad68378c7a140db902e94c', 4, 2, NULL, '[]', 1, '2020-09-26 00:21:20', '2020-09-26 00:21:20', '2020-09-26 00:33:20'),
+	('a8ebf60554a3a4811738a44ad9a2ab4989b11bd870fc0063381fa5b6c3e4a6c1ddf53466aa689c16', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-07 18:28:39', '2020-11-07 18:28:39', '2021-11-07 18:28:39'),
 	('a960af650dc61fdc3cac3118e2efeab3f07abfb9dcc7d6025d05de7d1f9d9f391bea83e2e263814c', 4, 2, NULL, '[]', 0, '2020-09-26 17:03:23', '2020-09-26 17:03:23', '2020-09-26 17:15:23'),
 	('a9794828f35eef50e672f14626df1a903948e9642bcd37b49f20eab9e3f98c162cdc93a47ed3a151', 4, 2, NULL, '[]', 0, '2020-09-26 00:52:29', '2020-09-26 00:52:29', '2020-09-26 01:04:29'),
 	('a9e3cd580993755debbd3522ebb7ebaf008ed74ca6cb93884dad983c1cc96b44a196f80b9318789f', 4, 2, NULL, '[]', 0, '2020-10-26 04:26:47', '2020-10-26 04:26:47', '2020-10-26 12:26:47'),
@@ -565,9 +519,12 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('abf93787d3763054aae1fd61fe4f5677173fd5c7c09f10b0c6b4d4a0a362023da0306f19def60f47', 4, 2, NULL, '[]', 0, '2020-10-01 17:15:05', '2020-10-01 17:15:05', '2020-10-01 17:16:05'),
 	('ac8f579fc7ba2d672f24ad56b33dbf3fe121911c7e9fdd1a3d8b2ae941ff62eeb6e1fbfb1e34d66c', 4, 2, NULL, '[]', 1, '2020-09-28 19:11:49', '2020-09-28 19:11:49', '2020-09-28 19:23:49'),
 	('acadbe1f823bbc8f6cc66444ddf15ff29825a2d9db70d29c0f4ed46a818b6a9000b0ee2acca0117c', 4, 2, NULL, '[]', 0, '2020-11-03 18:39:29', '2020-11-03 18:39:29', '2020-11-04 02:39:29'),
+	('acdae9f2e6dba463b944e5e7b2c92a518a06c6b7fb51dac70794d96dcc5232adb226eda9855c437f', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-07 18:15:55', '2020-11-07 18:15:55', '2021-11-07 18:15:55'),
 	('ad5fcbd786d6212556b2eeef34400fd7fd45c014661e6b78bde8f3d4644bf96a2ebbf28c433179b6', 4, 2, NULL, '[]', 1, '2020-09-29 02:26:08', '2020-09-29 02:26:08', '2020-09-29 02:38:08'),
 	('adfb2fa35950e244e0c441ab7853fa1abc9bd9dacc88c5582e02f3171b171e4b75883a30e32b4f14', 4, 2, NULL, '[]', 1, '2020-10-04 04:27:21', '2020-10-04 04:27:21', '2020-10-04 04:28:21'),
 	('ae63921e78d4bd114a298e4e749888a41920dce442d4d75b57ed9b34163ba1d31a1bfe749ff66e3b', 6, 1, 'MyApp', '[]', 0, '2020-10-16 16:18:48', '2020-10-16 16:18:48', '2021-10-16 16:18:48'),
+	('ae7e8e41b72dddd90b3b4ccadd5ef35769fb7d2b21c8fb2e4c4db1f8bb14435c26d84147132595cc', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:37:04', '2020-11-24 18:37:04', '2021-11-24 18:37:04'),
+	('ae7ea5534ba7589b402481c9c22c94c86b7cce40c079ef7e85281bdfedb379ea452f792d1eb644d4', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 00:14:14', '2020-11-10 00:14:14', '2021-11-10 00:14:14'),
 	('ae873cfe284e570f256ff945a6bea577b8637ec2fdfc590354b915286126068b022d5e5528bc5d66', 4, 2, NULL, '[]', 0, '2020-10-01 19:01:16', '2020-10-01 19:01:16', '2020-10-01 19:02:16'),
 	('aea7cd0781c48f3aeb995d241f3476e715ebc8fbffe4deaf05c869f0e45996398e12a904b2ba793d', 4, 2, NULL, '[]', 0, '2020-10-01 17:16:24', '2020-10-01 17:16:24', '2020-10-01 17:17:24'),
 	('aed25fef2736f9d6b275b002af7a48703a8bbafcd8909db28e338c38bb265aed41ed769921ac09b9', 4, 2, NULL, '[]', 1, '2020-09-14 01:26:23', '2020-09-14 01:26:23', '2020-09-14 01:38:22'),
@@ -576,6 +533,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('af2b2eedf7b0303bfa747be8c2860ace2aee949f82ba4ac321975fdb4ae23ae2a8108f3f7173e0ef', 4, 2, NULL, '[]', 1, '2020-09-13 23:34:01', '2020-09-13 23:34:01', '2020-09-13 23:45:58'),
 	('b01d6bbe5fba63f6db1d9d5898ae9deae007b3292f7fd6931b8ec06a955c08e90dd0901b581b3647', 4, 2, NULL, '[]', 0, '2020-09-11 21:13:26', '2020-09-11 21:13:26', '2020-09-11 21:28:26'),
 	('b077610d70ecc4d9fae0ee3cd916dab93718ba85274336a8e5d0b5cd06d3be5bba0d8591f83a442e', 4, 2, NULL, '[]', 0, '2020-09-29 02:56:09', '2020-09-29 02:56:09', '2020-09-29 03:08:09'),
+	('b086001b0b70df79d1d15780ae6923799071a9a1692d4c25131463c2c242212d3367a83090f4dc39', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 06:00:59', '2020-11-26 06:00:59', '2021-11-26 06:00:59'),
+	('b0c170530fd7833d527729e9c221a2da0a8473d68899ebe91b730441fcd3a0a8244c6d1f460bfd89', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 14:59:34', '2020-11-10 14:59:34', '2021-11-10 14:59:34'),
 	('b11b217e48b1f7ea9c718c65dbcdfacf7bb5838e38a953e2ef4dbab1c80e2b2aaac8988d81b9abac', 4, 2, NULL, '[]', 1, '2020-09-18 02:28:35', '2020-09-18 02:28:35', '2020-09-18 02:40:32'),
 	('b1394ef2e9c68d47a450ab49188a43a4963708ad7fc09b6a45e5f3f1f99da8a027fd77aaa21488f8', 4, 2, NULL, '[]', 1, '2020-09-20 23:45:14', '2020-09-20 23:45:14', '2020-09-20 23:57:14'),
 	('b14613d9702830a8778dc6aae976ef87df251dc2b004bb03323f7aeb3284958b9772c946bbd8f294', 4, 2, NULL, '[]', 1, '2020-09-28 22:35:35', '2020-09-28 22:35:35', '2020-09-28 22:47:35'),
@@ -583,6 +542,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('b1f7307bb2f859ffb13c2006190469163c205ca2b3f1ac30e609b7373c18fcae3e15746b4fb2e7eb', 4, 2, NULL, '[]', 0, '2020-10-01 22:25:47', '2020-10-01 22:25:47', '2020-10-01 22:26:47'),
 	('b2d0d27d11117c8d2aaadad99ae8408e2586a0fd57e4b7ced969684c66e2a35e3d6aaa0495f72ae4', 11, 1, 'MyApp', '[]', 0, '2020-11-04 01:50:12', '2020-11-04 01:50:12', '2021-11-04 01:50:12'),
 	('b341215b415f325f9234d426b6487bc463dfb737b53276594a17b531de9c4530f6b25ccb3df0d172', 4, 2, NULL, '[]', 0, '2020-10-08 23:05:09', '2020-10-08 23:05:09', '2020-10-08 23:20:09'),
+	('b360a5c91b8d8903a7f696cfff451a8c40287fbf05abcbd33c3f0039bb52c8732ad73f79bfad446d', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 05:40:21', '2020-11-26 05:40:21', '2021-11-26 05:40:21'),
 	('b3b433e0edd45fd79df9606549a34b6c032c504ea26fface77007a56a77240b8998310e59ce34017', 4, 2, NULL, '[]', 0, '2020-10-08 20:14:23', '2020-10-08 20:14:23', '2020-10-08 20:29:23'),
 	('b3c1d0834859c4b4645692d300747661438e4b24f83c26928bab03cf8971413541759f19a3f2d286', 4, 2, NULL, '[]', 0, '2020-10-08 23:30:07', '2020-10-08 23:30:07', '2020-10-08 23:45:07'),
 	('b3faafdf88ab74845778db8e584489e365a3f6e72e0978eba7876247039f976bc3fe114306e0247c', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 00:06:04', '2020-11-04 00:06:04', '2021-11-04 00:06:04'),
@@ -596,6 +556,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('b6904305d95ea7c519414dc4083f59c9e3d19dd884988a4e1370151cb4e8debb2c53a672f80965e3', 4, 2, NULL, '[]', 0, '2020-09-27 21:52:36', '2020-09-27 21:52:36', '2020-09-27 22:04:36'),
 	('b6ad09feade0cbd139a41457befcc53f3cb929147aba2ec13ccf38f8d57bb875f2c95f79df02f922', 4, 2, NULL, '[]', 1, '2020-09-28 21:44:13', '2020-09-28 21:44:13', '2020-09-28 21:56:13'),
 	('b6be9af79a71d3753e3a646036923a72129ed7d7b897638aae647c74db8c6bcaf04085b7c6418aaf', 4, 2, NULL, '[]', 0, '2020-09-24 14:46:43', '2020-09-24 14:46:43', '2020-09-24 14:58:43'),
+	('b7584ff2f6f6e44830c100ffd863f299b5adf5c2051af634da346ad1cc3edbfa3ce9e5f89df7862f', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-15 07:33:03', '2020-11-15 07:33:03', '2021-11-15 07:33:03'),
+	('b89cd44a56dcb34b9726ed9ca1697dcbb54957ad2616f070f27db238b2ee7d7c542fd08885573172', 17, 1, 'Personal Access Token', '[]', 0, '2020-11-07 21:48:48', '2020-11-07 21:48:48', '2021-11-07 21:48:48'),
 	('b974be345f3aa388c043c6ed33d5f04a501686cb662dd83075c88e1a15799bf56a10291fab822baa', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 20:38:23', '2020-11-05 20:38:23', '2021-11-05 20:38:23'),
 	('b998e25dc6f80a571755be037555fd26a8b468cb3d0ab95cdf03c747693c381fcaa3d7bd937a2a5f', 4, 2, NULL, '[]', 1, '2020-09-14 02:16:39', '2020-09-14 02:16:39', '2020-09-14 02:28:39'),
 	('ba49e734005832a07fb4e7563cf2703b7087c2ac962b4a3aeb4cd010365ce630bac8a11b8790988b', 4, 2, NULL, '[]', 0, '2020-09-29 20:07:04', '2020-09-29 20:07:04', '2020-09-29 20:19:04'),
@@ -604,6 +566,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('bd1243289dcf41e2f7b8d98f6effeb7dc48dc4c103a20496e896d1506e197a7ce5f1afe7257ee664', 4, 2, NULL, '[]', 1, '2020-09-14 02:48:43', '2020-09-14 02:48:43', '2020-09-14 03:00:43'),
 	('bd494a1e488f2cd1052ea2cfe928304244bb7535b915aa2cd37f8eecb9a9149788e35eaaed15500b', 4, 2, NULL, '[]', 0, '2020-09-14 17:26:27', '2020-09-14 17:26:27', '2020-09-14 17:38:27'),
 	('bd5dafc30b776c3add3cbf0cb96671682e838ad4926d34ccf7aadc5520beab1d9d42c7f17f53f5d2', 4, 2, NULL, '[]', 1, '2020-10-09 19:19:19', '2020-10-09 19:19:19', '2020-10-09 19:34:19'),
+	('bdca69a13f930ac17a6371e0e8112777fc6e3667e7591a6d553e36b769769e72fb2c5ba4f89044e3', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:13:16', '2020-11-24 18:13:16', '2021-11-24 18:13:16'),
 	('be222b0e8f4dc798e7938a7f98e16c443c271635ae3b828ffab3db6557b48c505570b688a12912ec', 4, 2, NULL, '[]', 1, '2020-09-28 22:52:45', '2020-09-28 22:52:45', '2020-09-28 23:04:45'),
 	('be25d96db215c59280d19295470ed85b9751fd4a3c5c62000e3a0518e3cdcff260c3e9ab0824552c', 4, 2, NULL, '[]', 0, '2020-09-12 21:18:21', '2020-09-12 21:18:21', '2020-09-12 21:30:21'),
 	('be25eec8df5debdf9a91b1fe04469667f5a6d954abea98666acd6c4d5ac293510a867845ab88e71b', 4, 2, NULL, '[]', 1, '2020-09-28 22:35:48', '2020-09-28 22:35:48', '2020-09-28 22:47:48'),
@@ -619,6 +582,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('c26cfd54445363e36d8b0fd9de9464290502cca563e4b68c06ab94c0e7742a896b9a059e29e6e409', 4, 2, NULL, '[]', 0, '2020-09-28 18:44:38', '2020-09-28 18:44:38', '2020-09-28 18:56:38'),
 	('c27d537115ffaf78de1c2a2b9d64fa1a2f7d8dd59aa11c04a148b5910ff9f47bf95baef3b49188c2', 4, 2, NULL, '[]', 1, '2020-09-16 20:38:45', '2020-09-16 20:38:45', '2020-09-16 20:50:45'),
 	('c285bc2527d94e1c01cb90c31ba7d47232fdf308e80fae9e0934dfcffe3809d4467a071d444ad8f4', 4, 2, NULL, '[]', 1, '2020-09-26 00:20:52', '2020-09-26 00:20:52', '2020-09-26 00:32:52'),
+	('c2b0edfbef1db811469e3ed6bd4c11b93deb3f40f3a4980d97593b8215e5df2beaa4e005d23e6926', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-14 17:09:01', '2020-12-14 17:09:01', '2021-12-14 17:09:01'),
 	('c2b49e981e31646e9d574409c4ce47865689fce941e463ceb5edf4d56f656302d9c2457dfe44b09d', 4, 2, NULL, '[]', 1, '2020-09-18 02:44:22', '2020-09-18 02:44:22', '2020-09-18 02:56:22'),
 	('c3043979cee0c9e0426042a474740e0ffc3baed7f3f99aa76f8aba6e64fde9111ddc425610e1ca8c', 4, 2, NULL, '[]', 0, '2020-10-16 16:46:29', '2020-10-16 16:46:29', '2020-10-16 17:01:29'),
 	('c3ecdba0a3f53024767007e8c1a547c2449390a997b92b337f16681c493d0fc118e0aa7a3fb5fa46', 4, 2, NULL, '[]', 0, '2020-10-04 04:59:18', '2020-10-04 04:59:18', '2020-10-04 05:00:17'),
@@ -628,19 +592,23 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('c5fcfc0f24273f02544c3c75efda05651e8a951f5adbe920d31e2384f3dfabec20ee4eca73347013', 4, 2, NULL, '[]', 1, '2020-10-09 18:46:59', '2020-10-09 18:46:59', '2020-10-09 19:01:58'),
 	('c63f3d120b07d0bb2b418895e69bc76ba06c91f97b8642d8cf1802f0f25ba2376ec32f7dd328a762', 4, 2, NULL, '[]', 0, '2020-09-26 17:35:53', '2020-09-26 17:35:53', '2020-09-26 17:47:48'),
 	('c6627acd3d1ef9268b9e3668ce418beb364fe2954c36f80886f0d37061e1ee900ec76fb7043b7dad', 4, 2, NULL, '[]', 1, '2020-09-12 17:02:29', '2020-09-12 17:02:29', '2020-09-12 17:03:29'),
+	('c68d2648112ebb5eada805e8d9be58cabd742dbd77762bafbb69033545d9e1526df0737cc81f43d4', 23, 1, 'Personal Access Token', '[]', 0, '2020-11-10 22:34:58', '2020-11-10 22:34:58', '2021-11-10 22:34:58'),
 	('c71838f64980823bbd05192389b556a781a737f12cc9d769ad1b60dcd53ebf11308054480db2c893', 4, 2, NULL, '[]', 0, '2020-10-01 17:04:16', '2020-10-01 17:04:16', '2020-10-01 17:05:16'),
 	('c7eb157f43b8d3255858ecf5f68594ecbe9906c0e225c596c2552ce18891c8b979c8ba1b409cde01', 4, 2, NULL, '[]', 0, '2020-10-01 18:02:16', '2020-10-01 18:02:16', '2020-10-01 18:03:16'),
 	('c819e90687458397d0667220f91f39dbf468fb22ca9f77bd2c28538a8077b27fe29ff27f32957044', 4, 2, NULL, '[]', 1, '2020-10-16 16:55:17', '2020-10-16 16:55:17', '2020-10-16 17:10:17'),
 	('c92f14c02b581b3115bc50e58fcde45db50d07c211e6892d8ef6bf8731dda16cea2df00aa7000cb3', 4, 2, NULL, '[]', 0, '2020-09-25 17:52:02', '2020-09-25 17:52:02', '2020-09-25 18:03:58'),
 	('c95b9ea334fe645598f4480a5e592750ab7985bb14ffb9927ee7c46bf94ff1d7ee68767c46750394', 4, 2, NULL, '[]', 1, '2020-09-26 04:50:43', '2020-09-26 04:50:43', '2020-09-26 05:02:43'),
+	('c9909285ef05561d4d028f027642e5228be9a6b49e062fcd898822384cfd2d4fa0de8f69dd1c1971', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 19:04:12', '2020-11-10 19:04:12', '2021-11-10 19:04:12'),
 	('cc0bf53a3fac07eb5d08bd2ea4bffaf9204e8718a1d48470738d6f10af4ad6e3e19821d7a0082dcb', 4, 2, NULL, '[]', 0, '2020-10-08 17:06:25', '2020-10-08 17:06:25', '2020-10-08 17:21:23'),
 	('ce1855b39d6374c09dfec8448ca2f66a9ac7d9862ded18175ace63f5d4598df18ee39e6af14e049b', 4, 2, NULL, '[]', 0, '2020-10-28 15:28:47', '2020-10-28 15:28:47', '2020-10-28 23:28:47'),
 	('ce1e0cfeb9b066cf74b5fdba3c8bdc67e729d435d835786039f47541fe1fe7fc8e725e82410423d3', 4, 2, NULL, '[]', 1, '2020-09-25 20:20:24', '2020-09-25 20:20:24', '2020-09-25 20:32:21'),
 	('cecaaaf55b8c9fe6b0e9c1d21b44c249254049b268cb818a1fbf9e4fe4ea6de980faf2601ed33753', 1, 2, NULL, '[]', 0, '2020-09-11 21:17:00', '2020-09-11 21:17:00', '2020-09-11 21:32:00'),
 	('cf1a5725d52eff35d6bf52fe39b3177fa83811d4852ac0b5f5f714bf6e2652dd8a80776307def22f', 4, 2, NULL, '[]', 0, '2020-10-08 01:00:59', '2020-10-08 01:00:59', '2020-10-08 01:15:58'),
+	('cf25434d4290161ac3011c1854e6ab4d6b3602662716e24c14b9b46b2df2c67f21826e24d216322e', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 13:42:13', '2020-11-10 13:42:13', '2021-11-10 13:42:13'),
 	('cf5feb7aade3c70e327b30ba279461addb77e36fcb0d2b75b616e40ec9c980a12ecba86b86b71ec3', 4, 2, NULL, '[]', 0, '2020-10-10 13:52:08', '2020-10-10 13:52:08', '2020-10-10 14:07:08'),
 	('d03abfa7c23d7a369aa1d5ea8cabdb6fc59e4c92d0fcb5a9312f3ba323354bd022ef1984c6b9d57c', 4, 2, NULL, '[]', 1, '2020-09-28 22:17:18', '2020-09-28 22:17:18', '2020-09-28 22:29:18'),
 	('d08839c63a572be14be62f8263deb35b6f382cc09b9bb489162db23a04536caa977889186ee76524', 4, 2, NULL, '[]', 0, '2020-09-29 02:39:43', '2020-09-29 02:39:43', '2020-09-29 02:51:43'),
+	('d1570cd4d5020776812ad34368782beff8148c3cc73349a2e8a131d83dfc1606831aa9c372bd3502', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:08:02', '2020-11-10 15:08:02', '2021-11-10 15:08:02'),
 	('d1710beb55ec3bd7a8aa3210a6ca366053488508e47f0b9e5ac0d9cbc6ea7da0cc85e2412cbe5ac9', 4, 2, NULL, '[]', 0, '2020-09-26 13:37:14', '2020-09-26 13:37:14', '2020-09-26 13:49:12'),
 	('d1d1dfe26838a651a6952c3a2ae601c1fd2470770558c0f1e0e2abc505eec1fba079544dd17ca846', 4, 2, NULL, '[]', 1, '2020-10-09 22:13:01', '2020-10-09 22:13:01', '2020-10-09 22:28:01'),
 	('d1d2c4baeeb148f8910d91132b7ab9b370ab8a9256f38805632cd1415832db7287b6edf77df87d96', 4, 2, NULL, '[]', 1, '2020-09-26 15:05:49', '2020-09-26 15:05:49', '2020-09-26 15:17:49'),
@@ -650,26 +618,37 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('d3993595549ee52bbe5adabf4134aeb18ad8c625af81c8a535d6a816338fcf7bcee3c839305fd444', 4, 2, NULL, '[]', 0, '2020-09-29 19:18:13', '2020-09-29 19:18:13', '2020-09-29 19:30:12'),
 	('d4102382b748046357db2b7a2c2f7bbe0a14f76c72650a51a664f7e01d033692bd90078fd66f57f6', 4, 2, NULL, '[]', 1, '2020-09-28 21:01:46', '2020-09-28 21:01:46', '2020-09-28 21:13:42'),
 	('d4bad7ed2b86e8ba1cc16ee02a2149a0f1f34bd49afbc90a82296740eab25b609088dc293ac772f5', 4, 2, NULL, '[]', 0, '2020-10-08 17:27:12', '2020-10-08 17:27:12', '2020-10-08 17:42:11'),
+	('d5a4997c98da0999b55dfb707e95e2e37088e289387634a8854654fd67eef85c2837286d23153382', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-27 23:29:35', '2020-11-27 23:29:35', '2021-11-27 23:29:35'),
 	('d5d1ddd50a44736a0d51ef4a83a12f5cd28b998fcc2623287f01100aec09e329000eb48754b5aff6', 4, 2, NULL, '[]', 1, '2020-09-16 17:23:50', '2020-09-16 17:23:50', '2020-09-16 17:35:47'),
 	('d5fbb4da007498f2adc7ead37f157d7f544c572d0632da7b5729361561ab29d89a33f5910a21b419', 4, 2, NULL, '[]', 1, '2020-09-14 02:04:04', '2020-09-14 02:04:04', '2020-09-14 02:16:03'),
 	('d6d54536f14340c07f87fbe81923cb37f7c73d47ce97a03e77ef72edab708717e9e7e46fdf51399c', 4, 2, NULL, '[]', 0, '2020-10-08 19:18:24', '2020-10-08 19:18:24', '2020-10-08 19:33:24'),
 	('d713ca077d9e6173a23ad2304b5e1095cea11e2c3a4aeeee92c9ae06d7f9dd2e88ddd6e504c9cc2b', 2, 2, NULL, '[]', 0, '2020-10-08 22:24:00', '2020-10-08 22:24:00', '2020-10-08 22:39:00'),
 	('d714ddae5eaf2c3206113a259f3e2ff1940e5ae8921700ade1292ebd18d8fba5f0adabdc8d30ad86', 4, 2, NULL, '[]', 0, '2020-10-14 18:46:24', '2020-10-14 18:46:24', '2020-10-14 19:01:24'),
+	('d7551c50f21bda77e2a905e24a6089ce2b5a96052deae69d758ba28f5b1aabdecbd2ab875ebabe81', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:33:11', '2020-11-10 15:33:11', '2021-11-10 15:33:11'),
 	('d7e1ea179a988f36039b8b72784d5599c6b403296befdd4efbf81354f65f362f69dc43e1071c914e', 4, 2, NULL, '[]', 0, '2020-10-14 17:14:44', '2020-10-14 17:14:44', '2020-10-14 17:29:44'),
 	('d7fe9792766e4c56572caf1e627aa2e493f790d25a0a8c5a97155d2415638589acdb8224d782ad17', 4, 2, NULL, '[]', 1, '2020-09-26 15:45:41', '2020-09-26 15:45:41', '2020-09-26 15:57:41'),
+	('d821290441d3f6140c1fb91472e36f9ea64d77e699bdde9bf760d936118b3f8e95dce542d40f2811', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-17 15:06:21', '2020-11-17 15:06:21', '2021-11-17 15:06:21'),
 	('d880ee9b0d1e64268d330cae83eb416c6d26ced0a395270814ba0dd19c731f77069f8a6aa4149e4b', 4, 2, NULL, '[]', 0, '2020-10-09 20:31:21', '2020-10-09 20:31:21', '2020-10-09 20:46:21'),
 	('d8babf585049ca1267b8111eadbaac773019d603eab81bb6af098525fcbdec6674c0cf42990317c5', 4, 2, NULL, '[]', 1, '2020-09-28 21:49:09', '2020-09-28 21:49:09', '2020-09-28 22:01:09'),
+	('d911fc3dde958e924a264fc5eea301bc543f5ac4e6f795778bdc83f52f041e4f64002483902d2c37', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 17:36:41', '2020-11-24 17:36:41', '2021-11-24 17:36:41'),
 	('d93164fd4c9707a996e4f915faaf82d6dbdeaed0d17e0fc4d59ab5dfff563c5a6a46d224a2eeb377', 2, 2, NULL, '[]', 0, '2020-10-08 21:58:03', '2020-10-08 21:58:03', '2020-10-08 22:13:03'),
 	('d97606ef0f10be71e288815714cd13eaadb1df94da31f310315ed3f0255521e8c674cc29e39b18ec', 4, 2, NULL, '[]', 1, '2020-09-26 16:42:42', '2020-09-26 16:42:42', '2020-09-26 16:54:42'),
+	('d9d30875befc1bca2e91994922faa5bddcb8fa45167fa27fd15a631700f8581d232d74de076a5c22', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 21:36:23', '2020-11-05 21:36:23', '2021-11-05 21:36:23'),
 	('d9df2a74fec5d7778ec8eb4c738f1b5922174c22aa7b0b25b9567b70b5d76efa7ccd6ca8e0eadbcc', 4, 2, NULL, '[]', 0, '2020-10-04 04:35:16', '2020-10-04 04:35:16', '2020-10-04 04:36:16'),
+	('d9fe0dbec12d215137e737fd84e9beadcb40237e7ec754c15ebbc87be3dadf89186b0786e46891a6', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-30 18:52:38', '2020-11-30 18:52:38', '2021-11-30 18:52:38'),
 	('da1dea84d223274e50d598048a958fdeaab5c6d68406b04c771962bdb30f908000148402cbc1bda3', 4, 2, NULL, '[]', 0, '2020-10-08 18:06:26', '2020-10-08 18:06:26', '2020-10-08 18:21:26'),
+	('da2d397706b5562e0c1a488df102dc3de51e742aaea192a0e8eec981ef2352491f39fdf1d0836f67', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-07 17:19:39', '2020-12-07 17:19:39', '2021-12-07 17:19:39'),
 	('dab7d610e361b11a025748c42c2b369448aae009ea0b639c69f0f438c054e1e70ae12f4354d013b8', 4, 2, NULL, '[]', 1, '2020-10-16 17:29:40', '2020-10-16 17:29:40', '2020-10-16 17:44:40'),
+	('dab8c745775f903046dd297ee3961d4ef15ad3b38266605c985e15354d6f0889627153c8fc45c88e', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 20:24:41', '2020-12-14 20:24:41', '2021-12-14 20:24:41'),
 	('dacd582501ab993428dbda0d10dae826c4847d4a8e18f6657341aad0db87acea4742bd4aabb44996', 4, 2, NULL, '[]', 0, '2020-09-28 20:02:40', '2020-09-28 20:02:40', '2020-09-28 20:14:40'),
 	('daf011a041ab74a47f6f2d84d466e2211b57dbe10012f942700d9b98fd2aa9dbc8f0984dedcc0ea1', 4, 2, NULL, '[]', 1, '2020-09-21 00:13:46', '2020-09-21 00:13:46', '2020-09-21 00:25:45'),
 	('db3ec3dc2aed1b8ac5e23a82e6df669e94faed15bd0bd19d65735b674002b8ed44c9e8e8625dfa68', 4, 2, NULL, '[]', 0, '2020-10-14 18:26:52', '2020-10-14 18:26:52', '2020-10-14 18:41:52'),
+	('db7b18c6ebe77675c2478ea66ce9470cf67c7c102553d7bcee5fd0c73c9bccc41718283e267b7110', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 20:14:19', '2020-12-14 20:14:19', '2021-12-14 20:14:19'),
 	('db84beb1025ab828a33ba4401951aabee6886af7832c98bdafb3a9513845a7914dc889a80c61cada', 4, 2, NULL, '[]', 0, '2020-10-16 20:14:22', '2020-10-16 20:14:22', '2020-10-17 04:14:22'),
 	('dd1da7c8ad7d197ae53164ce6d6f18bdbf3ba029c790fabffc7822fd146331dfd2a423c87b273699', 4, 2, NULL, '[]', 0, '2020-10-04 04:27:40', '2020-10-04 04:27:40', '2020-10-04 04:28:40'),
+	('de49c2a53d308af51dbbfe265e750efda3afef2195be07bceed0b584cbc15faa869e94b281318653', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-14 23:04:45', '2020-12-14 23:04:45', '2021-12-14 23:04:45'),
 	('de5f8957e9873c397c24ce663a8cf17bfcaa7286d831459395d1038e764238ea7354425792c74995', 2, 2, NULL, '[]', 0, '2020-10-08 22:54:20', '2020-10-08 22:54:20', '2020-10-08 23:09:20'),
+	('de81ad9b2bc91d38d2a8ad0ecbcaded9eaaba01ff8a76e7ebe0e8fd339fd9b5e12f60611049320b7', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-25 15:53:25', '2020-11-25 15:53:25', '2021-11-25 15:53:25'),
 	('deb9a63f47371008c83a175b8312c5d503948055ec752b68b416b1825769754eb324c2b5a9a19912', 4, 2, NULL, '[]', 1, '2020-09-26 04:03:48', '2020-09-26 04:03:48', '2020-09-26 04:15:48'),
 	('dee48b9170c8a0d7a1a8cecb1b7010b7308d6aac336471c791a0d5d0810cb59af562d361020674ba', 4, 2, NULL, '[]', 0, '2020-10-05 04:55:33', '2020-10-05 04:55:33', '2020-10-05 05:10:33'),
 	('df628534becc02421c33419047fa45131a640c0ab91778ef17342d0d8f6d0f0d1859d5505e2458bd', 4, 2, NULL, '[]', 0, '2020-10-05 05:12:45', '2020-10-05 05:12:45', '2020-10-05 05:27:45'),
@@ -694,8 +673,11 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('eab3bf522e419ecdad8337e692fae505d5a1fd0b261c4418e0b84b0861e9dd41390760208d33ec1b', 14, 1, 'MyApp', '[]', 0, '2020-11-04 02:47:32', '2020-11-04 02:47:32', '2021-11-04 02:47:32'),
 	('eac51391279a48ecfba1c472137071b4c84c762634a2545fefef189255e4139b4d39439a1e0215d0', 4, 2, NULL, '[]', 0, '2020-10-08 01:32:39', '2020-10-08 01:32:39', '2020-10-08 01:47:39'),
 	('eb16da2b9fdc5b7acf523f2ef76f8d234a59af84215a9062c5eb1a33c047568c5cc22378b13d86af', 4, 2, NULL, '[]', 1, '2020-09-28 19:41:54', '2020-09-28 19:41:54', '2020-09-28 19:53:54'),
+	('ebf1033094d36576d52d7097df0dfb3be67453b0ded3ec0197c16ae543f6b257281ee7f789d8f0b4', 27, 1, 'Personal Access Token', '[]', 0, '2020-11-24 18:07:06', '2020-11-24 18:07:06', '2021-11-24 18:07:06'),
+	('ebff838273f6496df63f9f5c498af389c1975aa2fc2c22ff6078fe804aadb88ae542a480430241ab', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 17:35:49', '2020-11-24 17:35:49', '2021-11-24 17:35:49'),
 	('ec05e9af0abdf9507cd93a1fdb9082148d0a87eb36efc260bf4e1ee097a28b6f71f223e1013a07b0', 12, 1, 'Personal Access Token', '[]', 0, '2020-11-04 01:55:55', '2020-11-04 01:55:55', '2021-11-04 01:55:55'),
 	('ec175ba6eedcb3f7a4ed9c08dad70a589885a61ee4ed45e5ccca524e5957a40ac6b1a4d36a2de9b9', 4, 2, NULL, '[]', 0, '2020-09-15 17:41:58', '2020-09-15 17:41:58', '2020-09-15 17:53:58'),
+	('ec2c6fafaf9ad48eb063dd7531b4f1de2b9a7a14b8b3c8f82463312063dfacfe8edb1d4f8ed73cdf', 28, 1, 'Personal Access Token', '[]', 0, '2020-11-24 17:58:52', '2020-11-24 17:58:52', '2021-11-24 17:58:52'),
 	('ec3292743daaa184673f6c64c16a5e8e6cf6f9afd3ef9a98e599751710ad0ad8664cb2a33d09183f', 4, 2, NULL, '[]', 1, '2020-09-14 17:01:19', '2020-09-14 17:01:19', '2020-09-14 17:13:19'),
 	('ecbf1accf6fbfb017ba0458b3c683c0607f61b25e5dc17cada17bbb015b43ac5904cdb7c8874a6ee', 4, 2, NULL, '[]', 1, '2020-09-12 18:04:16', '2020-09-12 18:04:16', '2020-09-12 18:05:16'),
 	('ece9bf2ec78baca655d50e38dd658515e258eac00ee5ae878fe0853b17bc3a91c686b58eb34fd2d3', 4, 2, NULL, '[]', 1, '2020-09-13 23:50:48', '2020-09-13 23:50:48', '2020-09-14 00:02:47'),
@@ -735,44 +717,19 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('fb6d0b95529d193183d0f58662c8866e6bdc657e7cd2cf4a80a46d8fa198c6b33beb73ed46963644', 4, 2, NULL, '[]', 1, '2020-10-10 13:36:27', '2020-10-10 13:36:27', '2020-10-10 13:51:27'),
 	('fba26096b6da344b18840de3521acb994654b0d57b2a9b2b820476e3b343c8854b5e804a7f611130', 4, 2, NULL, '[]', 0, '2020-10-05 04:44:02', '2020-10-05 04:44:02', '2020-10-05 04:59:01'),
 	('fc8d1f83a9993d4a16dd3a5e10b717ccc23641d4ca22ee8303062215fdc715d4eeea6838abfff6f8', 4, 2, NULL, '[]', 0, '2020-09-28 21:31:16', '2020-09-28 21:31:16', '2020-09-28 21:43:14'),
+	('fcf52d9146f783f55188bb062b3e2610a814836f11cedfc2e7960145df8691ce48644de17de63b97', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-15 00:42:18', '2020-12-15 00:42:18', '2021-12-15 00:42:18'),
 	('fd22bd63d29a78b473913122763998c15e9ae68abd1d71cfa8ff0e07f2e4dfaa757450d3df3b40f6', 4, 2, NULL, '[]', 1, '2020-10-04 04:22:22', '2020-10-04 04:22:22', '2020-10-04 04:23:22'),
 	('fd26d58aa891d681dd83ef7b8ab1dc175f2412b870e04a65cfab3c3bd90b5bc4e9ad1caccceb093f', 4, 2, NULL, '[]', 1, '2020-09-14 02:29:19', '2020-09-14 02:29:19', '2020-09-14 02:41:19'),
 	('fd715b327c30894c84eef774df389ea97310cd6d21738f041b8cf8bb48fd880211adf6bf27b8fe2f', 4, 2, NULL, '[]', 1, '2020-09-14 20:08:30', '2020-09-14 20:08:30', '2020-09-14 20:20:27'),
 	('fd9558cb2bc8fdc560b5af7fed6825c92e2a459bd44057d25ae8b465d8df66f773d3d73a6315be44', 4, 2, NULL, '[]', 0, '2020-10-01 18:56:42', '2020-10-01 18:56:42', '2020-10-01 18:57:42'),
-	('fdcf868a165e5c4d9f613177c4b9951774f5565a5a73e0c4809cb030a69addf8c6c721dfcae3075a', 4, 2, NULL, '[]', 1, '2020-09-25 20:34:59', '2020-09-25 20:34:59', '2020-09-25 20:46:58');
+	('fdcf868a165e5c4d9f613177c4b9951774f5565a5a73e0c4809cb030a69addf8c6c721dfcae3075a', 4, 2, NULL, '[]', 1, '2020-09-25 20:34:59', '2020-09-25 20:34:59', '2020-09-25 20:46:58'),
+	('ffcac9ac1c056d0ffe047300ff44366537e38c932d2eff2160fdfdb5f5077ba18d1f5be8402d2e93', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-10 21:35:45', '2020-11-10 21:35:45', '2021-11-10 21:35:45');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.oauth_auth_codes
-CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
-  `revoked` tinyint(1) NOT NULL,
-  `expires_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.oauth_auth_codes: ~0 rows (aproximadamente)
 DELETE FROM `oauth_auth_codes`;
 /*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.oauth_clients
-CREATE TABLE IF NOT EXISTS `oauth_clients` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `personal_access_client` tinyint(1) NOT NULL,
-  `password_client` tinyint(1) NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.oauth_clients: ~2 rows (aproximadamente)
 DELETE FROM `oauth_clients`;
@@ -782,32 +739,12 @@ INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `per
 	(2, NULL, 'Laravel Password Grant Client', 'VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh', 'http://localhost', 0, 1, 0, '2020-07-19 17:00:44', '2020-07-19 17:00:44');
 /*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.oauth_personal_access_clients
-CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.oauth_personal_access_clients: ~0 rows (aproximadamente)
 DELETE FROM `oauth_personal_access_clients`;
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, '2020-07-19 17:00:44', '2020-07-19 17:00:44');
 /*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.oauth_refresh_tokens
-CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `expires_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.oauth_refresh_tokens: ~410 rows (aproximadamente)
 DELETE FROM `oauth_refresh_tokens`;
@@ -1321,69 +1258,20 @@ INSERT INTO `oauth_refresh_tokens` (`id`, `access_token_id`, `revoked`, `expires
 	('ffd91c13635effbe74bf02617249a319873a7f4d17111a617875c6daea4d32839756710992a95772', '1d052239b398c9cb9cae175fc52a21fb8184f68bf0f518328435a963111d5f864cb61e4ff6423937', 1, '2020-10-10 22:52:19');
 /*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.password_resets
-CREATE TABLE IF NOT EXISTS `password_resets` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.password_resets: ~0 rows (aproximadamente)
 DELETE FROM `password_resets`;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.peticiones
-CREATE TABLE IF NOT EXISTS `peticiones` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `fecha_radicacion` timestamp NOT NULL,
-  `fecha_respuesta` timestamp NULL DEFAULT NULL,
-  `tipo_peticion` int(11) NOT NULL,
-  `documentos` json DEFAULT NULL,
-  `respuesta` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.peticiones: ~0 rows (aproximadamente)
 DELETE FROM `peticiones`;
 /*!40000 ALTER TABLE `peticiones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `peticiones` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.peticiones_certificados
-CREATE TABLE IF NOT EXISTS `peticiones_certificados` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_formato` int(11) NOT NULL,
-  `id_evento` int(11) NOT NULL,
-  `fecha_radicado` timestamp NOT NULL,
-  `fecha_respuesta` timestamp NULL DEFAULT NULL,
-  `respuesta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.peticiones_certificados: ~0 rows (aproximadamente)
 DELETE FROM `peticiones_certificados`;
 /*!40000 ALTER TABLE `peticiones_certificados` DISABLE KEYS */;
 /*!40000 ALTER TABLE `peticiones_certificados` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.roles
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `rol` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `roles_rol_unique` (`rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.roles: ~4 rows (aproximadamente)
 DELETE FROM `roles`;
@@ -1395,99 +1283,39 @@ INSERT INTO `roles` (`id`, `rol`, `created_at`, `updated_at`) VALUES
 	(4, 'Estudiante', NULL, NULL);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.tipo_peticions
-CREATE TABLE IF NOT EXISTS `tipo_peticions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `peticion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Volcando datos para la tabla bd_proyecto.tipo_peticions: ~0 rows (aproximadamente)
 DELETE FROM `tipo_peticions`;
 /*!40000 ALTER TABLE `tipo_peticions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tipo_peticions` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.trazabilidades
-CREATE TABLE IF NOT EXISTS `trazabilidades` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_carnet` int(11) NOT NULL,
-  `id_zona` int(11) NOT NULL,
-  `fecha_ingreso` timestamp NULL DEFAULT NULL,
-  `fecha_salida` timestamp NULL DEFAULT NULL,
-  `resultado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.trazabilidades: ~0 rows (aproximadamente)
 DELETE FROM `trazabilidades`;
 /*!40000 ALTER TABLE `trazabilidades` DISABLE KEYS */;
 /*!40000 ALTER TABLE `trazabilidades` ENABLE KEYS */;
 
--- Volcando estructura para tabla bd_proyecto.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `confirmado` tinyint(4) NOT NULL DEFAULT '0',
-  `codigo_confirmacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Volcando datos para la tabla bd_proyecto.users: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.users: ~2 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `password`, `confirmado`, `codigo_confirmacion`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(4, 'admin@ucundinamarca.edu.co', '$2y$10$2iQJ0zDTA01vhbkduAoNgu98VK8nym.TW6e2/ZACh6ALNhQlrJoB2', 1, '', NULL, '2020-10-16 15:45:27', '2020-10-16 16:30:29'),
-	(16, 'michaelcardenas199@gmail.com', '$2y$10$DYM.XoXefcSwR4kTk3hd1.ESENVwDjqqZ3P/ex4hN6lUqkyY0cf8S', 1, NULL, NULL, '2020-11-04 02:56:08', '2020-11-05 20:45:24');
+	(37, 'michaelcardenas199@gmail.com', '$2y$10$trKJJZk.OJqEEopwyVZ/tepVxxNg4j08t7UwzDE7BCXxeLmaNl2sG', 1, NULL, NULL, '2020-11-26 04:24:35', '2020-11-26 04:25:08'),
+	(38, 'michlean28@hotmail.com', '$2y$10$qZhR1Y0L1fhS1b1Woho70u/BobpkgR8KvNtUROfweaNO5BcygwgBS', 1, NULL, NULL, '2020-12-14 17:07:53', '2020-12-14 17:08:41'),
+	(39, 'luz2062@hotmail.com', '$2y$10$33s.CVSMrh6Bu6ilg.1ilukObDKSdIi2r3yfsRamR6N2ebJSpjy.C', 1, NULL, NULL, '2020-12-15 01:25:03', '2020-12-15 01:25:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.usuarios
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) DEFAULT NULL,
-  `apellidos` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombres` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `identificacion` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `foto` blob,
-  `id_rol` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `identificacion` (`identificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.usuarios: ~1 rows (aproximadamente)
 DELETE FROM `usuarios`;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_user`, `apellidos`, `nombres`, `identificacion`, `estado`, `foto`, `id_rol`, `created_at`, `updated_at`) VALUES
-	(4, 4, 'PARRA', 'JAIME', '17092222', 1, _binary '', 1, '2020-10-16 15:45:33', '2020-10-16 15:45:33'),
-	(14, 16, 'CARDENAS', 'MICHAEL', '102342343', 1, NULL, 4, '2020-11-04 02:56:09', '2020-11-04 02:56:09');
+	(33, 37, 'PEREZ', 'PEDRO', 'eyJpdiI6ImxBOW5MMFVUUUN6aTBmcDlMOEhyOUE9PSIsInZhbHVlIjoiNVhDWnFzSXord2tyVGNvRzh0UGVYeGQwTkl1bmNraHZNempad1ZoaTdkRT0iLCJtYWMiOiIwMDU2NzhjNWU3NTkyNTUxNzFmMzUyYzY2YTFiNGJhMjQxNTM1ZWQyNDEzMTczOGRkOTQ3ZmNiMTU1NDFhMWY2In0=', 1, NULL, 1, '2020-11-26 04:24:35', '2020-11-26 04:25:08'),
+	(34, 38, 'PEREZ', 'PEPITO', 'eyJpdiI6IlJtZStXMk5xb3drV1hRXC9vNHJIWGJRPT0iLCJ2YWx1ZSI6IjZOVElNSEFtVU5GVEowdDd3ZGFSRVwvdkU2UUt0OUl4amowYzY3U1dOVyswPSIsIm1hYyI6IjU1NGM4YzhiMGVkZWMzN2U3OWUwZjQwNTZlZGRlODUxYTE5NzIyNzZhYjg2MzMxYmFmNGRmMTY1ZjU4MmIzNTYifQ==', 1, NULL, 3, '2020-12-14 17:07:54', '2020-12-14 17:08:41'),
+	(35, 39, 'ROA', 'PEPITA', 'eyJpdiI6ImhPb3grZ3NYMVVab2Rha1BoczNmbXc9PSIsInZhbHVlIjoiNzgyOHpJTFg2U2RtU3N2ZmJPN01TZjNzMVFpY01hazl0SmV3ZmZJRjBhND0iLCJtYWMiOiJkYTU0NzNmOWRiMjM1N2EyYzYxMThlZGQxNzFmNzM0NjNiN2I0NjlkNTIxNTUzODdjZjI5NWJhMGM1NDY3OTBhIn0=', 1, NULL, 2, '2020-12-15 01:25:03', '2020-12-15 01:25:28');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-
--- Volcando estructura para tabla bd_proyecto.zonas
-CREATE TABLE IF NOT EXISTS `zonas` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre_zona` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `estado` tinyint(4) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla bd_proyecto.zonas: ~0 rows (aproximadamente)
 DELETE FROM `zonas`;
 /*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
 INSERT INTO `zonas` (`id`, `nombre_zona`, `estado`, `created_at`, `updated_at`) VALUES
-	(11, 'CIT', 2, NULL, '2020-10-08 23:45:02');
+	(11, 'CIT', 1, NULL, '2020-12-15 00:43:17');
 /*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

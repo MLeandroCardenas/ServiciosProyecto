@@ -16,5 +16,28 @@ class Usuarios extends Model
         'foto',
         'id_rol'
     ];
-    protected $hidden = ['identificacion','foto'];
+
+    public function getIdentificacionAttribute($value)
+    {
+        try {
+            return decrypt($value);
+        } catch (DecryptException $e) {
+            return response()->json('ERROR', 500); 
+        }
+    }
+
+    public function setIdentificacionAttribute($value) 
+    {
+        $this->attributes['identificacion'] = encrypt($value);
+    }
+
+    public function setApellidosAttribute($value) 
+    {
+        $this->attributes['apellidos'] = strtoupper($value);
+    }
+
+    public function setNombresAttribute($value) 
+    {
+        $this->attributes['nombres'] = strtoupper($value);
+    }
 }

@@ -18,7 +18,7 @@ class CreateUsuariosTable extends Migration
             $table->increments('id_user');
             $table->string('apellidos',50);
             $table->string('nombres',50);
-            $table->string('identificacion',20)->unique();
+            $table->string('identificacion',255)->unique();
             $table->boolean('estado');
             $table->binary('foto')->nullable();
             $table->integer('id_rol');

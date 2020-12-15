@@ -1,6 +1,0 @@
-claves roles desarrollo:
-
-administrador: admiN1234
-administrativos: adminisT123
-estudiantes: estudI123
-docentes: doceN123
