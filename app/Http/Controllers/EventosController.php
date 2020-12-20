@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Eventos;
@@ -10,12 +10,12 @@ use Validator;
 
 class EventosController extends Controller
 {
-    public function crearEventos(Request $request)
+    public function crearEvento(Request $request)
     {
         $validador = Validator::make($request->all(), [
-            'id_zona'=>'required',
             'nombre_evento'=>'required|max:50',
             'descripcion'=>'required|max:100',
+            'zona'=>'required',
             'visibilidad'=>'required',
             'horario'=>'required'
         ]);
@@ -24,29 +24,12 @@ class EventosController extends Controller
             return response()->json($validador->errors(),422);
         }
 
-        DB::beginTransaction();
-        try{
-            $horariosActuales = $request->horario;
-            $resultado = DB::table('eventos')->select('horario')->where([
-                ['estado','=',1],
-                ['id_zona','=',$request->id_zona],
-            ])->get()->all();
+        $input = $request->all();
+        $input['creador_evento'] = Auth::id();
+        $input['estado'] = 3;
+        $evento = Eventos::create($input);
 
-
-            if(empty($resultado)){
-                $input = $request->all();
-                $input["creador_evento"] = Auth::id();
-                $evento = Eventos::create($input);
-                DB::commit();
-            }
-            else{
-                return response()->json('HAY EVENTOS HABILITADOS EN ESA ZONA',200);
-            }
-            
-        }catch(\Exception $e){
-            DB::rollback();
-            return response()->json(['mensaje '=> $e->getMessage()], 400); 
-        }
+        return response()->json('Evento registrado exitosamente', 200);
     }
 
     public function aprobarEvento($id_evento)

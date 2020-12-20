@@ -10,13 +10,13 @@ class Eventos extends Model
         'usuarios_externos_invitados' => 'array',
         'usuarios_externos_invitados' => 'array',
         'asistentes' => 'array',
-        'horario' => 'array', 'timestamp'
+        'horario' => 'array'
     ];
     
     protected $fillable = [
         'id', 
         'creador_evento',
-        'id_zona',
+        'zona',
         'nombre_evento',
         'descripcion',
         'visibilidad',

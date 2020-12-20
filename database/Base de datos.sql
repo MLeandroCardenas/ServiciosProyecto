@@ -31,21 +31,20 @@ INSERT INTO `estados` (`id`, `estado`, `created_at`, `updated_at`) VALUES
 -- Volcando datos para la tabla bd_proyecto.eventos: ~0 rows (aproximadamente)
 DELETE FROM `eventos`;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
-INSERT INTO `eventos` (`id`, `creador_evento`, `id_zona`, `nombre_evento`, `descripcion`, `visibilidad`, `horario`, `estado`, `usuarios_externos_invitados`, `usuarios_registrados_invitados`, `asistentes`, `created_at`, `updated_at`) VALUES
-	(1, 5, 1, 'ejemplo 4', 'ejemplo 4', 'PUBLICA', '["2020-10-01 14:00:00", "2020-10-01 16:00:00"]', 1, NULL, NULL, NULL, '2020-08-24 23:12:50', '2020-08-24 23:12:50');
+INSERT INTO `eventos` (`id`, `creador_evento`, `zona`, `nombre_evento`, `descripcion`, `visibilidad`, `horario`, `estado`, `usuarios_externos_invitados`, `usuarios_registrados_invitados`, `asistentes`, `created_at`, `updated_at`) VALUES
+	(2, 38, '', 'Capacitacion Teams', 'Se capacitaran docentes', 'INSTITUCIONAL', '"[{\\"fecha\\":\\"2020-12-21T05:00:00.000Z\\",\\"inicio\\":\\"17:00\\",\\"fin\\":\\"18:33\\"},{\\"fecha\\":\\"2020-12-21T05:00:00.000Z\\",\\"inicio\\":\\"17:00\\",\\"fin\\":\\"18:33\\"},{\\"fecha\\":\\"2020-12-23T05:00:00.000Z\\",\\"inicio\\":\\"05:39\\",\\"fin\\":\\"05:39\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:34:31', '2020-12-20 05:34:31'),
+	(3, 38, 'Biblioteca', 'Reunion rector', 'no hay', 'PUBLICA', '"[{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"00:46\\",\\"fin\\":\\"06:47\\"},{\\"fecha\\":\\"2021-01-20T05:00:00.000Z\\",\\"inicio\\":\\"00:46\\",\\"fin\\":\\"10:53\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:42:41', '2020-12-20 05:42:41'),
+	(4, 38, '11', 'Capacitacion IOT', 'Capacitacion IOT obligatoria', 'PRIVADA', '"[{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"00:46\\",\\"fin\\":\\"06:47\\"},{\\"fecha\\":\\"2021-01-20T05:00:00.000Z\\",\\"inicio\\":\\"00:46\\",\\"fin\\":\\"10:53\\"},{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"01:44\\",\\"fin\\":\\"05:48\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:44:25', '2020-12-20 05:44:25'),
+	(5, 38, 'Sala de profesores', 'Reunion docentes', 'Caracter oblugatorio asistir', 'PRIVADA', '"[{\\"fecha\\":\\"2020-12-26T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"},{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"},{\\"fecha\\":\\"2021-01-01T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:48:19', '2020-12-20 05:48:19'),
+	(6, 38, 'Biblioteca', 'Capacitacion Pandemia 2021', 'Capacitacion Pandemia', 'PUBLICA', '"[{\\"fecha\\":\\"2020-12-26T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"},{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"},{\\"fecha\\":\\"2021-01-01T05:00:00.000Z\\",\\"inicio\\":\\"06:50\\",\\"fin\\":\\"06:53\\"},{\\"fecha\\":\\"2020-12-31T05:00:00.000Z\\",\\"inicio\\":\\"02:52\\",\\"fin\\":\\"06:57\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:51:23', '2020-12-20 05:51:23'),
+	(7, 38, 'Salon 201 bloque B', 'Capacitacion Angular', 'Curso angular', 'PRIVADA', '"[{\\"fecha\\":\\"2020-12-21T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"},{\\"fecha\\":\\"2020-12-22T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"},{\\"fecha\\":\\"2020-12-23T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"},{\\"fecha\\":\\"2020-12-24T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"},{\\"fecha\\":\\"2020-12-25T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"},{\\"fecha\\":\\"2020-12-26T05:00:00.000Z\\",\\"inicio\\":\\"13:59\\",\\"fin\\":\\"18:34\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 05:58:53', '2020-12-20 05:58:53'),
+	(8, 38, 'Salon 402 bloque A', 'Capacitacion HTML5', 'Curso html', 'PRIVADA', '"[{\\"fecha\\":\\"2020-12-22T05:00:00.000Z\\",\\"inicio\\":\\"00:04\\",\\"fin\\":\\"06:59\\"},{\\"fecha\\":\\"2020-12-23T05:00:00.000Z\\",\\"inicio\\":\\"00:04\\",\\"fin\\":\\"06:59\\"}]"', 3, NULL, NULL, NULL, '2020-12-20 06:00:03', '2020-12-20 06:00:03');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 
 -- Volcando datos para la tabla bd_proyecto.formato_eventos: ~0 rows (aproximadamente)
 DELETE FROM `formato_eventos`;
 /*!40000 ALTER TABLE `formato_eventos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `formato_eventos` ENABLE KEYS */;
-
--- Volcando datos para la tabla bd_proyecto.horarios_eventos: ~0 rows (aproximadamente)
-DELETE FROM `horarios_eventos`;
-/*!40000 ALTER TABLE `horarios_eventos` DISABLE KEYS */;
-INSERT INTO `horarios_eventos` (`id`, `id_evento`, `fecha`, `created_at`, `updated_at`) VALUES
-	(1, 25, '2012-01-01 00:00:00', NULL, NULL);
-/*!40000 ALTER TABLE `horarios_eventos` ENABLE KEYS */;
 
 -- Volcando datos para la tabla bd_proyecto.invitados: ~0 rows (aproximadamente)
 DELETE FROM `invitados`;
@@ -271,6 +270,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('3ebef09bd57547fb824894d4aff42427710176af7b795050bf7cf95f7e8a130605360ffb0b1b246e', 12, 1, 'Personal Access Token', '[]', 1, '2020-11-04 02:17:58', '2020-11-04 02:17:58', '2021-11-04 02:17:58'),
 	('403ff4bb51e4221b19ad884f1792628f1318be0d0f95e9e69fa06834590ea1c47a7198516147d500', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:24:52', '2020-11-10 15:24:52', '2021-11-10 15:24:52'),
 	('406b362dd6b7f5743de5358b998fbe6f19ce6c2d35f6ae9428fbe4807531878b6acc2cf93c525526', 4, 2, NULL, '[]', 1, '2020-09-26 18:44:16', '2020-09-26 18:44:16', '2020-09-26 18:56:15'),
+	('413cff25320b752b3dd3c1fd8c43031b21cd67f860c188f124f770cc3bf8c8c9472eb1f64bb188c9', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:11:16', '2020-12-19 20:11:16', '2021-12-19 20:11:16'),
 	('41c270b5f09832b761ff070df71a94c3548a89cdbecc8615a8bad7022264d6d21686ea501c7daf99', 4, 2, NULL, '[]', 0, '2020-09-18 03:01:09', '2020-09-18 03:01:09', '2020-09-18 03:13:09'),
 	('41ec6d784042edd6a5ff7de7e75d81c5eb62b2e4c85d40bf9c68185b66bbbe710ef69165d6d9b35f', 4, 2, NULL, '[]', 0, '2020-10-22 13:40:57', '2020-10-22 13:40:57', '2020-10-22 21:40:55'),
 	('42e8f4507e1300323b6a6620fb3afe58548ebd763780b1b1cae95ada0d739b933520100349e4a65c', 4, 2, NULL, '[]', 0, '2020-09-21 00:13:52', '2020-09-21 00:13:52', '2020-09-21 00:25:52'),
@@ -315,6 +315,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('547a6b55f9a28248aa138e9f3dd286774ca5abb9075222451ba23c87f61e56900bebae8195b53020', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 17:24:11', '2020-12-14 17:24:11', '2021-12-14 17:24:11'),
 	('54b6c9f165e382b9b1c3e50b74e2afc7da04c3fd34de22e352b2acb48591e5a85cee696eca363503', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-05 20:45:42', '2020-11-05 20:45:42', '2021-11-05 20:45:42'),
 	('54f51032431bc6c876e7bd5ba06b4651303553d360f583f4c67a0593a32f515171333a00f1f6519a', 4, 2, NULL, '[]', 1, '2020-10-16 17:34:11', '2020-10-16 17:34:11', '2020-10-16 17:49:11'),
+	('555e18957331777dec48869150f146d7d07aa77e804c98593ecf8df0d2ec4764d0fd0e2f03e2e137', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:47:50', '2020-12-19 20:47:50', '2021-12-19 20:47:50'),
 	('55feee5091b80bc0d8172437a4c407def3eed14ae5f15cbb78c38884e1e6ec4b7685bd8d4e2712c9', 4, 2, NULL, '[]', 1, '2020-09-14 15:27:23', '2020-09-14 15:27:23', '2020-09-14 15:39:23'),
 	('56718fc31478e5655e5f427f5bd1ea35a7e6e906cb7316e5896aaacb85a727d3d4e027fbe62cb3dc', 4, 2, NULL, '[]', 1, '2020-09-26 13:43:26', '2020-09-26 13:43:26', '2020-09-26 13:55:26'),
 	('56a8d13043325ba1eb70d20afe12ac7f6ae3066b57b35ef8ed6444a9191e277dcaf17f92b6b8c36f', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-30 16:09:35', '2020-11-30 16:09:35', '2021-11-30 16:09:35'),
@@ -414,6 +415,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('7f72ba2db870608b517c2f1a1d8df9868239d14a9a1c164a749fc2086414bf013ad1b552645ef620', 4, 2, NULL, '[]', 1, '2020-10-04 05:12:33', '2020-10-04 05:12:33', '2020-10-04 05:13:33'),
 	('7fb8560c89181a254c2820b6c072e8604a9aef82c5c5fc31bde50a216aa30d2528e2cc2a0b645900', 4, 2, NULL, '[]', 1, '2020-09-24 14:14:54', '2020-09-24 14:14:54', '2020-09-24 14:26:51'),
 	('7fee29b973ecbec7d23582656c4873d0840d4e488b1744cd5da9206538350e3bc4b5da11bece5bdb', 4, 2, NULL, '[]', 0, '2020-10-08 18:03:11', '2020-10-08 18:03:11', '2020-10-08 18:18:11'),
+	('800b6c1156dfa9dce7cc177c15056547b743da94b724231b387f49ac92492afbd95cb79c04b806c9', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:14:22', '2020-12-19 20:14:22', '2021-12-19 20:14:22'),
 	('802d4d86f35f4461848d848380b8d19b2d68e3cf848955e80a406ded4287f58de75236af7d645060', 4, 2, NULL, '[]', 0, '2020-10-08 21:18:20', '2020-10-08 21:18:20', '2020-10-08 21:33:19'),
 	('80ec9a7ca20754e660bf46e09ff79b8fd1080ed669eeb43bfd378b70af7d43281a07de4625df210f', 4, 2, NULL, '[]', 1, '2020-09-12 18:05:40', '2020-09-12 18:05:40', '2020-09-12 18:06:40'),
 	('81b9cfcded872ecf06c2f900e3ceac46636599cda2f2a0c0f019eb3c88ff6776a49c9b46193d04a7', 4, 2, NULL, '[]', 0, '2020-09-26 13:39:35', '2020-09-26 13:39:35', '2020-09-26 13:51:35'),
@@ -466,6 +468,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('97b3d162f6b37966a9cd50d4e8b8543da2b46d092b1750a224d80fee36da7523d8c49f5630c2822d', 4, 2, NULL, '[]', 0, '2020-09-26 19:54:50', '2020-09-26 19:54:50', '2020-09-26 20:06:43'),
 	('981a7c3b6c0048e46253b2db0047c64dc4ead8a2be2bca1a6d37183cacb1842a038465d80d60a4c2', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-04 02:57:21', '2020-11-04 02:57:21', '2021-11-04 02:57:21'),
 	('984052f4aca97e53efe514b639376edc3bd76f30524a4e6a1ca29f5fc716f750d05fff9f7be4800b', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 14:17:22', '2020-11-10 14:17:22', '2021-11-10 14:17:22'),
+	('98a2772b83898ced82109d7409eb13a659510a1c56418ff9d492c76723ccbe0ac0944c713306db55', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:47:32', '2020-12-19 20:47:32', '2021-12-19 20:47:32'),
 	('98f54c637bf6e67be91a9cb704b3a3531dd5c23d93e77f22920ac462971e43012bbcaeaa34883473', 4, 2, NULL, '[]', 0, '2020-09-11 21:13:04', '2020-09-11 21:13:04', '2020-09-11 21:28:04'),
 	('994610faa22789be5317cde090edafd511e23ed68ea0b99fdf50fdb8fa4b1b8cc07002efac7fd2b1', 4, 2, NULL, '[]', 0, '2020-10-14 17:03:18', '2020-10-14 17:03:18', '2020-10-14 17:18:18'),
 	('99aa9e83f1a0c3f39ca645bffd118cab3482df8d24add7171f9fb39f777069ae0b21c156afe1635e', 4, 2, NULL, '[]', 0, '2020-09-12 20:54:18', '2020-09-12 20:54:18', '2020-09-12 21:06:18'),
@@ -492,6 +495,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('a3f0a34aa6d561427fffbf0392ad0f2b708ab60a36dd43320282259bdb9a4c9d8418a5653f6f64f5', 4, 2, NULL, '[]', 1, '2020-09-28 21:44:06', '2020-09-28 21:44:06', '2020-09-28 21:56:05'),
 	('a3f7bd4b324277ec45267a3c59a9150cb93aeca0c0e6810834e9c1fbab179b6300def2ad38b7abcb', 4, 1, 'Personal Access Token', '[]', 0, '2020-11-04 02:35:26', '2020-11-04 02:35:26', '2021-11-04 02:35:26'),
 	('a43207ff1d0acc166c57c9af54d1d7f9077ba6a9b26d5aad459ce46cead5f3ccd0b45f49eb5c3891', 4, 2, NULL, '[]', 0, '2020-09-20 23:11:51', '2020-09-20 23:11:51', '2020-09-20 23:23:50'),
+	('a45a9214f4766c2236692697ad84484c4c631c828f09695f756be951b6445ffea8647cf073de9f24', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-20 03:13:04', '2020-12-20 03:13:04', '2021-12-20 03:13:04'),
 	('a4a7311adcbb5d7798f3c9d0b11352f309c4f5592034afe70607f980d017432f67f8281fd3506492', 4, 2, NULL, '[]', 0, '2020-11-03 19:04:45', '2020-11-03 19:04:45', '2020-11-04 03:04:45'),
 	('a51742167f92d114f4998901a044f6484c79c1fb5ecd9ab9b1c0c828ad57a1832ff68da9a055f465', 4, 2, NULL, '[]', 0, '2020-09-18 02:57:58', '2020-09-18 02:57:58', '2020-09-18 03:09:58'),
 	('a5583d6bf7b979fdd99cf9f2e5e4438a69a38f98baa15f02b4e20b682746540a1676b7ebaa46304e', 4, 2, NULL, '[]', 0, '2020-10-08 18:03:45', '2020-10-08 18:03:45', '2020-10-08 18:18:45'),
@@ -531,6 +535,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('aef9df8b1ee5173eb94d7b746af3e55041de4b83d311b45c1086102d021dd9ea5a223905317a9021', 4, 2, NULL, '[]', 1, '2020-09-26 15:43:56', '2020-09-26 15:43:56', '2020-09-26 15:55:56'),
 	('af03e3af524c45b49602159fd481c7bb602748777e5ac75e15bd22af75a4927e747bc90b5d6d5e20', 7, 1, 'MyApp', '[]', 0, '2020-10-16 16:20:01', '2020-10-16 16:20:01', '2021-10-16 16:20:01'),
 	('af2b2eedf7b0303bfa747be8c2860ace2aee949f82ba4ac321975fdb4ae23ae2a8108f3f7173e0ef', 4, 2, NULL, '[]', 1, '2020-09-13 23:34:01', '2020-09-13 23:34:01', '2020-09-13 23:45:58'),
+	('afec25acae5049e9f41202dee77ba55a3d9ae2531538c9a2675f5562617759e00c0f431bc355a37a', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:10:20', '2020-12-19 20:10:20', '2021-12-19 20:10:20'),
 	('b01d6bbe5fba63f6db1d9d5898ae9deae007b3292f7fd6931b8ec06a955c08e90dd0901b581b3647', 4, 2, NULL, '[]', 0, '2020-09-11 21:13:26', '2020-09-11 21:13:26', '2020-09-11 21:28:26'),
 	('b077610d70ecc4d9fae0ee3cd916dab93718ba85274336a8e5d0b5cd06d3be5bba0d8591f83a442e', 4, 2, NULL, '[]', 0, '2020-09-29 02:56:09', '2020-09-29 02:56:09', '2020-09-29 03:08:09'),
 	('b086001b0b70df79d1d15780ae6923799071a9a1692d4c25131463c2c242212d3367a83090f4dc39', 37, 1, 'Personal Access Token', '[]', 0, '2020-11-26 06:00:59', '2020-11-26 06:00:59', '2021-11-26 06:00:59'),
@@ -609,6 +614,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('d03abfa7c23d7a369aa1d5ea8cabdb6fc59e4c92d0fcb5a9312f3ba323354bd022ef1984c6b9d57c', 4, 2, NULL, '[]', 1, '2020-09-28 22:17:18', '2020-09-28 22:17:18', '2020-09-28 22:29:18'),
 	('d08839c63a572be14be62f8263deb35b6f382cc09b9bb489162db23a04536caa977889186ee76524', 4, 2, NULL, '[]', 0, '2020-09-29 02:39:43', '2020-09-29 02:39:43', '2020-09-29 02:51:43'),
 	('d1570cd4d5020776812ad34368782beff8148c3cc73349a2e8a131d83dfc1606831aa9c372bd3502', 16, 1, 'Personal Access Token', '[]', 0, '2020-11-10 15:08:02', '2020-11-10 15:08:02', '2021-11-10 15:08:02'),
+	('d166ea86bde22ae31bbefd595dfe34ee44a1957dc3c7f58bceb3cab0624f781d90b2889b7b68f304', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-19 20:47:41', '2020-12-19 20:47:41', '2021-12-19 20:47:41'),
 	('d1710beb55ec3bd7a8aa3210a6ca366053488508e47f0b9e5ac0d9cbc6ea7da0cc85e2412cbe5ac9', 4, 2, NULL, '[]', 0, '2020-09-26 13:37:14', '2020-09-26 13:37:14', '2020-09-26 13:49:12'),
 	('d1d1dfe26838a651a6952c3a2ae601c1fd2470770558c0f1e0e2abc505eec1fba079544dd17ca846', 4, 2, NULL, '[]', 1, '2020-10-09 22:13:01', '2020-10-09 22:13:01', '2020-10-09 22:28:01'),
 	('d1d2c4baeeb148f8910d91132b7ab9b370ab8a9256f38805632cd1415832db7287b6edf77df87d96', 4, 2, NULL, '[]', 1, '2020-09-26 15:05:49', '2020-09-26 15:05:49', '2020-09-26 15:17:49'),
@@ -643,6 +649,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('dacd582501ab993428dbda0d10dae826c4847d4a8e18f6657341aad0db87acea4742bd4aabb44996', 4, 2, NULL, '[]', 0, '2020-09-28 20:02:40', '2020-09-28 20:02:40', '2020-09-28 20:14:40'),
 	('daf011a041ab74a47f6f2d84d466e2211b57dbe10012f942700d9b98fd2aa9dbc8f0984dedcc0ea1', 4, 2, NULL, '[]', 1, '2020-09-21 00:13:46', '2020-09-21 00:13:46', '2020-09-21 00:25:45'),
 	('db3ec3dc2aed1b8ac5e23a82e6df669e94faed15bd0bd19d65735b674002b8ed44c9e8e8625dfa68', 4, 2, NULL, '[]', 0, '2020-10-14 18:26:52', '2020-10-14 18:26:52', '2020-10-14 18:41:52'),
+	('db4769df7274595f84a0de57c78e08ce3399ec6776aebb7b4d2f195b29caa8db9b8d300bc9ca4db3', 38, 1, 'Personal Access Token', '[]', 0, '2020-12-20 05:26:14', '2020-12-20 05:26:14', '2021-12-20 05:26:14'),
 	('db7b18c6ebe77675c2478ea66ce9470cf67c7c102553d7bcee5fd0c73c9bccc41718283e267b7110', 37, 1, 'Personal Access Token', '[]', 0, '2020-12-14 20:14:19', '2020-12-14 20:14:19', '2021-12-14 20:14:19'),
 	('db84beb1025ab828a33ba4401951aabee6886af7832c98bdafb3a9513845a7914dc889a80c61cada', 4, 2, NULL, '[]', 0, '2020-10-16 20:14:22', '2020-10-16 20:14:22', '2020-10-17 04:14:22'),
 	('dd1da7c8ad7d197ae53164ce6d6f18bdbf3ba029c790fabffc7822fd146331dfd2a423c87b273699', 4, 2, NULL, '[]', 0, '2020-10-04 04:27:40', '2020-10-04 04:27:40', '2020-10-04 04:28:40'),
@@ -1293,7 +1300,7 @@ DELETE FROM `trazabilidades`;
 /*!40000 ALTER TABLE `trazabilidades` DISABLE KEYS */;
 /*!40000 ALTER TABLE `trazabilidades` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_proyecto.users: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.users: ~3 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `password`, `confirmado`, `codigo_confirmacion`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -1302,7 +1309,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `confirmado`, `codigo_confirmaci
 	(39, 'luz2062@hotmail.com', '$2y$10$33s.CVSMrh6Bu6ilg.1ilukObDKSdIi2r3yfsRamR6N2ebJSpjy.C', 1, NULL, NULL, '2020-12-15 01:25:03', '2020-12-15 01:25:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_proyecto.usuarios: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_proyecto.usuarios: ~3 rows (aproximadamente)
 DELETE FROM `usuarios`;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_user`, `apellidos`, `nombres`, `identificacion`, `estado`, `foto`, `id_rol`, `created_at`, `updated_at`) VALUES

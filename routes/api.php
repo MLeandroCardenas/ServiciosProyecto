@@ -47,7 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('institucionales','EventosController@obtenerEventosInstitucionales');
         Route::get('eventos/{id}','EventosController@obtenerEventosPorEstado');
         Route::put('eventos/{id}','EventosController@aprobarEvento');
-        Route::post('eventos','EventosController@crearEventos');
+        Route::post('eventos','EventosController@crearEvento');
     });
 });
 
