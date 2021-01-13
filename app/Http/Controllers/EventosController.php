@@ -10,6 +10,18 @@ use Validator;
 
 class EventosController extends Controller
 {
+    public function obtenerRangosHorarios($horaActual){
+        if($horaActual == 'undefined') {
+            $horas = DB::table('rangos_horarios')->select('hora')->get();
+            return response()->json($horas,200);
+        } else {
+            $horaSeleccionada = intval($horaActual + 2);
+            $horaInicio = strval($horaSeleccionada).':00';
+            $horas = DB::table('rangos_horarios')->whereBetween('hora',[$horaInicio, '22:00'])->select('hora')->get();
+            return response()->json($horas,200);
+        }
+    }
+
     public function crearEvento(Request $request)
     {
         $validador = Validator::make($request->all(), [

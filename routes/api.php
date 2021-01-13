@@ -42,12 +42,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::patch('nueva','UsuarioController@editarClave');
         Route::patch('fotoperfil','UsuarioController@editarFotoPerfil');
                 
+        Route::get('horas/{horaActual}','EventosController@obtenerRangosHorarios');
         Route::get('todos','EventosController@obtenerEventos');
         Route::get('eventos','EventosController@obtenerEventosUsuario');
         Route::get('institucionales','EventosController@obtenerEventosInstitucionales');
         Route::get('eventos/{id}','EventosController@obtenerEventosPorEstado');
         Route::put('eventos/{id}','EventosController@aprobarEvento');
         Route::post('eventos','EventosController@crearEvento');
+        
     });
 });
 

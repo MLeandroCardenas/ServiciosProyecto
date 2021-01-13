@@ -22,9 +22,6 @@ class CreateEventosTable extends Migration
             $table->string('visibilidad',13);
             $table->json('horario')->nullable();
             $table->boolean('estado');           
-            $table->json('usuarios_externos_invitados')->nullable();
-            $table->json('usuarios_registrados_invitados')->nullable();
-            $table->json('asistentes')->nullable();
             $table->timestamps();
         });
     }

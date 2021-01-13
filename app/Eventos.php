@@ -5,14 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eventos extends Model
 {
-    
-    protected $casts = [ 
-        'usuarios_externos_invitados' => 'array',
-        'usuarios_externos_invitados' => 'array',
-        'asistentes' => 'array',
-        'horario' => 'array'
-    ];
-    
     protected $fillable = [
         'id', 
         'creador_evento',
@@ -21,11 +13,6 @@ class Eventos extends Model
         'descripcion',
         'visibilidad',
         'horario',
-        'estado',
-        'usuarios_externos_invitados',
-        'usuarios_registrados_invitados',
-        'asistentes'
+        'estado'
         ];
-
-    protected $hidden = ['usuarios_externos_invitados','usuarios_registrados_invitados','asistentes'];
 }
