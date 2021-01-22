@@ -16,8 +16,9 @@ class EventosController extends Controller
             return response()->json($horas,200);
         } else {
             $horaSeleccionada = intval($horaActual + 2);
-            $horaInicio = strval($horaSeleccionada).':00';
-            $horas = DB::table('rangos_horarios')->whereBetween('hora',[$horaInicio, '22:00'])->select('hora')->get();
+            $horaSiguiente = $horaSeleccionada + 1;
+            $horaInicio = strval($horaSeleccionada).':00'.' a '.$horaSiguiente.':00';
+            $horas = DB::table('rangos_horarios')->whereBetween('hora',[$horaInicio, '21:00 a 22:00'])->select('hora')->get();
             return response()->json($horas,200);
         }
     }
