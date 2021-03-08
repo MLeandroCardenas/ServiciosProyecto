@@ -17,6 +17,7 @@ class UsuarioController extends Controller
             'usuarios.apellidos',
             'usuarios.nombres', 
             'usuarios.identificacion',
+            'usuarios.id_rol',
             'roles.rol')->first();
         return response()->json($usuario,200);
     }

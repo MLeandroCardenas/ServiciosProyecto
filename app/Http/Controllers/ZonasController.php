@@ -232,8 +232,11 @@ class ZonasController extends Controller
     {
         $zonasHabilitadas = DB::table('zonas')
             ->join('estados', 'zonas.estado', '=', 'estados.id')
-            ->select('zonas.id', 'zonas.nombre_zona',
-            'estados.estado')->where('zonas.estado','=',1)->get();
+            ->join('modulos_lectores', 'modulos_lectores.id_zona', 'zonas.id')
+            ->select('zonas.id', 'zonas.nombre_zona','estados.estado')->where('zonas.estado','=',1)->orWhere([
+                ['zonas.estado','=', 2],
+                ['modulos_lectores.id_zona', '<>', null]
+            ])->get();
         
         if($zonasHabilitadas->isEmpty())
             return response()->json($zonasHabilitadas,204);
@@ -308,4 +311,5 @@ class ZonasController extends Controller
                 return response()->json(['mensaje '=> $e->getMessage()], 500);
             }
         }
+
 }

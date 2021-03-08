@@ -4,18 +4,23 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipoPeticionsTable extends Migration
+class CreateCarnetsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
+
     public function up()
     {
-        Schema::create('tipo_peticions', function (Blueprint $table) {
+        Schema::create('carnets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('peticion',100);
+            $table->string('id_tarjeta',64)->unique()->nullable();
+            $table->integer('id_usuario')->nullable();
+            $table->string('codigo_universitario')->nullable();
+            $table->json('zonas')->nullable();
+            $table->boolean('estado');
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ class CreateTipoPeticionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_peticions');
+        Schema::dropIfExists('carnets');
     }
 }

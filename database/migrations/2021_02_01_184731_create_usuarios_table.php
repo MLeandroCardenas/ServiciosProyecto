@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarnetsTable extends Migration
+class CreateUsuariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCarnetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('carnets', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_tarjeta',64)->unique()->nullable();
-            $table->integer('id_usuario')->nullable();
-            $table->string('codigo_universitario')->nullable();
-            $table->json('zonas')->nullable();
+            $table->integer('id_user');
+            $table->string('apellidos',50);
+            $table->string('nombres',50);
+            $table->string('identificacion',255)->unique();
             $table->boolean('estado');
+            $table->binary('foto')->nullable();
+            $table->integer('id_rol');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateCarnetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carnets');
+        Schema::dropIfExists('usuarios');
     }
 }

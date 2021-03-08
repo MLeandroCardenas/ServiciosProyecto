@@ -23,7 +23,7 @@ class CreateInvitadosTable extends Migration
             $table->boolean('estado');
             $table->timestamps();
         });
-    }       
+    }     
 
     /**
      * Reverse the migrations.

@@ -5,6 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eventos extends Model
 {
+   
+    protected $casts = [ 
+        'horario' => 'array' 
+    ]; 
+    
     protected $fillable = [
         'id', 
         'creador_evento',

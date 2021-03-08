@@ -12,10 +12,14 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('buscar/{token}', 'PasswordResetController@find');
     Route::post('actualizar', 'PasswordResetController@reset');
 
-    Route::get('publicos','EventosController@obtenerEventosPublicos');
+    Route::get('publicos/{cantidad}','EventosController@obtenerEventosPublicos');
 
     Route::group(['middleware'=>'auth:api'], function(){ 
 
+        Route::get('autenticado','UsuarioController@perfilUsuario');
+        Route::get('usuarios/{cantidad}', 'UsuarioController@obtenerUsuarios');        
+        Route::patch('nueva','UsuarioController@editarClave');
+        Route::patch('fotoperfil','UsuarioController@editarFotoPerfil');
         Route::get('logout', 'AuthController@logout');
         
         Route::post('lectores','ZonasController@registrarLector');
@@ -29,44 +33,22 @@ Route::group(['prefix' => 'v1'], function () {
         Route::patch('habilitarlectores','ZonasController@habilitarLectores');
         Route::get('lectores','ZonasController@listarLectores');        
         Route::get('lectoresdisponibles','ZonasController@lectoresDisponibles');
-
+        
         Route::get('habilitadas','ZonasController@obtenerZonasHabilitadas');
         Route::get('zonas','ZonasController@obtenerTodasLasZonas');
         Route::post('zonas','ZonasController@crearZonas');
         Route::put('zonas','ZonasController@editarZona');
         Route::get('zonas/{id}','ZonasController@obtenerZonaEspecifica');
         Route::get('deshabilitadas','ZonasController@obtenerZonasDeshabilitadas');
-        
-        Route::get('usuarios/{cantidad}', 'UsuarioController@obtenerUsuarios');
-        Route::get('autenticado','UsuarioController@perfilUsuario');
-        Route::patch('nueva','UsuarioController@editarClave');
-        Route::patch('fotoperfil','UsuarioController@editarFotoPerfil');
-                
+   
         Route::get('horas/{horaActual}','EventosController@obtenerRangosHorarios');
-        Route::get('todos','EventosController@obtenerEventos');
-        Route::get('eventos','EventosController@obtenerEventosUsuario');
+        Route::get('todos/{cantidad}','EventosController@obtenerEventos');
+        Route::get('eventos/{cantidad}','EventosController@obtenerEventosUsuario');
         Route::get('institucionales','EventosController@obtenerEventosInstitucionales');
         Route::get('eventos/{id}','EventosController@obtenerEventosPorEstado');
-        Route::put('eventos/{id}','EventosController@aprobarEvento');
+        Route::put('eventos/{idEvento}','EventosController@aprobarEvento');
+        Route::put('desaprobar/{idEvento}','EventosController@desaprobarEvento');
         Route::post('eventos','EventosController@crearEvento');
         
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
