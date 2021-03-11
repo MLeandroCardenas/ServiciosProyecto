@@ -93,7 +93,6 @@ class EventosController extends Controller
         } else {
             $horariosAprobados = json_decode($horarios, true);
             $horarioPendiente = json_decode($evento->horario, true);
-
         }
     }
 

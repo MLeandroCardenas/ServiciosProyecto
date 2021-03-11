@@ -13,7 +13,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('actualizar', 'PasswordResetController@reset');
 
     Route::get('publicos/{cantidad}','EventosController@obtenerEventosPublicos');
-
+    
+    
     Route::group(['middleware'=>'auth:api'], function(){ 
 
         Route::get('autenticado','UsuarioController@perfilUsuario');
