@@ -16,36 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oauth_clients`
+-- Table structure for table `modulos_lectores`
 --
 
-DROP TABLE IF EXISTS `oauth_clients`;
+DROP TABLE IF EXISTS `modulos_lectores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oauth_clients` (
+CREATE TABLE `modulos_lectores` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `personal_access_client` tinyint(1) NOT NULL,
-  `password_client` tinyint(1) NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
+  `nombre_modulo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codigo_lector` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_zona` int(11) DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `modulos_lectores_codigo_lector_unique` (`codigo_lector`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oauth_clients`
+-- Dumping data for table `modulos_lectores`
 --
 
-LOCK TABLES `oauth_clients` WRITE;
-/*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
-INSERT INTO `oauth_clients` VALUES (1,NULL,'Laravel Personal Access Client','2Emjy4alv5MrBw4hrt15FmPTqRis3cLdmnzmZsq5','http://localhost',1,0,0,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(2,NULL,'Laravel Password Grant Client','VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh','http://localhost',0,1,0,'2020-07-19 22:00:44','2020-07-19 22:00:44');
-/*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
+LOCK TABLES `modulos_lectores` WRITE;
+/*!40000 ALTER TABLE `modulos_lectores` DISABLE KEYS */;
+INSERT INTO `modulos_lectores` VALUES (2,'Modulo 1','20202121',2,2,'2021-02-13 20:32:21','2021-02-22 01:30:30'),(3,'Modulo 2','20201232',3,2,'2021-02-22 19:47:03','2021-02-22 19:47:03');
+/*!40000 ALTER TABLE `modulos_lectores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 17:45:25
+-- Dump completed on 2021-03-12 16:27:11

@@ -16,19 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `peticiones_certificados`
+-- Table structure for table `peticiones`
 --
 
-DROP TABLE IF EXISTS `peticiones_certificados`;
+DROP TABLE IF EXISTS `peticiones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `peticiones_certificados` (
+CREATE TABLE `peticiones` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_formato` int(11) NOT NULL,
-  `id_evento` int(11) NOT NULL,
-  `fecha_radicado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_usuario` int(11) NOT NULL,
+  `fecha_radicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fecha_respuesta` timestamp NULL DEFAULT NULL,
-  `respuesta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_peticion` int(11) NOT NULL,
+  `documentos` json DEFAULT NULL,
+  `respuesta` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -37,12 +38,12 @@ CREATE TABLE `peticiones_certificados` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `peticiones_certificados`
+-- Dumping data for table `peticiones`
 --
 
-LOCK TABLES `peticiones_certificados` WRITE;
-/*!40000 ALTER TABLE `peticiones_certificados` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peticiones_certificados` ENABLE KEYS */;
+LOCK TABLES `peticiones` WRITE;
+/*!40000 ALTER TABLE `peticiones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `peticiones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 17:45:27
+-- Dump completed on 2021-03-12 16:27:09

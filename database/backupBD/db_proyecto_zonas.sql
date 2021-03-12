@@ -16,32 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `trazabilidades`
+-- Table structure for table `zonas`
 --
 
-DROP TABLE IF EXISTS `trazabilidades`;
+DROP TABLE IF EXISTS `zonas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `trazabilidades` (
+CREATE TABLE `zonas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_carnet` int(11) NOT NULL,
-  `id_zona` int(11) NOT NULL,
-  `fecha_ingreso` timestamp NULL DEFAULT NULL,
-  `fecha_salida` timestamp NULL DEFAULT NULL,
-  `resultado` tinyint(1) NOT NULL,
+  `nombre_zona` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trazabilidades`
+-- Dumping data for table `zonas`
 --
 
-LOCK TABLES `trazabilidades` WRITE;
-/*!40000 ALTER TABLE `trazabilidades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trazabilidades` ENABLE KEYS */;
+LOCK TABLES `zonas` WRITE;
+/*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
+INSERT INTO `zonas` VALUES (2,'CIT',2,NULL,'2021-02-22 01:30:30'),(3,'Biblioteca',2,NULL,NULL);
+/*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 17:45:24
+-- Dump completed on 2021-03-12 16:27:09

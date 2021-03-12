@@ -28,8 +28,7 @@ class ZonasController extends Controller
                 [   'nombre_zona' => $request->nombre_zona,
                     'estado' => $nuevoEstado
                 ]);
-            DB::table('modulos_lectores')->where('id', $request->idLector)
-            ->update(['estado' => 2, 'id_zona' => $idZona]);
+            DB::table('modulos_lectores')->where('id', $request->idLector)->update(['estado' => 2, 'id_zona' => $idZona]);
             DB::commit();
             return response()->json('Zona creada exitosamente', 201);
             }catch(\Exception $e) {

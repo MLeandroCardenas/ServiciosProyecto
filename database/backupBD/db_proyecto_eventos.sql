@@ -34,7 +34,7 @@ CREATE TABLE `eventos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `eventos` (
 
 LOCK TABLES `eventos` WRITE;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
+INSERT INTO `eventos` VALUES (14,44,'2','Capacitacion docentes','Capacitacion docentes obligatoria','INSTITUCIONAL','\"[{\\\"fecha\\\":\\\"11/3/2021\\\",\\\"hora\\\":[\\\"10:00 a 11:00\\\",\\\"11:00 a 12:00\\\"]},{\\\"fecha\\\":\\\"12/3/2021\\\",\\\"hora\\\":[\\\"08:00 a 09:00\\\",\\\"09:00 a 10:00\\\",\\\"16:00 a 17:00\\\",\\\"17:00 a 18:00\\\"]}]\"',1,'2021-03-11 18:53:24','2021-03-13 01:55:11'),(15,44,'3','Capacitacion estudiantes','Capacitacion estudiantes obligatoria','INSTITUCIONAL','\"[{\\\"fecha\\\":\\\"11/3/2021\\\",\\\"hora\\\":[\\\"10:00 a 11:00\\\",\\\"11:00 a 12:00\\\",\\\"12:00 a 13:00\\\"]},{\\\"fecha\\\":\\\"13/3/2021\\\",\\\"hora\\\":[\\\"08:00 a 09:00\\\",\\\"09:00 a 10:00\\\",\\\"10:00 a 11:00\\\"]},{\\\"fecha\\\":\\\"1/4/2021\\\",\\\"hora\\\":[\\\"08:00 a 09:00\\\",\\\"09:00 a 10:00\\\"]}]\"',3,'2021-03-11 18:59:07','2021-03-13 01:54:47'),(16,44,'3','Capacitacion administratios','Capacitacion administratios obligaoria estara el señor decano','PRIVADA','\"[{\\\"fecha\\\":\\\"25/3/2021\\\",\\\"hora\\\":[\\\"09:00 a 10:00\\\",\\\"10:00 a 11:00\\\"]}]\"',3,'2021-03-11 19:13:07','2021-03-13 01:54:33'),(22,44,'3','EJEMPLO CRUCES','EJEMPLLO CRUCES','PRIVADA','\"[{\\\"fecha\\\":\\\"25/3/2021\\\",\\\"hora\\\":[\\\"10:00 a 11:00\\\",\\\"11:00 a 12:00\\\"]}]\"',1,'2021-03-12 02:48:21','2021-03-13 01:54:56'),(23,44,'3','Capacitacion dos','Capacitacion dos','PRIVADA','\"[{\\\"fecha\\\":\\\"13/3/2021\\\",\\\"hora\\\":[\\\"09:00 a 10:00\\\",\\\"10:00 a 11:00\\\",\\\"14:00 a 15:00\\\"]},{\\\"fecha\\\":\\\"1/4/2021\\\",\\\"hora\\\":[\\\"12:00 a 13:00\\\",\\\"13:00 a 14:00\\\"]}]\"',1,'2021-03-12 22:28:04','2021-03-13 01:54:52');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 17:45:28
+-- Dump completed on 2021-03-12 16:27:08

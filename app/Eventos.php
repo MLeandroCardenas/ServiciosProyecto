@@ -5,7 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eventos extends Model
 {
-   
     protected $casts = [ 
         'horario' => 'array' 
     ]; 
@@ -20,4 +19,14 @@ class Eventos extends Model
         'horario',
         'estado'
         ];
+    
+    protected $appends = ['fecha', 'hora']; 
+    
+    public function getFechaJson(){
+        return array_get($this->horario, 'fecha', []);
+    }
+
+    public function getHoraJson(){
+        return array_get($this->horario, 'hora', []);
+    }
 }

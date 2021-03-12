@@ -24,6 +24,36 @@ class EventosController extends Controller
         }
     }
 
+    public function verificarCruces($resultado, $horarioPendiente){
+        $cadenaResultado = $resultado->toJson();
+            $cadenaLimpia = str_replace('\\', '', $cadenaResultado);
+            $fecha = null;
+            $hora = null;
+            foreach($horarioPendiente as $valor){
+                $fecha = $valor['fecha'];
+                foreach($valor['hora'] as $valorDos){
+                    $hora = $valorDos;
+                    if(str_contains($cadenaLimpia, $fecha) && str_contains($cadenaLimpia, $hora)){
+                        return true;
+                    } else 
+                        continue; 
+                }
+            }
+    }
+
+    public function verificarEventosAprobados($idZona, $horario){
+        $resultado = DB::table('eventos')->where([
+            ['estado', '=', 1],
+            ['zona', '=', $idZona],
+            ['creador_evento', '=', Auth::id()]
+        ])->select('horario')->get();
+
+        if($resultado->isEmpty())
+            return true;
+        if($this->verificarCruces($resultado, $horario) === true)
+            return false;
+    }
+
     public function crearEvento(Request $request)
     {
         $validador = Validator::make($request->all(), [
@@ -36,14 +66,15 @@ class EventosController extends Controller
 
         if($validador->fails()){
             return response()->json($validador->errors(),422);
+        } else if($this->verificarEventosAprobados($request->zona, json_decode($request->horario, true)) === false){
+            return response()->json('Ya hay eventos en el mismo horario aprobados', 400);
+        } else{
+            $input = $request->all();
+            $input['creador_evento'] = Auth::id();
+            $input['estado'] = 3;
+            $evento = Eventos::create($input);
+            return response()->json('Evento registrado exitosamente', 200);
         }
-
-        $input = $request->all();
-        $input['creador_evento'] = Auth::id();
-        $input['estado'] = 3;
-        $evento = Eventos::create($input);
-
-        return response()->json('Evento registrado exitosamente', 200);
     }
 
     public function obtenerEventosUsuario($cantidad)
@@ -79,20 +110,26 @@ class EventosController extends Controller
     }
 
     public function aprobarEvento($idEvento)
-    {
+    { 
         $evento = Eventos::findOrFail($idEvento);
-        $horarios = DB::table('eventos')->where([
+        $horarioPendiente = json_decode($evento->horario,true);
+        $resultado = DB::table('eventos')->where([
             ['estado', '=', 1],
             ['zona', '=', $evento->zona]
         ])->select('horario')->get();
 
-        if($horarios->isEmpty()) {
+        if($resultado->isEmpty()){
             $evento->estado = 1;
             $evento->save();
             return response()->json('Evento aprobado exitosamente', 200);
         } else {
-            $horariosAprobados = json_decode($horarios, true);
-            $horarioPendiente = json_decode($evento->horario, true);
+            if($this->verificarCruces($resultado, $horarioPendiente))
+                return response()->json('Existe un cruce de horarios', 400);
+            else {
+                $evento->estado = 1;
+                $evento->save();
+                return response()->json('Evento aprobado exitosamente', 200);   
+            }
         }
     }
 
