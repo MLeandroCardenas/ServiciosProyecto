@@ -4,9 +4,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NuevoEvento;
 use Carbon\Carbon;
 use App\Eventos;
 use App\MHorario;
+use App\Usuarios;
+use App\User;
 use Validator;
 
 class EventosController extends Controller
@@ -69,11 +72,38 @@ class EventosController extends Controller
         } else if($this->verificarEventosAprobados($request->zona, json_decode($request->horario, true)) === false){
             return response()->json('Ya hay eventos en el mismo horario aprobados', 400);
         } else{
-            $input = $request->all();
-            $input['creador_evento'] = Auth::id();
-            $input['estado'] = 3;
-            $evento = Eventos::create($input);
-            return response()->json('Evento registrado exitosamente', 200);
+            try{
+                $input = $request->all();
+                $input['creador_evento'] = Auth::id();
+                $input['estado'] = 3;
+                $evento = Eventos::create($input);
+
+                $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
+                        ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
+                        ->select('usuarios.nombres', 'usuarios.apellidos', 'roles.rol')
+                        ->first();
+                $usuarioArray = $datosUsuario->toArray();
+
+                $resultado = Usuarios::where('usuarios.id_rol', '=', 1)
+                        ->join('users', 'users.id', '=', 'usuarios.id_user')
+                        ->select('users.id')->first();
+                $arrayResultados = $resultado->toArray();
+                
+                $idUsuarioDestino = $arrayResultados['id'];
+                $usuario = User::find($idUsuarioDestino);
+
+                $usuario->notify(
+                    new NuevoEvento($usuarioArray['nombres'],
+                                    $usuarioArray['apellidos'],
+                                    $usuarioArray['rol'],
+                                    $request->nombre_evento)
+                );
+                DB::commit();
+                return response()->json('Evento registrado exitosamente', 200);
+            } catch(\Exception $e) {
+                DB::rollback();
+                return response()->json(['mensaje '=> $e->getMessage()], 500);
+            }
         }
     }
 

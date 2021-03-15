@@ -14,7 +14,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('publicos/{cantidad}','EventosController@obtenerEventosPublicos');
     
-    
+    //Rutas protegidas con autenticacion
     Route::group(['middleware'=>'auth:api'], function(){ 
 
         Route::get('autenticado','UsuarioController@perfilUsuario');
