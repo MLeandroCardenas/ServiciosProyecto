@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NuevoEvento;
+use App\Notifications\EventoAprobado;
 use Carbon\Carbon;
 use App\Eventos;
 use App\MHorario;
@@ -55,6 +56,13 @@ class EventosController extends Controller
             return true;
         if($this->verificarCruces($resultado, $horario) === true)
             return false;
+    }
+
+    public function notificacionEventoAprobado($evento){
+        $notificacion = User::find($evento->creador_evento);
+        $notificacion->notify(
+            new EventoAprobado($evento->nombre_evento)
+        );
     }
 
     public function crearEvento(Request $request)
@@ -151,6 +159,7 @@ class EventosController extends Controller
         if($resultado->isEmpty()){
             $evento->estado = 1;
             $evento->save();
+            $this->notificacionEventoAprobado($evento);
             return response()->json('Evento aprobado exitosamente', 200);
         } else {
             if($this->verificarCruces($resultado, $horarioPendiente))
@@ -158,7 +167,8 @@ class EventosController extends Controller
             else {
                 $evento->estado = 1;
                 $evento->save();
-                return response()->json('Evento aprobado exitosamente', 200);   
+                $this->notificacionEventoAprobado($evento);  
+                return response()->json('Evento aprobado exitosamente', 200); 
             }
         }
     }
