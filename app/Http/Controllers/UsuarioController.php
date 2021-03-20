@@ -7,13 +7,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
+
+    public function fotoUsuario($fotoUsuario) {
+        $url = Storage::url($fotoUsuario);
+        return response()->json($url,200);
+    }
+
     public function perfilUsuario() {
        $usuario = Usuarios::where('id_user', Auth::id())
         ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
         ->select(
+            'usuarios.foto',
             'usuarios.apellidos',
             'usuarios.nombres', 
             'usuarios.identificacion',
@@ -22,19 +30,12 @@ class UsuarioController extends Controller
         return response()->json($usuario,200);
     }
 
-
-    /**
-     * SE DEBE ARREGLAR
-     */
-    public function editarFotoPerfil(Request $request) {
-        $file = $request->file('foto');
-        $file = $request->foto;
-
+    public function cargarFotoUsuario(Request $request) {
        if($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $nombre = time().$file->getClientOriginalName();
-            $file->move(public_path().'/imagenes/',$nombre);
-            DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $fotoUsuario]);
+            $archivo = $request->file('foto');
+            $nombre = time().'_'.$archivo->getClientOriginalName();
+            $archivo->store('fotosUsuarios');
+            DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
             return response()->json('Foto de perfil actualizada', 200);
         } else 
             return response()->json('NO TIENE UN ARCHIVO', 400);
