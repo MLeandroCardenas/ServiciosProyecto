@@ -11,7 +11,7 @@ define('LARAVEL_START', microtime(true));
 
     header('Access-Control-Allow-Origin: http://localhost:4200'); 
     header("Access-Control-Allow-Credentials: true");
-    header('Access-Control-Allow-Methods: GET, PUT, PATCH, POST, DELETE');
+    header('Access-Control-Allow-Methods: GET, PUT, PATCH, POST, DELETE, OPTIONS');
     header('Access-Control-Max-Age: 1000');
     header('Access-Control-Allow-Headers: Origin, Access-Control-Allow-Headers, X-Requested-With, Accept, Content-Type, X-Auth-Token , Authorization');
 /*

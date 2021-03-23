@@ -13,9 +13,39 @@ class UsuarioController extends Controller
 {
 
     public function fotoUsuario($fotoUsuario) {
-        $url = Storage::url($fotoUsuario);
-        return response()->json($url,200);
+        $urlImagen = asset(Storage::url("usuarios/$fotoUsuario"));
+        return response()->json($urlImagen); 
     }
+
+    public function obtenerFotoActualizada(){
+        $fotoUsuario = Usuarios::where('id_user', Auth::id())->value('foto');
+        if(empty($fotoUsuario))
+            return response()->json('No tiene foto de perfil',400);
+        else {
+            $urlImagen = asset(Storage::url("usuarios/$fotoUsuario"));
+            return response()->json($urlImagen);
+        }
+    }
+
+    public function cargarFotoUsuario(Request $request) {
+        if($request->hasFile('foto')) {
+            $fotoUsuario = Usuarios::where('id_user', Auth::id())->value('foto');
+            if(empty($fotoUsuario)) {
+                $archivo = $request->file('foto');
+                $nombre = time().'_'.$archivo->getClientOriginalName();
+                $rutaImagen = $archivo->storeAs('usuarios', $nombre);
+                DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
+                return response()->json('Foto de perfil actualizada', 200);
+            } else{
+                Storage::delete($fotoUsuario);
+                $archivo = $request->file('foto');
+                $nombre = time().'_'.$archivo->getClientOriginalName();
+                $rutaImagen = $archivo->storeAs('usuarios', $nombre);
+                DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
+            }
+         } else 
+             return response()->json('NO TIENE UN ARCHIVO', 400);
+     }
 
     public function perfilUsuario() {
        $usuario = Usuarios::where('id_user', Auth::id())
@@ -28,17 +58,6 @@ class UsuarioController extends Controller
             'usuarios.id_rol',
             'roles.rol')->first();
         return response()->json($usuario,200);
-    }
-
-    public function cargarFotoUsuario(Request $request) {
-       if($request->hasFile('foto')) {
-            $archivo = $request->file('foto');
-            $nombre = time().'_'.$archivo->getClientOriginalName();
-            $archivo->store('fotosUsuarios');
-            DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
-            return response()->json('Foto de perfil actualizada', 200);
-        } else 
-            return response()->json('NO TIENE UN ARCHIVO', 400);
     }
 
     public function editarClave(Request $request) {

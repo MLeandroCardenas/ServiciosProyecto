@@ -17,9 +17,8 @@ Route::group(['prefix' => 'v1'], function () {
     //Rutas protegidas con autenticacion
     Route::group(['middleware'=>'auth:api'], function(){ 
 
-        Route::get('foto/{nombre}','UsuarioController@fotoUsuario')->where([
-            'file' => '(.*?)\.(jpg|jpeg)$'
-        ]);;
+        Route::get('foto/{nombre}','UsuarioController@fotoUsuario');
+        Route::get('actual','UsuarioController@obtenerFotoActualizada');
         Route::get('autenticado','UsuarioController@perfilUsuario');
         Route::get('usuarios/{cantidad}', 'UsuarioController@obtenerUsuarios');        
         Route::patch('nueva','UsuarioController@editarClave');
