@@ -37,11 +37,12 @@ class UsuarioController extends Controller
                 DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
                 return response()->json('Foto de perfil actualizada', 200);
             } else{
-                Storage::delete($fotoUsuario);
+                Storage::delete("usuarios/$fotoUsuario");
                 $archivo = $request->file('foto');
                 $nombre = time().'_'.$archivo->getClientOriginalName();
                 $rutaImagen = $archivo->storeAs('usuarios', $nombre);
                 DB::table('usuarios')->where('id_user', Auth::id())->update(['foto' => $nombre]);
+                return response()->json('Foto de perfil actualizada', 200);
             }
          } else 
              return response()->json('NO TIENE UN ARCHIVO', 400);
