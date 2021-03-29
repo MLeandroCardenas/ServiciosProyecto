@@ -82,9 +82,9 @@ class UsuarioController extends Controller
         ])
         ->join("roles","roles.id", "=", "usuarios.id_rol")
         ->join("estados","estados.id", "=", "usuarios.estado")
-        ->select("usuarios.id", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "roles.rol", 
+        ->select("usuarios.id", "usuarios.foto", "usuarios.apellidos", "usuarios.nombres", "usuarios.identificacion", "roles.rol", 
                 "estados.estado")->orderBy('usuarios.created_at', 'desc')->paginate($cantidad);
-    
+
         return response()->json($usuarios,200);
     }
 }

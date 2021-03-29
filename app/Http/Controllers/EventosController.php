@@ -82,8 +82,12 @@ class EventosController extends Controller
         } else{
             try{
                 $input = $request->all();
+                $archivo = $request->file('certificado');
+                $nombre = time().'_'.$archivo->getClientOriginalName();
+                $rutaImagen = $archivo->storeAs('certificados', $nombre);
                 $input['creador_evento'] = Auth::id();
                 $input['estado'] = 3;
+                $input['certificado'] = $nombre;
                 $evento = Eventos::create($input);
 
                 $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())

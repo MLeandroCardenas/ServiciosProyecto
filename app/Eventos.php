@@ -17,6 +17,7 @@ class Eventos extends Model
         'descripcion',
         'visibilidad',
         'horario',
+        'certificado',
         'estado'
         ];
     

@@ -35,7 +35,7 @@ CREATE TABLE `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `oauth_clients` (
 
 LOCK TABLES `oauth_clients` WRITE;
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
-INSERT INTO `oauth_clients` VALUES (1,NULL,'Laravel Personal Access Client','2Emjy4alv5MrBw4hrt15FmPTqRis3cLdmnzmZsq5','http://localhost',1,0,0,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(2,NULL,'Laravel Password Grant Client','VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh','http://localhost',0,1,0,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(3,NULL,'Laravel Personal Access Client','uEtrTkeb9GHkhLPNQADDDNlcVPJIoKchNORN0vKn','http://localhost',1,0,0,'2021-03-10 02:52:20','2021-03-10 02:52:20'),(4,NULL,'Laravel Password Grant Client','vqAdwnactC9ipXxnAkvosZSuGiDONY9IR9YO4hv5','http://localhost',0,1,0,'2021-03-10 02:52:21','2021-03-10 02:52:21');
+INSERT INTO `oauth_clients` VALUES (1,NULL,'Laravel Personal Access Client','2Emjy4alv5MrBw4hrt15FmPTqRis3cLdmnzmZsq5','http://localhost',1,0,0,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(2,NULL,'Laravel Password Grant Client','VT3KzMIQFxt4DBPX5HbKxAnvfT4BQStBY64XsKRh','http://localhost',0,1,0,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(3,NULL,'Laravel Personal Access Client','uEtrTkeb9GHkhLPNQADDDNlcVPJIoKchNORN0vKn','http://localhost',1,0,0,'2021-03-10 02:52:20','2021-03-10 02:52:20'),(4,NULL,'Laravel Password Grant Client','vqAdwnactC9ipXxnAkvosZSuGiDONY9IR9YO4hv5','http://localhost',0,1,0,'2021-03-10 02:52:21','2021-03-10 02:52:21'),(5,NULL,'Laravel Personal Access Client','ZvWLbt2WE7vDsJHpbzSbJWrEjkHuGpkXwyh3ju3e','http://localhost',1,0,0,'2021-03-20 03:25:18','2021-03-20 03:25:18'),(6,NULL,'Laravel Password Grant Client','biDHMkf1QZ25ab4j2epDiqKZEN4ANUyuISsNLfcp','http://localhost',0,1,0,'2021-03-20 03:25:18','2021-03-20 03:25:18');
 /*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-12 16:27:13
+-- Dump completed on 2021-03-28 23:15:13
