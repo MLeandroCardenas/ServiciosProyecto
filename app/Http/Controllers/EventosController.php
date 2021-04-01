@@ -81,13 +81,15 @@ class EventosController extends Controller
             return response()->json('Ya hay eventos en el mismo horario aprobados', 400);
         } else{
             try{
-                $input = $request->all();
-                $archivo = $request->file('certificado');
-                $nombre = time().'_'.$archivo->getClientOriginalName();
-                $rutaImagen = $archivo->storeAs('certificados', $nombre);
+                $input = $request->all();   
+                if($request->hasFile('certificado')){
+                    $archivo = $request->file('certificado');
+                    $nombre = time().'_'.$archivo->getClientOriginalName();
+                    $rutaImagen = $archivo->storeAs('certificados', $nombre);
+                    $input['certificado'] = $nombre;
+                }
                 $input['creador_evento'] = Auth::id();
                 $input['estado'] = 3;
-                $input['certificado'] = $nombre;
                 $evento = Eventos::create($input);
 
                 $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
