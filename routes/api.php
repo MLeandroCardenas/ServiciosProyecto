@@ -52,6 +52,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::put('eventos/{idEvento}','EventosController@aprobarEvento');
         Route::put('desaprobar/{idEvento}','EventosController@desaprobarEvento');
         Route::post('eventos','EventosController@crearEvento');
+        Route::post('certificados/{idEvento}','EventosController@subirCertificado');
+        Route::get('certificado/{nombre}','EventosController@certificadoEvento');
         
     });
 });

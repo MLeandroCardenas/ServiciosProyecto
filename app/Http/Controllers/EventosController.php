@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NuevoEvento;
 use App\Notifications\EventoAprobado;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Eventos;
 use App\MHorario;
@@ -81,17 +82,16 @@ class EventosController extends Controller
             return response()->json('Ya hay eventos en el mismo horario aprobados', 400);
         } else{
             try{
-                $input = $request->all();   
-                if($request->hasFile('certificado')){
-                    $archivo = $request->file('certificado');
-                    $nombre = time().'_'.$archivo->getClientOriginalName();
-                    $rutaImagen = $archivo->storeAs('certificados', $nombre);
-                    $input['certificado'] = $nombre;
-                }
-                $input['creador_evento'] = Auth::id();
-                $input['estado'] = 3;
-                $evento = Eventos::create($input);
-
+                $idEvento = Eventos::insertGetId(
+                    [   'creador_evento' => Auth::id(),
+                        'zona' => $request->zona,
+                        'nombre_evento' => $request->nombre_evento,
+                        'descripcion' => $request->descripcion,
+                        'visibilidad' => $request->visibilidad,
+                        'horario' => $request->horario,
+                        'estado' => 3
+                    ]
+                );
                 $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
                         ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
                         ->select('usuarios.nombres', 'usuarios.apellidos', 'roles.rol')
@@ -113,12 +113,29 @@ class EventosController extends Controller
                                     $request->nombre_evento)
                 );
                 DB::commit();
-                return response()->json('Evento registrado exitosamente', 200);
+                return response()->json($idEvento, 200);
             } catch(\Exception $e) {
                 DB::rollback();
                 return response()->json(['mensaje '=> $e->getMessage()], 500);
             }
         }
+    }
+
+    public function subirCertificado(Request $request, $idEvento)
+    {
+        if($request->hasFile('certificado')){
+            $archivo = $request->file('certificado');
+            $nombre = time().'_'.$archivo->getClientOriginalName();
+            $rutaImagen = $archivo->storeAs('certificados', $nombre);
+            Eventos::where('id', $idEvento)->update(['certificado' => $nombre]);
+            return response()->json('ok',204);
+        }
+    }
+
+    public function certificadoEvento($certificado)
+    {
+        $contents = storage_path()."/"."certificados/$certificado";
+        return response()->file($contents);
     }
 
     public function obtenerEventosUsuario($cantidad)
@@ -127,7 +144,7 @@ class EventosController extends Controller
             ->join("zonas", "zonas.id", "=", "eventos.zona")
             ->join("estados", "estados.id", "=", "eventos.estado")
             ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
-                "eventos.visibilidad","eventos.horario","estados.estado")->where('eventos.creador_evento', Auth::id())
+                "eventos.visibilidad", "eventos.horario", "eventos.certificado", "estados.estado")->where('eventos.creador_evento', Auth::id())
             ->orderBy('eventos.created_at', 'desc')->paginate($cantidad);
             
         if($eventos->isEmpty())
