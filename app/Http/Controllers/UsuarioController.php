@@ -29,6 +29,22 @@ class UsuarioController extends Controller
 
     public function cargarFotoUsuario(Request $request) {
         if($request->hasFile('foto')) {
+        /*   
+            $messages = [
+                'foto.mimes' => 'Solo formato jpg o jpeg',
+                'foto.image' => 'Formato inválido debe ser una imagen',
+                'foto.max' => 'Máximo 1 Mb'
+            ];
+
+            $rules = [
+                'foto' => 'mimes:jpg,jpeg|image|max:1024'
+            ];
+
+            $datosValidacion = $request->validate($rules, $messages);
+
+            if($datosValidacion->fails())
+                return response()->json($datosValidacion->errors(),422);
+        */
             $fotoUsuario = Usuarios::where('id_user', Auth::id())->value('foto');
             if(empty($fotoUsuario)) {
                 $archivo = $request->file('foto');

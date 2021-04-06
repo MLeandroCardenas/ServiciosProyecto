@@ -134,8 +134,8 @@ class EventosController extends Controller
 
     public function certificadoEvento($certificado)
     {
-        $contents = storage_path()."/"."certificados/$certificado";
-        return response()->file($contents);
+        $urlArchivo = asset(Storage::url("certificados/$certificado"));
+        return response()->json($urlArchivo,200);
     }
 
     public function obtenerEventosUsuario($cantidad)
