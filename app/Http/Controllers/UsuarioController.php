@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
 
 class UsuarioController extends Controller
 {
@@ -29,22 +30,15 @@ class UsuarioController extends Controller
 
     public function cargarFotoUsuario(Request $request) {
         if($request->hasFile('foto')) {
-        /*   
-            $messages = [
-                'foto.mimes' => 'Solo formato jpg o jpeg',
-                'foto.image' => 'Formato inválido debe ser una imagen',
-                'foto.max' => 'Máximo 1 Mb'
-            ];
+            $tamanioArchivo = $request->file('foto')->getSize();
+            $tipoArchivo = $request->file('foto')->getMimeType();
 
-            $rules = [
-                'foto' => 'mimes:jpg,jpeg|image|max:1024'
-            ];
+            if($tipoArchivo !== Config::get("constantes.tipoImagenUno") || $tipoArchivo !== Config::get("constantes.tipoImagenDos"))
+                return response()->json('Solo archivos .jpg o .jpeg',422); 
 
-            $datosValidacion = $request->validate($rules, $messages);
-
-            if($datosValidacion->fails())
-                return response()->json($datosValidacion->errors(),422);
-        */
+            if($tamanioArchivo > Config::get("constantes.imagen"))
+                return response()->json('Maximo permitido 2 Mb',422);
+                       
             $fotoUsuario = Usuarios::where('id_user', Auth::id())->value('foto');
             if(empty($fotoUsuario)) {
                 $archivo = $request->file('foto');

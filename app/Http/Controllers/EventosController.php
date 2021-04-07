@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\NuevoEvento;
 use App\Notifications\EventoAprobado;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 use App\Eventos;
 use App\MHorario;
@@ -124,6 +125,15 @@ class EventosController extends Controller
     public function subirCertificado(Request $request, $idEvento)
     {
         if($request->hasFile('certificado')){
+            $tamanioArchivo = $request->file('certificado')->getSize();
+            $tipoArchivo = $request->file('certificado')->getMimeType();
+
+            if($tipoArchivo !== Config::get("constantes.documento"))
+                return response()->json('Solo archivos .pdf',422);
+                
+            if($tamanioArchivo > Config::get("constantes.certificado"))
+                return response()->json('Maximo permitido 2 Mb',422);
+
             $archivo = $request->file('certificado');
             $nombre = time().'_'.$archivo->getClientOriginalName();
             $rutaImagen = $archivo->storeAs('certificados', $nombre);
