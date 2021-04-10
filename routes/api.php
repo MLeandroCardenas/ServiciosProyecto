@@ -47,13 +47,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('horas/{horaActual}','EventosController@obtenerRangosHorarios');
         Route::get('todos/{cantidad}','EventosController@obtenerEventos');
         Route::get('eventos/{cantidad}','EventosController@obtenerEventosUsuario');
-        Route::get('institucionales','EventosController@obtenerEventosInstitucionales');
-        Route::get('eventos/{id}','EventosController@obtenerEventosPorEstado');
         Route::put('eventos/{idEvento}','EventosController@aprobarEvento');
         Route::put('desaprobar/{idEvento}','EventosController@desaprobarEvento');
         Route::post('eventos','EventosController@crearEvento');
-        Route::post('certificados/{idEvento}','EventosController@subirCertificado');
-        Route::get('certificado/{nombre}','EventosController@certificadoEvento');
+        //Route::post('certificados/{idEvento}','EventosController@subirCertificado');
+        //Route::get('certificado/{nombre}','EventosController@certificadoEvento');
+        Route::patch('notificacionEvento/{idEvento}','EventosController@solicitarAprobacionEvento');
         
     });
 });

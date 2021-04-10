@@ -82,44 +82,48 @@ class EventosController extends Controller
         } else if($this->verificarEventosAprobados($request->zona, json_decode($request->horario, true)) === false){
             return response()->json('Ya hay eventos en el mismo horario aprobados', 400);
         } else{
-            try{
-                $idEvento = Eventos::insertGetId(
-                    [   'creador_evento' => Auth::id(),
-                        'zona' => $request->zona,
-                        'nombre_evento' => $request->nombre_evento,
-                        'descripcion' => $request->descripcion,
-                        'visibilidad' => $request->visibilidad,
-                        'horario' => $request->horario,
-                        'estado' => 3
-                    ]
-                );
-                $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
+            $evento = new Eventos;
+            $evento->creador_evento = Auth::id();
+            $evento->zona = $request->zona;
+            $evento->nombre_evento = $request->nombre_evento;
+            $evento->descripcion = $request->descripcion;
+            $evento->visibilidad = $request->visibilidad;
+            $evento->horario = $request->horario;
+            $evento->estado = 3;
+            $evento->save();
+            return response()->json('Evento creado exitosamente', 201);
+        }
+    }
+
+    public function solicitarAprobacionEvento($idEvento)
+    {
+        $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
                         ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
                         ->select('usuarios.nombres', 'usuarios.apellidos', 'roles.rol')
                         ->first();
-                $usuarioArray = $datosUsuario->toArray();
 
-                $resultado = Usuarios::where('usuarios.id_rol', '=', 1)
-                        ->join('users', 'users.id', '=', 'usuarios.id_user')
-                        ->select('users.id')->first();
-                $arrayResultados = $resultado->toArray();
+        $usuarioArray = $datosUsuario->toArray();
+
+        $resultado = Usuarios::where('usuarios.id_rol', '=', 1)
+                    ->join('users', 'users.id', '=', 'usuarios.id_user')
+                    ->select('users.id')->first();
+                    
+        $arrayResultados = $resultado->toArray();
                 
-                $idUsuarioDestino = $arrayResultados['id'];
-                $usuario = User::find($idUsuarioDestino);
+        $idUsuarioDestino = $arrayResultados['id'];
 
-                $usuario->notify(
-                    new NuevoEvento($usuarioArray['nombres'],
-                                    $usuarioArray['apellidos'],
-                                    $usuarioArray['rol'],
-                                    $request->nombre_evento)
-                );
-                DB::commit();
-                return response()->json($idEvento, 200);
-            } catch(\Exception $e) {
-                DB::rollback();
-                return response()->json(['mensaje '=> $e->getMessage()], 500);
-            }
-        }
+        $usuario = User::find($idUsuarioDestino);
+
+        $usuario->notify(
+                new NuevoEvento($usuarioArray['nombres'],
+                                $usuarioArray['apellidos'],
+                                $usuarioArray['rol'],
+                                $request->nombre_evento));
+        
+        $evento = Eventos::find($idEvento);
+        $evento->estado = 6;
+        $evento->save();
+        return response()->json('Se ha enviado al administrador para su revisión', 200);
     }
 
     public function subirCertificado(Request $request, $idEvento)
@@ -172,7 +176,7 @@ class EventosController extends Controller
             ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
             ->select('eventos.id', 'eventos.nombre_evento', 'eventos.descripcion', 'zonas.nombre_zona',
             'usuarios.nombres', 'usuarios.apellidos', 'roles.rol', 'eventos.visibilidad', 'estados.estado', 'eventos.horario')
-            ->orderBy('eventos.created_at', 'desc')->paginate($cantidad);
+            ->where('eventos.estado', '<>', 3)->orderBy('eventos.created_at', 'desc')->paginate($cantidad);
             
             if($eventos->isEmpty())
                 return response()->json($eventos,204);
@@ -213,61 +217,4 @@ class EventosController extends Controller
         $evento->save();
         return response()->json('Evento desaprobado',200);
     }
-
-    /*
-    public function obtenerEventosPublicos($cantidad)
-    {
-        $eventos = DB::table("eventos")
-            ->join("zonas", "zonas.id", "=", "eventos.zona")
-            ->join("estados", "estados.id", "=", "eventos.estado")
-            ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", "eventos.horario")
-            ->where('eventos.visibilidad','PUBLICA')
-            ->where('eventos.estado',1)
-            ->orderBy('eventos.created_at', 'desc')->paginate($cantidad);
-            
-        if($eventos->isEmpty())
-            return response()->json($eventos,204);
-        else
-            return response()->json($eventos,200);
-    }
-
-    public function obtenerEventosPorEstado($estado)
-    {
-            $resultado = [];
-            $eventos = DB::table("eventos")
-                ->join("zonas", "zonas.id", "=", "eventos.id_zona")
-                ->join("estados", "estados.id", "=", "eventos.estado")
-                ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
-                "eventos.visibilidad","eventos.horario","estados.estado")->where('eventos.estado','=',$estado)
-                ->orderBy('eventos.created_at', 'desc')->paginate(10);
-            
-            if($eventos->isEmpty())
-                return response()->json($resultado,404);
-    
-            $resultado['zonas'] = $eventos;
-    
-            return response()->json($resultado,200);
-    }
-
-
-    public function obtenerEventosInstitucionales()
-    {
-            $resultado = [];
-            $eventos = DB::table("eventos")
-                ->join("zonas", "zonas.id", "=", "eventos.id_zona")
-                ->join("estados", "estados.id", "=", "eventos.estado")
-                ->select("eventos.id", "eventos.nombre_evento", "eventos.descripcion", "zonas.nombre_zona", 
-                "eventos.visibilidad","eventos.horario","estados.estado")
-                ->where('eventos.visibilidad','=','INSTITUCIONAL')
-                ->where('eventos.estado','=', 1)
-                ->orderBy('eventos.created_at', 'desc')->paginate(10);
-            
-            if($eventos->isEmpty())
-                return response()->json($resultado,404);
-    
-            $resultado['zonas'] = $eventos;
-    
-            return response()->json($resultado,200);
-    }
-    */
 }
