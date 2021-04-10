@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1'], function () {
         //Route::post('certificados/{idEvento}','EventosController@subirCertificado');
         //Route::get('certificado/{nombre}','EventosController@certificadoEvento');
         Route::patch('notificacionEvento/{idEvento}','EventosController@solicitarAprobacionEvento');
+        Route::delete('evento/{idEvento}','EventosController@eliminarEvento');
         
     });
 });

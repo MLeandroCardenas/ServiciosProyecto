@@ -152,6 +152,13 @@ class EventosController extends Controller
         return response()->json($urlArchivo,200);
     }
 
+    public function eliminarEvento($idEvento)
+    {
+        $evento = Eventos::find($idEvento);
+        $evento->delete();
+        return response()->json('Evento eliminado',200);
+    }
+
     public function obtenerEventosUsuario($cantidad)
     {
         $eventos = DB::table("eventos")
