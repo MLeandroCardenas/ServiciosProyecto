@@ -16,34 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `oauth_clients`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `oauth_clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `oauth_clients` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `confirmado` tinyint(1) NOT NULL DEFAULT '0',
-  `codigo_confirmacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `oauth_clients_user_id_index` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `oauth_clients`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (42,'michlean28@hotmail.com','$2y$10$dYf069zRNGxG7WQm99Mg/u6VAOAQwrm8PNcG8oRQKEebba.AwfeFu',1,NULL,NULL,'2021-03-10 02:25:06','2021-03-10 02:25:33'),(43,'luz2062@hotmail.com','$2y$10$Cc/k6Z/XcVbDL1ah6Mck0eyPk1rtpnR/ib4FoZPVo4QYfsLJ2nGd6',1,NULL,NULL,'2021-03-10 02:55:44','2021-03-10 02:56:18'),(44,'mamabebe16@hotmail.com','$2y$10$GblcilCamSXnZoXOlECcVusIBfURl3z17KslV5LqIvWEoJjDtFbsq',1,NULL,NULL,'2021-03-10 03:00:09','2021-03-10 03:01:03'),(45,'michaelcardenas199@gmail.com','$2y$10$MfMHVYJCvJqND3kII0Fp8e2tKPMhig9Bzk0wlEYyYKjVA1HtjxTZy',1,NULL,NULL,'2021-03-10 03:04:04','2021-03-10 03:05:10'),(46,'kelly49o_e967f@fuluj.com','$2y$10$iWjLkHMbvESFLa7nJCTNPOWCUy0m/CI2yQImahiEf1YE6XHa0Bhh2',1,NULL,NULL,'2021-03-24 02:05:21','2021-03-24 02:05:48');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `oauth_clients` WRITE;
+/*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
+INSERT INTO `oauth_clients` VALUES (1,NULL,'Laravel Personal Access Client','OCjxwx0igxRsC5RzmNpOMePKW5D8dqcgvDWrtM5V','http://localhost',1,0,0,'2021-04-12 04:30:19','2021-04-12 04:30:19'),(2,NULL,'Laravel Password Grant Client','Uay6F03LESef3OyFlYqNi3qi4F831QiAoP3q0MT2','http://localhost',0,1,0,'2021-04-12 04:30:19','2021-04-12 04:30:19');
+/*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:16
+-- Dump completed on 2021-04-11 23:52:23

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NuevoEvento;
 use App\Notifications\EventoAprobado;
+use App\Notifications\EventoDescartado;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
@@ -97,67 +98,37 @@ class EventosController extends Controller
 
     public function solicitarAprobacionEvento($idEvento)
     {
+        
+
         $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
                         ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
                         ->select('usuarios.nombres', 'usuarios.apellidos', 'roles.rol')
                         ->first();
-
+        
         $usuarioArray = $datosUsuario->toArray();
 
         $resultado = Usuarios::where('usuarios.id_rol', '=', 1)
                     ->join('users', 'users.id', '=', 'usuarios.id_user')
                     ->select('users.id')->first();
-                    
+                        
         $arrayResultados = $resultado->toArray();
-                
         $idUsuarioDestino = $arrayResultados['id'];
-
         $usuario = User::find($idUsuarioDestino);
+
+        $evento = Eventos::find($idEvento);
+        $evento->estado = 6;
+        $evento->save();
 
         $usuario->notify(
                 new NuevoEvento($usuarioArray['nombres'],
                                 $usuarioArray['apellidos'],
                                 $usuarioArray['rol'],
-                                $request->nombre_evento));
-        
-        $evento = Eventos::find($idEvento);
-        $evento->estado = 6;
-        $evento->save();
+                                $evento->nombre_evento));
+
         return response()->json('Se ha enviado al administrador para su revisión', 200);
     }
 
-    public function subirCertificado(Request $request, $idEvento)
-    {
-        if($request->hasFile('certificado')){
-            $tamanioArchivo = $request->file('certificado')->getSize();
-            $tipoArchivo = $request->file('certificado')->getMimeType();
-
-            if($tipoArchivo !== Config::get("constantes.documento"))
-                return response()->json('Solo archivos .pdf',422);
-                
-            if($tamanioArchivo > Config::get("constantes.certificado"))
-                return response()->json('Maximo permitido 2 Mb',422);
-
-            $archivo = $request->file('certificado');
-            $nombre = time().'_'.$archivo->getClientOriginalName();
-            $rutaImagen = $archivo->storeAs('certificados', $nombre);
-            Eventos::where('id', $idEvento)->update(['certificado' => $nombre]);
-            return response()->json('ok',204);
-        }
-    }
-
-    public function certificadoEvento($certificado)
-    {
-        $urlArchivo = asset(Storage::url("certificados/$certificado"));
-        return response()->json($urlArchivo,200);
-    }
-
-    public function eliminarEvento($idEvento)
-    {
-        $evento = Eventos::find($idEvento);
-        $evento->delete();
-        return response()->json('Evento eliminado',200);
-    }
+   
 
     public function obtenerEventosUsuario($cantidad)
     {
@@ -217,11 +188,49 @@ class EventosController extends Controller
         }
     }
 
-    public function desaprobarEvento($idEvento)
+    public function desaprobarEvento($idEvento, Request $request)
     {
         $evento = Eventos::findOrFail($idEvento);
-        $evento->estado = 3;
-        $evento->save();
-        return response()->json('Evento desaprobado',200);
+        $evento->delete();
+        $notificacion = User::find($evento->creador_evento);
+        $notificacion->notify(
+            new EventoDescartado($request->comentario, $evento->nombre_evento)
+        );
+        return response()->json('Evento descartado',200);
     }
+
+    public function eliminarEvento($idEvento)
+    {
+        $evento = Eventos::find($idEvento);
+        $evento->delete();
+        return response()->json('Evento eliminado',200);
+    }
+
+    public function certificadoEvento($certificado)
+    {
+        $urlArchivo = asset(Storage::url("certificados/$certificado"));
+        return response()->json($urlArchivo,200);
+    }
+
+     /*
+    public function subirCertificado(Request $request, $idEvento)
+    {
+        if($request->hasFile('certificado')){
+            $tamanioArchivo = $request->file('certificado')->getSize();
+            $tipoArchivo = $request->file('certificado')->getMimeType();
+
+            if($tipoArchivo !== Config::get("constantes.documento"))
+                return response()->json('Solo archivos .pdf',422);
+                
+            if($tamanioArchivo > Config::get("constantes.certificado"))
+                return response()->json('Maximo permitido 2 Mb',422);
+
+            $archivo = $request->file('certificado');
+            $nombre = time().'_'.$archivo->getClientOriginalName();
+            $rutaImagen = $archivo->storeAs('certificados', $nombre);
+            Eventos::where('id', $idEvento)->update(['certificado' => $nombre]);
+            return response()->json('ok',204);
+        }
+    }
+    */
 }

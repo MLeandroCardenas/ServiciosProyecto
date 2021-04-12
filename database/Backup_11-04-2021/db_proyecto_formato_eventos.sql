@@ -16,30 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oauth_personal_access_clients`
+-- Table structure for table `formato_eventos`
 --
 
-DROP TABLE IF EXISTS `oauth_personal_access_clients`;
+DROP TABLE IF EXISTS `formato_eventos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oauth_personal_access_clients` (
+CREATE TABLE `formato_eventos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
+  `documento_plantilla` blob NOT NULL,
+  `id_evento` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oauth_personal_access_clients`
+-- Dumping data for table `formato_eventos`
 --
 
-LOCK TABLES `oauth_personal_access_clients` WRITE;
-/*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
-INSERT INTO `oauth_personal_access_clients` VALUES (1,1,'2020-07-19 22:00:44','2020-07-19 22:00:44'),(2,3,'2021-03-10 02:52:21','2021-03-10 02:52:21'),(3,5,'2021-03-20 03:25:18','2021-03-20 03:25:18');
-/*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
+LOCK TABLES `formato_eventos` WRITE;
+/*!40000 ALTER TABLE `formato_eventos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `formato_eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:13
+-- Dump completed on 2021-04-11 23:52:24

@@ -16,30 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oauth_auth_codes`
+-- Table structure for table `peticiones`
 --
 
-DROP TABLE IF EXISTS `oauth_auth_codes`;
+DROP TABLE IF EXISTS `peticiones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oauth_auth_codes` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci,
-  `revoked` tinyint(1) NOT NULL,
-  `expires_at` datetime DEFAULT NULL,
+CREATE TABLE `peticiones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `fecha_radicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_respuesta` timestamp NULL DEFAULT NULL,
+  `tipo_peticion` int(11) NOT NULL,
+  `documentos` json DEFAULT NULL,
+  `respuesta` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oauth_auth_codes`
+-- Dumping data for table `peticiones`
 --
 
-LOCK TABLES `oauth_auth_codes` WRITE;
-/*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
+LOCK TABLES `peticiones` WRITE;
+/*!40000 ALTER TABLE `peticiones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `peticiones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:10
+-- Dump completed on 2021-04-11 23:52:25

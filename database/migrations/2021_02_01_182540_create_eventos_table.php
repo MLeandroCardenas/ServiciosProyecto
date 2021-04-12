@@ -21,7 +21,7 @@ class CreateEventosTable extends Migration
             $table->string('descripcion',100); 
             $table->string('visibilidad',13);
             $table->json('horario')->nullable();
-            $table->boolean('estado');           
+            $table->unsignedSmallInteger('estado');           
             $table->timestamps();
         });
     }

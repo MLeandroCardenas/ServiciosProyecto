@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `peticiones_certificados`
+-- Table structure for table `zonas`
 --
 
-DROP TABLE IF EXISTS `peticiones_certificados`;
+DROP TABLE IF EXISTS `zonas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `peticiones_certificados` (
+CREATE TABLE `zonas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_formato` int(11) NOT NULL,
-  `id_evento` int(11) NOT NULL,
-  `fecha_radicado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `fecha_respuesta` timestamp NULL DEFAULT NULL,
-  `respuesta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre_zona` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `peticiones_certificados`
+-- Dumping data for table `zonas`
 --
 
-LOCK TABLES `peticiones_certificados` WRITE;
-/*!40000 ALTER TABLE `peticiones_certificados` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peticiones_certificados` ENABLE KEYS */;
+LOCK TABLES `zonas` WRITE;
+/*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
+INSERT INTO `zonas` VALUES (1,'Cit',2,NULL,NULL);
+/*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:10
+-- Dump completed on 2021-04-11 23:52:24

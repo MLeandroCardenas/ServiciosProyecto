@@ -48,7 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('todos/{cantidad}','EventosController@obtenerEventos');
         Route::get('eventos/{cantidad}','EventosController@obtenerEventosUsuario');
         Route::put('eventos/{idEvento}','EventosController@aprobarEvento');
-        Route::put('desaprobar/{idEvento}','EventosController@desaprobarEvento');
+        Route::post('desaprobar/{idEvento}','EventosController@desaprobarEvento');
         Route::post('eventos','EventosController@crearEvento');
         //Route::post('certificados/{idEvento}','EventosController@subirCertificado');
         //Route::get('certificado/{nombre}','EventosController@certificadoEvento');

@@ -16,33 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `modulos_lectores`
+-- Table structure for table `carnets`
 --
 
-DROP TABLE IF EXISTS `modulos_lectores`;
+DROP TABLE IF EXISTS `carnets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `modulos_lectores` (
+CREATE TABLE `carnets` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre_modulo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_lector` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_zona` int(11) DEFAULT NULL,
+  `id_tarjeta` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `codigo_universitario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `zonas` json DEFAULT NULL,
   `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `modulos_lectores_codigo_lector_unique` (`codigo_lector`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `carnets_id_tarjeta_unique` (`id_tarjeta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `modulos_lectores`
+-- Dumping data for table `carnets`
 --
 
-LOCK TABLES `modulos_lectores` WRITE;
-/*!40000 ALTER TABLE `modulos_lectores` DISABLE KEYS */;
-INSERT INTO `modulos_lectores` VALUES (2,'Modulo 1','20202121',2,2,'2021-02-13 20:32:21','2021-02-22 01:30:30'),(3,'Modulo 2','20201232',3,2,'2021-02-22 19:47:03','2021-02-22 19:47:03');
-/*!40000 ALTER TABLE `modulos_lectores` ENABLE KEYS */;
+LOCK TABLES `carnets` WRITE;
+/*!40000 ALTER TABLE `carnets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carnets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:10
+-- Dump completed on 2021-04-11 23:52:23

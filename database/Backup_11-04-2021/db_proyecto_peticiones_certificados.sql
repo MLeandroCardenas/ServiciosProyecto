@@ -16,16 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `formato_eventos`
+-- Table structure for table `peticiones_certificados`
 --
 
-DROP TABLE IF EXISTS `formato_eventos`;
+DROP TABLE IF EXISTS `peticiones_certificados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `formato_eventos` (
+CREATE TABLE `peticiones_certificados` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `documento_plantilla` blob NOT NULL,
+  `id_formato` int(11) NOT NULL,
   `id_evento` int(11) NOT NULL,
+  `fecha_radicado` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_respuesta` timestamp NULL DEFAULT NULL,
+  `respuesta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -33,12 +37,12 @@ CREATE TABLE `formato_eventos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `formato_eventos`
+-- Dumping data for table `peticiones_certificados`
 --
 
-LOCK TABLES `formato_eventos` WRITE;
-/*!40000 ALTER TABLE `formato_eventos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `formato_eventos` ENABLE KEYS */;
+LOCK TABLES `peticiones_certificados` WRITE;
+/*!40000 ALTER TABLE `peticiones_certificados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `peticiones_certificados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-28 23:15:15
+-- Dump completed on 2021-04-11 23:52:25
