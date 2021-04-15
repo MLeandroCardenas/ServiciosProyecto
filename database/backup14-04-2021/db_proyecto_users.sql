@@ -16,30 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oauth_personal_access_clients`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `oauth_personal_access_clients`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oauth_personal_access_clients` (
+CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `confirmado` tinyint(1) NOT NULL DEFAULT '0',
+  `codigo_confirmacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oauth_personal_access_clients`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `oauth_personal_access_clients` WRITE;
-/*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
-INSERT INTO `oauth_personal_access_clients` VALUES (1,1,'2021-04-12 04:30:19','2021-04-12 04:30:19');
-/*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (2,'michlean28@hotmail.com','$2y$10$vMC04Gyp9dHba8Lh18Q7kO41mOkJ/9A4HD1E31L1zyffM/HTPP92m',1,NULL,NULL,'2021-04-12 04:38:57','2021-04-12 04:39:48'),(3,'michaelcardenas199@gmail.com','$2y$10$fF1y5PL/l3Nwq2ufMYjm2eOzBTsR4Ckr3mvh8hMLOuRMtnGqMit1W',1,NULL,NULL,'2021-04-12 04:45:18','2021-04-12 04:45:53');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:24
+-- Dump completed on 2021-04-14 22:55:31

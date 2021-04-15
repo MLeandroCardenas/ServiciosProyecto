@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `modulos_lectores`
+-- Table structure for table `oauth_auth_codes`
 --
 
-DROP TABLE IF EXISTS `modulos_lectores`;
+DROP TABLE IF EXISTS `oauth_auth_codes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `modulos_lectores` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre_modulo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_lector` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_zona` int(11) DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `modulos_lectores_codigo_lector_unique` (`codigo_lector`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `modulos_lectores`
+-- Dumping data for table `oauth_auth_codes`
 --
 
-LOCK TABLES `modulos_lectores` WRITE;
-/*!40000 ALTER TABLE `modulos_lectores` DISABLE KEYS */;
-INSERT INTO `modulos_lectores` VALUES (1,'Modulo 1','202121',1,2,'2021-04-12 05:40:11','2021-04-12 05:40:11');
-/*!40000 ALTER TABLE `modulos_lectores` ENABLE KEYS */;
+LOCK TABLES `oauth_auth_codes` WRITE;
+/*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:25
+-- Dump completed on 2021-04-14 22:55:30

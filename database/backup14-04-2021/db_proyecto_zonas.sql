@@ -16,29 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `rangos_horarios`
+-- Table structure for table `zonas`
 --
 
-DROP TABLE IF EXISTS `rangos_horarios`;
+DROP TABLE IF EXISTS `zonas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rangos_horarios` (
+CREATE TABLE `zonas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `hora` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre_zona` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `rangos_horarios`
+-- Dumping data for table `zonas`
 --
 
-LOCK TABLES `rangos_horarios` WRITE;
-/*!40000 ALTER TABLE `rangos_horarios` DISABLE KEYS */;
-INSERT INTO `rangos_horarios` VALUES (1,'07:00 a 08:00',NULL,NULL),(2,'08:00 a 09:00',NULL,NULL),(3,'09:00 a 10:00',NULL,NULL),(4,'10:00 a 11:00',NULL,NULL),(5,'11:00 a 12:00',NULL,NULL),(6,'12:00 a 13:00',NULL,NULL),(7,'13:00 a 14:00',NULL,NULL),(8,'14:00 a 15:00',NULL,NULL),(9,'15:00 a 16:00',NULL,NULL),(10,'16:00 a 17:00',NULL,NULL),(11,'17:00 a 18:00',NULL,NULL),(12,'18:00 a 19:00',NULL,NULL),(13,'19:00 a 20:00',NULL,NULL),(14,'20:00 a 21:00',NULL,NULL),(15,'21:00 a 22:00',NULL,NULL);
-/*!40000 ALTER TABLE `rangos_horarios` ENABLE KEYS */;
+LOCK TABLES `zonas` WRITE;
+/*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
+INSERT INTO `zonas` VALUES (1,'Cit',2,NULL,NULL);
+/*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:22
+-- Dump completed on 2021-04-14 22:55:33

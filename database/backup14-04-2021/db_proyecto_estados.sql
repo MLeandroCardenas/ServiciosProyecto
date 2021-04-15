@@ -16,36 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `oauth_clients`
+-- Table structure for table `estados`
 --
 
-DROP TABLE IF EXISTS `oauth_clients`;
+DROP TABLE IF EXISTS `estados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oauth_clients` (
+CREATE TABLE `estados` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `personal_access_client` tinyint(1) NOT NULL,
-  `password_client` tinyint(1) NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
+  `estado` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oauth_clients`
+-- Dumping data for table `estados`
 --
 
-LOCK TABLES `oauth_clients` WRITE;
-/*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
-INSERT INTO `oauth_clients` VALUES (1,NULL,'Laravel Personal Access Client','OCjxwx0igxRsC5RzmNpOMePKW5D8dqcgvDWrtM5V','http://localhost',1,0,0,'2021-04-12 04:30:19','2021-04-12 04:30:19'),(2,NULL,'Laravel Password Grant Client','Uay6F03LESef3OyFlYqNi3qi4F831QiAoP3q0MT2','http://localhost',0,1,0,'2021-04-12 04:30:19','2021-04-12 04:30:19');
-/*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
+LOCK TABLES `estados` WRITE;
+/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
+INSERT INTO `estados` VALUES (1,'HABILITADO','2020-09-26 10:19:44',NULL),(2,'DESHABILITADO',NULL,NULL),(3,'CREADO',NULL,NULL),(4,'CANCELADO',NULL,NULL),(5,'FINALIZADO',NULL,NULL),(6,'PENDIENTE',NULL,NULL);
+/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:23
+-- Dump completed on 2021-04-14 22:55:31

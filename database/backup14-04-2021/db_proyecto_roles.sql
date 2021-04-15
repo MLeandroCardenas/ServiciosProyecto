@@ -16,34 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `peticiones`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `peticiones`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `peticiones` (
+CREATE TABLE `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `fecha_radicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `fecha_respuesta` timestamp NULL DEFAULT NULL,
-  `tipo_peticion` int(11) NOT NULL,
-  `documentos` json DEFAULT NULL,
-  `respuesta` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` tinyint(1) NOT NULL,
+  `rol` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_rol_unique` (`rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `peticiones`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `peticiones` WRITE;
-/*!40000 ALTER TABLE `peticiones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `peticiones` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Administrador',NULL,NULL),(2,'Administrativo',NULL,NULL),(3,'Docente',NULL,NULL),(4,'Estudiante',NULL,NULL);
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:25
+-- Dump completed on 2021-04-14 22:55:33

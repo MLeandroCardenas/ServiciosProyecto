@@ -16,36 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `eventos`
+-- Table structure for table `oauth_personal_access_clients`
 --
 
-DROP TABLE IF EXISTS `eventos`;
+DROP TABLE IF EXISTS `oauth_personal_access_clients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `eventos` (
+CREATE TABLE `oauth_personal_access_clients` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `creador_evento` int(11) NOT NULL,
-  `zona` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombre_evento` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `visibilidad` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `horario` json DEFAULT NULL,
-  `certificado` blob,
-  `estado` smallint(5) unsigned NOT NULL,
+  `client_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `eventos`
+-- Dumping data for table `oauth_personal_access_clients`
 --
 
-LOCK TABLES `eventos` WRITE;
-/*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
-INSERT INTO `eventos` VALUES (1,2,'1','Capacitacion docentes','Capacitacion docentes','PUBLICA','\"[{\\\"fecha\\\":\\\"12/4/2021\\\",\\\"hora\\\":[\\\"07:00 a 08:00\\\"]}]\"',NULL,6,'2021-04-12 05:43:26','2021-04-12 08:43:09');
-/*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
+LOCK TABLES `oauth_personal_access_clients` WRITE;
+/*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
+INSERT INTO `oauth_personal_access_clients` VALUES (1,1,'2021-04-12 04:30:19','2021-04-12 04:30:19');
+/*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:22
+-- Dump completed on 2021-04-14 22:55:33

@@ -98,8 +98,6 @@ class EventosController extends Controller
 
     public function solicitarAprobacionEvento($idEvento)
     {
-        
-
         $datosUsuario = Usuarios::where('usuarios.id_user', '=', Auth::id())
                         ->join('roles', 'roles.id', '=', 'usuarios.id_rol')
                         ->select('usuarios.nombres', 'usuarios.apellidos', 'roles.rol')

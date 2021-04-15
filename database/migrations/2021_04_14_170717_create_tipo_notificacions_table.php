@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipoPeticionesTable extends Migration
+class CreateTipoNotificacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateTipoPeticionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_peticiones', function (Blueprint $table) {
+        Schema::create('tipo_notificacions', function (Blueprint $table) {
+
             $table->increments('id');
+            $table->string('nombre',50);
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateTipoPeticionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_peticiones');
+        Schema::dropIfExists('tipo_notificacions');
     }
 }

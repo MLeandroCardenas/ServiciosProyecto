@@ -54,6 +54,8 @@ Route::group(['prefix' => 'v1'], function () {
         //Route::get('certificado/{nombre}','EventosController@certificadoEvento');
         Route::patch('notificacionEvento/{idEvento}','EventosController@solicitarAprobacionEvento');
         Route::delete('evento/{idEvento}','EventosController@eliminarEvento');
-        
+
+        Route::get('tipos','PeticionesController@obtenerTipoPeticiones');
+        Route::post('peticiones','PeticionesController@registrarPeticion');
     });
-});
+});   

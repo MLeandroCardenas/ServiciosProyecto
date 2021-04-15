@@ -16,16 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `password_resets`
+-- Table structure for table `trazabilidades`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
+DROP TABLE IF EXISTS `trazabilidades`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `password_resets` (
+CREATE TABLE `trazabilidades` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_carnet` int(11) NOT NULL,
+  `id_zona` int(11) NOT NULL,
+  `fecha_ingreso` timestamp NULL DEFAULT NULL,
+  `fecha_salida` timestamp NULL DEFAULT NULL,
+  `resultado` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -33,12 +36,12 @@ CREATE TABLE `password_resets` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `password_resets`
+-- Dumping data for table `trazabilidades`
 --
 
-LOCK TABLES `password_resets` WRITE;
-/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
+LOCK TABLES `trazabilidades` WRITE;
+/*!40000 ALTER TABLE `trazabilidades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trazabilidades` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:23
+-- Dump completed on 2021-04-14 22:55:34

@@ -27,7 +27,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (23,'2016_06_01_000001_create_oauth_auth_codes_table',1),(24,'2016_06_01_000002_create_oauth_access_tokens_table',1),(25,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(26,'2016_06_01_000004_create_oauth_clients_table',1),(27,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(28,'2021_02_01_180250_create_zonas_table',1),(29,'2021_02_01_182401_create_invitados_table',1),(30,'2021_02_01_182540_create_eventos_table',1),(31,'2021_02_01_184731_create_usuarios_table',1),(32,'2021_02_01_184925_create_roles_table',1),(33,'2021_02_01_185209_create_carnets_table',1),(34,'2021_02_01_185448_create_trazabilidades_table',1),(35,'2021_02_01_185739_create_tipo_peticiones_table',1),(36,'2021_02_01_190054_create_peticiones_table',1),(37,'2021_02_01_190417_create_peticiones_certificados_table',1),(38,'2021_02_03_030205_create_formato_eventos_table',1),(39,'2021_02_03_030422_create_users_table',1),(40,'2021_02_03_030543_create_estados_table',1),(41,'2021_02_03_030634_create_modulos_lectores_table',1),(42,'2021_02_03_030754_create_password_resets_table',1),(43,'2021_02_03_030904_create_rangos_horarios_table',1),(44,'2021_03_29_032642_add_certificado_to_eventos',1);
+INSERT INTO `migrations` VALUES (23,'2016_06_01_000001_create_oauth_auth_codes_table',1),(24,'2016_06_01_000002_create_oauth_access_tokens_table',1),(25,'2016_06_01_000003_create_oauth_refresh_tokens_table',1),(26,'2016_06_01_000004_create_oauth_clients_table',1),(27,'2016_06_01_000005_create_oauth_personal_access_clients_table',1),(28,'2021_02_01_180250_create_zonas_table',1),(29,'2021_02_01_182401_create_invitados_table',1),(30,'2021_02_01_182540_create_eventos_table',1),(31,'2021_02_01_184731_create_usuarios_table',1),(32,'2021_02_01_184925_create_roles_table',1),(33,'2021_02_01_185209_create_carnets_table',1),(34,'2021_02_01_185448_create_trazabilidades_table',1),(35,'2021_02_01_185739_create_tipo_peticiones_table',1),(36,'2021_02_01_190054_create_peticiones_table',1),(37,'2021_02_01_190417_create_peticiones_certificados_table',1),(38,'2021_02_03_030205_create_formato_eventos_table',1),(39,'2021_02_03_030422_create_users_table',1),(40,'2021_02_03_030543_create_estados_table',1),(41,'2021_02_03_030634_create_modulos_lectores_table',1),(42,'2021_02_03_030754_create_password_resets_table',1),(43,'2021_02_03_030904_create_rangos_horarios_table',1),(44,'2021_03_29_032642_add_certificado_to_eventos',1),(45,'2021_04_14_170717_create_tipo_notificacions_table',2),(46,'2021_04_14_171448_create_notificaciones_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-11 23:52:21
+-- Dump completed on 2021-04-14 22:55:30
