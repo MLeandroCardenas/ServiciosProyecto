@@ -19,10 +19,11 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::get('foto/{nombre}','UsuarioController@fotoUsuario');
         Route::get('actual','UsuarioController@obtenerFotoActualizada');
-        Route::get('autenticado','UsuarioController@perfilUsuario');
+        Route::get('perfil','UsuarioController@perfilUsuario');
         Route::get('usuarios/{cantidad}', 'UsuarioController@obtenerUsuarios');        
         Route::patch('nueva','UsuarioController@editarClave');
         Route::post('fotoperfil','UsuarioController@cargarFotoUsuario');
+        Route::get('rol', 'AuthController@obtenerRolUsuario');
         Route::get('logout', 'AuthController@logout');
         
         Route::post('lectores','ZonasController@registrarLector');

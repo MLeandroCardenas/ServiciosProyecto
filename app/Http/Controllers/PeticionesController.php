@@ -42,7 +42,6 @@ class PeticionesController extends Controller
         $peticion->comentario = $request->comentario;
         $peticion->estado = 6;
         $peticion->save();
-
         return response()->json('Peticion creada',201);
 
     }

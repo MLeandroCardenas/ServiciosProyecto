@@ -53,9 +53,14 @@ class AuthController extends Controller
             return response()->json([
                 'access_token' => $tokenResult->accessToken,
                 'token_type'   => 'Bearer',
-                'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+                'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
                 ],200);
         }
+    }
+
+    public function obtenerRolUsuario()
+    {
+        return response()->json(Usuarios::where('id_user',Auth::id())->value('id_rol'), 200);
     }
 
     
@@ -142,7 +147,7 @@ class AuthController extends Controller
             return response()->json(['mensaje '=> $e->getMessage()], 500);
         }
 
-        return redirect()->away('http://localhost:4200/auth/confirmacion/'.$usuario->nombres.' '.$usuario->apellidos)->with('notification', 'Has confirmado correctamente tu correo!');   
+        return redirect()->away('http://localhost:4200/confirmacion/'.$usuario->nombres.' '.$usuario->apellidos)->with('notification', 'Has confirmado correctamente tu correo!');   
     }
 
     public function validacion(Request $request)
